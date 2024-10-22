@@ -1,0 +1,40 @@
+﻿[*.cs]
+
+# IDE0039: Use local function
+dotnet_diagnostic.IDE0039.severity = silent
+
+# IDE0056: Indexing can be simplified
+dotnet_diagnostic.IDE0056.severity = silent
+
+# IDE0057: Use range operator
+dotnet_diagnostic.IDE0057.severity = silent
+
+# IDE0074: Use compound assignment
+dotnet_diagnostic.IDE0074.severity = silent
+
+# IDE0180: Use tuple to swap values
+dotnet_diagnostic.IDE0180.severity = silent
+
+# NUnit2002: Consider using the constraint model, Assert.That(expr, Is.False), instead of the classic model, Assert.IsFalse(expr)
+dotnet_diagnostic.NUnit2002.severity = silent
+
+# NUnit2003: Consider using the constraint model, Assert.That(expr, Is.True), instead of the classic model, Assert.IsTrue(expr)
+dotnet_diagnostic.NUnit2003.severity = silent
+
+# NUnit2045: Call independent Assert statements from inside an Assert.Multiple
+dotnet_diagnostic.NUnit2045.severity = silent
+
+# CA1845: Use span-based 'string.Concat' and 'AsSpan' instead of 'Substring'
+dotnet_diagnostic.CA1845.severity = silent
+
+# IDE0300: Simplify collection initialization
+dotnet_diagnostic.IDE0300.severity = none
+
+# CA1310: Specify StringComparison for correctness
+dotnet_diagnostic.CA1310.severity = none
+
+# CA1866: Use char overload
+dotnet_diagnostic.CA1866.severity = none
+
+# CA1861: Avoid constant arrays as arguments
+dotnet_diagnostic.CA1861.severity = none
