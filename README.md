@@ -23,7 +23,7 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
-### 0.1.0 (alpha)
+### 1.0.0 (stable)
 First release of the forestNET Framework 1.0.0 (stable). Provision of foundation files(Helper) + console application library functions. *10/2024*
 
 ## Tests
@@ -31,4 +31,4 @@ First release of the forestNET Framework 1.0.0 (stable). Provision of foundation
 * **Windows**
 	* Microsoft Windows 11 Pro - OS Version: 10.0.22631 N/A Build 22631
 	* Microsoft Visual Studio Community 2022 (64-bit) - Version 17.11.5
-    * .NET 8.0
+  * .NET 8.0
