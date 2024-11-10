@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.1 (stable)
+Added file handling library functions. *11/2024*
+
 ### 1.0.0 (stable)
 First release of the forestNET Framework 1.0.0 (stable). Provision of foundation files(Helper) + console application library functions. *10/2024*
 
