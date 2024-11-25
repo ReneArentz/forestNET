@@ -9,6 +9,8 @@ namespace ForestNETTests.IO
         {
             try
             {
+                TestConfig.InitiateTestLogging();
+
                 string s_currentDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'");
                 string s_testDirectory = s_currentDirectory + ForestNETLib.IO.File.DIR + "testFile" + ForestNETLib.IO.File.DIR;
 

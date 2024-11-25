@@ -63,7 +63,7 @@ namespace ForestNETLib.IO
         {
             get
             {
-                List<string> a_content = new();
+                List<string> a_content = [];
 
                 if (!this.b_ready)
                 {
@@ -256,7 +256,7 @@ namespace ForestNETLib.IO
             this.s_filename = "";
             this.l_fileLength = 0;
             this.b_ready = false;
-            this.a_fileContent = new List<string>();
+            this.a_fileContent = [];
             this.o_encoding = p_o_encoding;
             this.s_lineBreak = p_s_lineBreak;
 
@@ -314,7 +314,7 @@ namespace ForestNETLib.IO
                     /* if filelength > 0, read content of the file */
                     if (this.l_fileLength > 0)
                     {
-                        this.a_fileContent = System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding).ToList<string>();
+                        this.a_fileContent = [.. System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding)];
                     }
                 }
                 catch (Exception o_exc) when (o_exc is UnauthorizedAccessException || o_exc is System.Security.SecurityException)
@@ -599,7 +599,7 @@ namespace ForestNETLib.IO
                 /* if filelength > 0, read content of the file */
                 if (this.l_fileLength > 0)
                 {
-                    this.a_fileContent = System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding).ToList<string>();
+                    this.a_fileContent = [.. System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding)];
                 }
             }
             catch (Exception o_exc) when (o_exc is UnauthorizedAccessException || o_exc is System.Security.SecurityException)
@@ -936,7 +936,7 @@ namespace ForestNETLib.IO
 
             /* get list of all file elements, sub directories are optional with p_b_recursive */
             List<ListingElement> a_files = File.ListDirectory(p_s_pathToDirectory, p_b_recursive);
-            List<string> a_filePaths = new();
+            List<string> a_filePaths = [];
 
             long l_size = 0;
 
@@ -946,23 +946,30 @@ namespace ForestNETLib.IO
                 /* skip directory elements */
                 if (o_file.IsDirectory)
                 {
+                    ForestNETLib.Core.Global.ILogFinest("skip directory '" + o_file.FullName + "'");
                     continue;
                 }
 
                 /* skip empty file name */
                 if (o_file.FullName == null)
                 {
+                    ForestNETLib.Core.Global.ILogFinest("skip emtpy file name");
                     continue;
                 }
 
                 /* sum up all file sizes and add file element full paths */
                 l_size += o_file.Size;
                 a_filePaths.Add(o_file.FullName);
+
+                ForestNETLib.Core.Global.ILogFinest("added file '" + o_file.FullName + "'");
             }
 
             /* overall byte array for all file contents */
             byte[] by_array = new byte[l_size];
             int i = 0;
+
+            /* sort file element full paths, so it is always the correct order when hashing byte array */
+            //TODO ForestNETLib.Core.Sorts.QuickSort(a_filePaths as List<string?>);
 
             /* iterate each file element full path */
             foreach (string s_file in a_filePaths)
@@ -1279,7 +1286,7 @@ namespace ForestNETLib.IO
         /// <exception cref="System.IO.IOException">directory could not be listed or issue with reading file/directory attributes</exception>
         public static List<ListingElement> ListDirectory(string p_s_path, bool p_b_recursive)
         {
-            List<ListingElement> a_listing = new();
+            List<ListingElement> a_listing = [];
 
             /* check if parameter is not a directory */
             if (File.IsFile(p_s_path))
@@ -1424,6 +1431,8 @@ namespace ForestNETLib.IO
                         {
                             /* create directory */
                             System.IO.Directory.CreateDirectory(s_foo);
+
+                            ForestNETLib.Core.Global.ILogFinest("auto create directory '" + s_foo + "'");
                         }
                         catch (Exception o_exc)
                         {
@@ -1476,6 +1485,8 @@ namespace ForestNETLib.IO
                     {
                         /* copy directory recursively */
                         File.CopyDirectory(o_directoryInfo.FullName, p_s_destination + File.DIR + o_directoryInfo.Name);
+
+                        ForestNETLib.Core.Global.ILogFinest("copied directory '" + o_directoryInfo.Name + "'");
                     }
                 }
 
@@ -1487,6 +1498,8 @@ namespace ForestNETLib.IO
                     {
                         /* copy file */
                         File.CopyFile(o_fileInfo.FullName, p_s_destination + File.DIR + o_fileInfo.Name);
+
+                        ForestNETLib.Core.Global.ILogFinest("copied file '" + o_fileInfo.FullName + "'");
                     }
                 }
             }
@@ -1521,7 +1534,9 @@ namespace ForestNETLib.IO
             try
             {
                 File.CopyDirectory(p_s_source, p_s_destination);
+                ForestNETLib.Core.Global.ILogFinest("copied directory '" + p_s_source + "'");
                 File.DeleteDirectory(p_s_source);
+                ForestNETLib.Core.Global.ILogFinest("deleted directory '" + p_s_source + "'");
             }
             catch (Exception o_exc)
             {
@@ -1569,6 +1584,7 @@ namespace ForestNETLib.IO
                     {
                         /* copy directory recursively */
                         File.DeleteDirectory(o_directoryInfo.FullName);
+                        ForestNETLib.Core.Global.ILogFinest("deleted directory '" + o_directoryInfo.Name + "'");
                     }
                 }
 
@@ -1580,6 +1596,7 @@ namespace ForestNETLib.IO
                     {
                         /* copy file */
                         File.DeleteFile(o_fileInfo.FullName);
+                        ForestNETLib.Core.Global.ILogFinest("deleted file '" + o_fileInfo.Name + "'");
                     }
                 }
             }
@@ -1629,6 +1646,8 @@ namespace ForestNETLib.IO
 
                 /* create new hex directory */
                 File.CreateDirectory(p_s_source + File.DIR + s_hex);
+
+                if (ForestNETLib.Core.Global.IsILevel((byte)ForestNETLib.Log.Level.MASS)) ForestNETLib.Core.Global.ILogMass("created sub directory '" + s_hex + "'");
             }
         }
 

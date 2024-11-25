@@ -1,0 +1,5 @@
+﻿UseFileLogging = true
+UseConsoleLogging = false
+MinimumLevel = FINE
+FileLoggerConfigurationElement = Log;%LocalState\testLogConfigFile;testLogConfigFile.log
+FileLoggerConfigurationElement = InternalLog;%TempState\testLogConfigFile;testLogConfigInternalFile.log
