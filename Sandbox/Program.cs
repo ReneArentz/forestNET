@@ -19,6 +19,8 @@ try
         Console.WriteLine("");
 
         Console.WriteLine("[1] test Console");
+        //Console.WriteLine("[2] test ConsoleProgressBar");
+        Console.WriteLine("[3] test MemoryInfo");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
@@ -31,7 +33,15 @@ try
         {
             Sandbox.Tests.ConsoleTest.TestConsole();
         }
-        
+        else if (i_input == 2)
+        {
+            //Sandbox.Tests.ConsoleProgressBarTest.TestConsoleProgressBar();
+        }
+        else if (i_input == 3)
+        {
+            Sandbox.Tests.MemoryInfoTest.TestMemoryInfo();
+        }
+
         if ((i_input >= 1) && (i_input <= 12))
         {
             Console.WriteLine("");
