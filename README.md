@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.4 (stable)
+Sorts class as collection of static methods to sort dynamic lists and dynamic key-value maps. Also possibility to get sort progress with delegate implementation. *12/2024*
+
 ### 1.0.3 (stable)
 Added functionality for currency handling, date interval and memory observation. *12/2024*
 

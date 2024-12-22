@@ -969,7 +969,7 @@ namespace ForestNETLib.IO
             int i = 0;
 
             /* sort file element full paths, so it is always the correct order when hashing byte array */
-            //TODO ForestNETLib.Core.Sorts.QuickSort(a_filePaths as List<string?>);
+            ForestNETLib.Core.Sorts.QuickSort(a_filePaths as List<string?>);
 
             /* iterate each file element full path */
             foreach (string s_file in a_filePaths)

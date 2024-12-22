@@ -534,8 +534,25 @@
             }
             else
             {
-                /* date and time are not separated by 'T' or ' ' */
-                throw new ArgumentException("Invalid date time string[" + p_s_string + "]; date and time are not separated by 'T' or ' '");
+                if (IsDate(p_s_string))
+                {
+                    /* if we only have a date part, we add '00:00:00' as time part */
+                    p_s_string += "T00:00:00";
+
+                    /* date and time are separated by 'T' */
+                    a_dateAndTimeParts = p_s_string.Split("T");
+
+                    if (a_dateAndTimeParts.Length != 2)
+                    {
+                        /* only one 'T' in parameter string value is valid */
+                        throw new ArgumentException("Invalid date time string[" + p_s_string + "]; only one 'T' in parameter string value is valid");
+                    }
+                }
+                else
+                {
+                    /* date and time are not separated by 'T' or ' ' */
+                    throw new ArgumentException("Invalid date time string[" + p_s_string + "]; date and time are not separated by 'T' or ' '");
+                }
             }
 
             /* remove milliseconds of time part */
