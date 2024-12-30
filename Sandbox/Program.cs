@@ -19,13 +19,14 @@ try
         Console.WriteLine("");
 
         Console.WriteLine("[1] test Console");
-        //Console.WriteLine("[2] test ConsoleProgressBar");
+        Console.WriteLine("[2] test ConsoleProgressBar");
         Console.WriteLine("[3] test MemoryInfo");
+        Console.WriteLine("[4] test Sorts");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
 
-        i_input = ForestNETLib.Core.Console.ConsoleInputInteger("Enter menu number[1-11;0]: ", "Invalid input.", "Please enter a value[1-11;0].") ?? 0;
+        i_input = ForestNETLib.Core.Console.ConsoleInputInteger("Enter menu number[1-13;0]: ", "Invalid input.", "Please enter a value[1-13;0].") ?? 0;
 
         Console.WriteLine("");
 
@@ -35,14 +36,18 @@ try
         }
         else if (i_input == 2)
         {
-            //Sandbox.Tests.ConsoleProgressBarTest.TestConsoleProgressBar();
+            Sandbox.Tests.ConsoleProgressBarTest.TestConsoleProgressBar();
         }
         else if (i_input == 3)
         {
             Sandbox.Tests.MemoryInfoTest.TestMemoryInfo();
         }
+        else if (i_input == 4)
+        {
+            Sandbox.Tests.SortsTest.TestSorts();
+        }
 
-        if ((i_input >= 1) && (i_input <= 12))
+        if ((i_input >= 1) && (i_input <= 13))
         {
             Console.WriteLine("");
 
@@ -55,9 +60,9 @@ try
 
     } while (i_input != 0);
 }
-catch (Exception)
+catch (Exception o_exc)
 {
-    //Global.LogException(o_exc);
+    Global.LogException(o_exc);
 
     Console.WriteLine("");
 

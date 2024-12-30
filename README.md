@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.5 (stable)
+Implementation of console progress bar functionality and symmetric cryptography AES/GCM methods. *12/2024*
+
 ### 1.0.4 (stable)
 Sorts class as collection of static methods to sort dynamic lists and dynamic key-value maps. Also possibility to get sort progress with delegate implementation. *12/2024*
 
