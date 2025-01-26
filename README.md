@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.6 (stable)
+Additional core functionalities: Timer, State machine, File system watcher, Dijkstra shortest path algorithm. *01/2025*
+
 ### 1.0.5 (stable)
 Implementation of console progress bar functionality and symmetric cryptography AES/GCM methods. *12/2024*
 
