@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.7 (stable)
+Added support for flat files or fixed record length files. Automatically detecting records, group headers or footers as stacks of data. *02/2025*
+
 ### 1.0.6 (stable)
 Additional core functionalities: Timer, State machine, File system watcher, Dijkstra shortest path algorithm. *01/2025*
 
