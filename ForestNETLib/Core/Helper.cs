@@ -367,7 +367,7 @@
 
         /// <summary>
         /// checks if a given string matches a time format
-        /// 						valid formats: [h:mm:ss.fff], [h:mm:ss], [h:mm], [hmmss], [hmm], [hmmssfff]
+        /// 						valid formats: [h:mm:ss.ff-.fffffff], [h:mm:ss], [h:mm], [hmmss], [hmm], [hmmssfff]
         /// </summary>
         /// <param name="p_s_string">String parameter variable</param>
         /// <returns>true - String matches time format, false - String not matches time format</returns>
@@ -375,7 +375,12 @@
         {
             /* patterns for time formats */
             string[] a_formats = {
+                "h\\:mm\\:ss\\.fffffff",
+                "h\\:mm\\:ss\\.ffffff",
+                "h\\:mm\\:ss\\.fffff",
+                "h\\:mm\\:ss\\.ffff",
                 "h\\:mm\\:ss\\.fff",
+                "h\\:mm\\:ss\\.ff",
                 "h\\:mm\\:ss",
                 "h\\:mm",
                 "hmmss",
@@ -389,7 +394,7 @@
         /// <summary>
         /// checks if a given string matches a date time format
         /// 						valid date part formats: [dd-MM-yyyy], [dd.MM.yyyy], [dd/MM/yyyy], [yyyy/MM/dd], [yyyy-MM-dd], [MM/dd/yyyy], [yyyy/dd/MM], [yyyy.MM.dd], [yyyyMMdd]
-        /// 						valid time part formats: [h:mm:ss.fff], [h:mm:ss], [h:mm], [hmmss], [hmm], [hmmssfff]
+        /// 						valid time part formats: [h:mm:ss.ff-.fffffff], [h:mm:ss], [h:mm], [hmmss], [hmm], [hmmssfff]
         /// </summary>
         /// <param name="p_s_string">String parameter variable</param>
         /// <returns>true - String matches date time format, false - String not matches date time format</returns>
@@ -554,13 +559,7 @@
                     throw new ArgumentException("Invalid date time string[" + p_s_string + "]; date and time are not separated by 'T' or ' '");
                 }
             }
-
-            /* remove milliseconds of time part */
-            if (a_dateAndTimeParts[1].Contains('.'))
-            {
-                a_dateAndTimeParts[1] = a_dateAndTimeParts[1].Substring(0, a_dateAndTimeParts[1].IndexOf("."));
-            }
-
+            
             /* remove UTC 'Z' at the end of time part */
             if (a_dateAndTimeParts[1].EndsWith("Z"))
             {
@@ -596,7 +595,67 @@
                 "MM/dd/yyyy HH:mm:ss",
                 "yyyy/dd/MM HH:mm:ss",
                 "yyyy.MM.dd HH:mm:ss",
-                "yyyyMMdd HHmmss"
+                "yyyyMMdd HHmmss",
+
+                 "dd-MM-yyyy HH:mm:ss.ff",
+                "dd.MM.yyyy HH:mm:ss.ff",
+                "dd/MM/yyyy HH:mm:ss.ff",
+                "yyyy/MM/dd HH:mm:ss.ff",
+                "yyyy-MM-dd HH:mm:ss.ff",
+                "MM/dd/yyyy HH:mm:ss.ff",
+                "yyyy/dd/MM HH:mm:ss.ff",
+                "yyyy.MM.dd HH:mm:ss.ff",
+                "yyyyMMdd HHmmssff",
+
+                "dd-MM-yyyy HH:mm:ss.fff",
+                "dd.MM.yyyy HH:mm:ss.fff",
+                "dd/MM/yyyy HH:mm:ss.fff",
+                "yyyy/MM/dd HH:mm:ss.fff",
+                "yyyy-MM-dd HH:mm:ss.fff",
+                "MM/dd/yyyy HH:mm:ss.fff",
+                "yyyy/dd/MM HH:mm:ss.fff",
+                "yyyy.MM.dd HH:mm:ss.fff",
+                "yyyyMMdd HHmmssfff",
+
+                "dd-MM-yyyy HH:mm:ss.ffff",
+                "dd.MM.yyyy HH:mm:ss.ffff",
+                "dd/MM/yyyy HH:mm:ss.ffff",
+                "yyyy/MM/dd HH:mm:ss.ffff",
+                "yyyy-MM-dd HH:mm:ss.ffff",
+                "MM/dd/yyyy HH:mm:ss.ffff",
+                "yyyy/dd/MM HH:mm:ss.ffff",
+                "yyyy.MM.dd HH:mm:ss.ffff",
+                "yyyyMMdd HHmmssffff",
+
+                "dd-MM-yyyy HH:mm:ss.fffff",
+                "dd.MM.yyyy HH:mm:ss.fffff",
+                "dd/MM/yyyy HH:mm:ss.fffff",
+                "yyyy/MM/dd HH:mm:ss.fffff",
+                "yyyy-MM-dd HH:mm:ss.fffff",
+                "MM/dd/yyyy HH:mm:ss.fffff",
+                "yyyy/dd/MM HH:mm:ss.fffff",
+                "yyyy.MM.dd HH:mm:ss.fffff",
+                "yyyyMMdd HHmmssfffff",
+
+                "dd-MM-yyyy HH:mm:ss.ffffff",
+                "dd.MM.yyyy HH:mm:ss.ffffff",
+                "dd/MM/yyyy HH:mm:ss.ffffff",
+                "yyyy/MM/dd HH:mm:ss.ffffff",
+                "yyyy-MM-dd HH:mm:ss.ffffff",
+                "MM/dd/yyyy HH:mm:ss.ffffff",
+                "yyyy/dd/MM HH:mm:ss.ffffff",
+                "yyyy.MM.dd HH:mm:ss.ffffff",
+                "yyyyMMdd HHmmssffffff",
+
+                "dd-MM-yyyy HH:mm:ss.fffffff",
+                "dd.MM.yyyy HH:mm:ss.fffffff",
+                "dd/MM/yyyy HH:mm:ss.fffffff",
+                "yyyy/MM/dd HH:mm:ss.fffffff",
+                "yyyy-MM-dd HH:mm:ss.fffffff",
+                "MM/dd/yyyy HH:mm:ss.fffffff",
+                "yyyy/dd/MM HH:mm:ss.fffffff",
+                "yyyy.MM.dd HH:mm:ss.fffffff",
+                "yyyyMMdd HHmmssfffffff"
             };
 
             DateTime o_foo = DateTime.ParseExact(a_dateAndTimeParts[0] + " " + a_dateAndTimeParts[1], a_formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);
@@ -715,6 +774,17 @@
                 "yyyy/dd/MM HH:mm:ss",
                 "yyyy.MM.dd HH:mm:ss",
                 "yyyyMMdd HHmmss",
+
+                "dd-MM-yyyy HH:mm:ss.ff",
+                "dd.MM.yyyy HH:mm:ss.ff",
+                "dd/MM/yyyy HH:mm:ss.ff",
+                "yyyy/MM/dd HH:mm:ss.ff",
+                "yyyy-MM-dd HH:mm:ss.ff",
+                "MM/dd/yyyy HH:mm:ss.ff",
+                "yyyy/dd/MM HH:mm:ss.ff",
+                "yyyy.MM.dd HH:mm:ss.ff",
+                "yyyyMMdd HHmmssff",
+
                 "dd-MM-yyyy HH:mm:ss.fff",
                 "dd.MM.yyyy HH:mm:ss.fff",
                 "dd/MM/yyyy HH:mm:ss.fff",
@@ -723,7 +793,47 @@
                 "MM/dd/yyyy HH:mm:ss.fff",
                 "yyyy/dd/MM HH:mm:ss.fff",
                 "yyyy.MM.dd HH:mm:ss.fff",
-                "yyyyMMdd HHmmssfff"
+                "yyyyMMdd HHmmssfff",
+
+                "dd-MM-yyyy HH:mm:ss.ffff",
+                "dd.MM.yyyy HH:mm:ss.ffff",
+                "dd/MM/yyyy HH:mm:ss.ffff",
+                "yyyy/MM/dd HH:mm:ss.ffff",
+                "yyyy-MM-dd HH:mm:ss.ffff",
+                "MM/dd/yyyy HH:mm:ss.ffff",
+                "yyyy/dd/MM HH:mm:ss.ffff",
+                "yyyy.MM.dd HH:mm:ss.ffff",
+                "yyyyMMdd HHmmssffff",
+
+                "dd-MM-yyyy HH:mm:ss.fffff",
+                "dd.MM.yyyy HH:mm:ss.fffff",
+                "dd/MM/yyyy HH:mm:ss.fffff",
+                "yyyy/MM/dd HH:mm:ss.fffff",
+                "yyyy-MM-dd HH:mm:ss.fffff",
+                "MM/dd/yyyy HH:mm:ss.fffff",
+                "yyyy/dd/MM HH:mm:ss.fffff",
+                "yyyy.MM.dd HH:mm:ss.fffff",
+                "yyyyMMdd HHmmssfffff",
+
+                "dd-MM-yyyy HH:mm:ss.ffffff",
+                "dd.MM.yyyy HH:mm:ss.ffffff",
+                "dd/MM/yyyy HH:mm:ss.ffffff",
+                "yyyy/MM/dd HH:mm:ss.ffffff",
+                "yyyy-MM-dd HH:mm:ss.ffffff",
+                "MM/dd/yyyy HH:mm:ss.ffffff",
+                "yyyy/dd/MM HH:mm:ss.ffffff",
+                "yyyy.MM.dd HH:mm:ss.ffffff",
+                "yyyyMMdd HHmmssffffff",
+
+                "dd-MM-yyyy HH:mm:ss.fffffff",
+                "dd.MM.yyyy HH:mm:ss.fffffff",
+                "dd/MM/yyyy HH:mm:ss.fffffff",
+                "yyyy/MM/dd HH:mm:ss.fffffff",
+                "yyyy-MM-dd HH:mm:ss.fffffff",
+                "MM/dd/yyyy HH:mm:ss.fffffff",
+                "yyyy/dd/MM HH:mm:ss.fffffff",
+                "yyyy.MM.dd HH:mm:ss.fffffff",
+                "yyyyMMdd HHmmssfffffff"
             };
 
             return DateTime.ParseExact(a_dateAndTimeParts[0] + " " + a_dateAndTimeParts[1], a_formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);
@@ -775,12 +885,22 @@
 
             /* patterns for date formats */
             string[] a_formats = {
+                "h\\:mm\\:ss\\.fffffff",
+                "h\\:mm\\:ss\\.ffffff",
+                "h\\:mm\\:ss\\.fffff",
+                "h\\:mm\\:ss\\.ffff",
                 "h\\:mm\\:ss\\.fff",
+                "h\\:mm\\:ss\\.ff",
                 "h\\:mm\\:ss",
                 "h\\:mm",
                 "hmmss",
                 "hmm",
-                "hmmssfff"
+                "hmmssff",
+                "hmmssfff",
+                "hmmssffff",
+                "hmmssfffff",
+                "hmmssffffff",
+                "hmmssfffffff"
             };
 
             TimeSpan.TryParseExact(p_s_string, a_formats, System.Globalization.CultureInfo.InvariantCulture, out TimeSpan o_foo);
@@ -1716,6 +1836,73 @@
         }
 
         /// <summary>
+        /// checks if a given string matches as an ipv4 multicast address 224.0.0.0 - 239.255.255.255
+        /// </summary>
+        /// <param name="p_s_string">String parameter variable</param>
+        /// <returns>true - String matches IPv4 Multicast, false - String not matches IPv4 Muticast</returns>
+        public static bool IsIpv4MulticastAddress(string p_s_string)
+        {
+            if (IsIpv4Address(p_s_string))
+            {
+                string s_firstOctet = p_s_string.Split('.')[0];
+                int i_firstOctet = 0;
+
+                try
+                {
+                    i_firstOctet = Convert.ToInt32(s_firstOctet);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+                if ((i_firstOctet >= 224) && (i_firstOctet <= 239))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// checks if a given string matches an ipv6 address
+        /// </summary>
+        /// <param name="p_s_string">String parameter variable</param>
+        /// <returns>true - String matches IPv6, false - String not matches IPv6</returns>
+        public static bool IsIpv6Address(string p_s_string)
+        {
+            return MatchesRegex(p_s_string, "^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$");
+        }
+
+        /// <summary>
+        /// checks if a given string matches as an ipv6 multicast address
+        /// </summary>
+        /// <param name="p_s_string">String parameter variable</param>
+        /// <returns>true - String matches IPv6 Multicast, false - String not matches IPv6 Muticast</returns>
+        public static bool IsIpv6MulticastAddress(string p_s_string)
+        {
+            if (IsIpv6Address(p_s_string))
+            {
+                try
+                {
+                    System.Net.IPAddress o_ipAddress = System.Net.IPAddress.Parse(p_s_string);
+
+                    if ((o_ipAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6) && (o_ipAddress.IsIPv6Multicast))
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// checks if a given string matches an ipv4 address with suffix
         /// </summary>
         /// <param name="p_s_string">String parameter variable</param>
@@ -1873,6 +2060,80 @@
             }
 
             return b_foo;
+        }
+
+        /// <summary>
+        /// get all ipv4 addresses of all network interfaces of current machine
+        /// </summary>
+        /// <returns>KeyValuePair list where key holds the name of the network interface and the value the ipv4 address</returns>
+        public static List<KeyValuePair<string, string>> GetNetworkInterfacesIpv4()
+        {
+            return GetNetworkInterfaces(System.Net.Sockets.AddressFamily.InterNetwork);
+        }
+
+        /// <summary>
+        /// get all ipv6 addresses of all network interfaces of current machine
+        /// </summary>
+        /// <returns>KeyValuePair list where key holds the name of the network interface and the value the ipv6 address</returns>
+        public static List<KeyValuePair<string, string>> GetNetworkInterfacesIpv6()
+        {
+            return GetNetworkInterfaces(System.Net.Sockets.AddressFamily.InterNetworkV6);
+        }
+
+        /// <summary>
+        /// get all ip addresses of all network interfaces of current machine
+        /// </summary>
+        /// <param name="p_o_addressFamily">address family we are filtering the network interface (e.g. System.Net.Sockets.AddressFamily.InterNetworkV6)</param>
+        /// <returns>KeyValuePair list where key holds the name of the network interface and the value the ip address</returns>
+        private static List<KeyValuePair<string, string>> GetNetworkInterfaces(System.Net.Sockets.AddressFamily p_o_addressFamily)
+        {
+            List<KeyValuePair<string, string>> a_networkInterfaces = [];
+
+            /* iterate all network interfaces */
+            foreach (System.Net.NetworkInformation.NetworkInterface o_networkInterface in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+            {
+                /* network interface must be active */
+                if (o_networkInterface.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up)
+                {
+                    string s_name = o_networkInterface.Name;
+                    string s_ips = "";
+
+                    /* iterate unicast ipaddress information */
+                    foreach (System.Net.NetworkInformation.UnicastIPAddressInformation o_addressInformation in o_networkInterface.GetIPProperties().UnicastAddresses)
+                    {
+                        /* address must be ipv4 */
+                        if (o_addressInformation.Address.AddressFamily == p_o_addressFamily)
+                        {
+                            s_ips += o_addressInformation.Address.ToString() + "|";
+                        }
+                    }
+
+                    /* delete last pipe */
+                    if (s_ips.EndsWith('|'))
+                    {
+                        s_ips = s_ips.Substring(0, s_ips.Length - 1);
+                    }
+
+                    /* check if we have multiple ip addresses to one network interface */
+                    if (s_ips.Contains('|'))
+                    {
+                        int i = 1;
+
+                        foreach (string s_ip in s_ips.Split('|'))
+                        {
+                            /* give network interface an additional number for multiple ip address */
+                            a_networkInterfaces.Add(new KeyValuePair<string, string>(s_name + " #" + i++, s_ip));
+                        }
+                    }
+                    else
+                    {
+                        /* add network interface name and its ip address */
+                        a_networkInterfaces.Add(new KeyValuePair<string, string>(s_name, s_ips));
+                    }
+                }
+            }
+
+            return a_networkInterfaces;
         }
 
         /// <summary>

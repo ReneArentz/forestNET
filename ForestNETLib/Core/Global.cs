@@ -464,6 +464,41 @@ namespace ForestNETLib.Core
         }
 
         /// <summary>
+        /// Create internal log message with INFO log level, if internal log level is included in logControl field, limit each log line to a constant amount of characters
+        /// </summary>
+        /// <param name="p_s_log">log message which will be logged</param>
+        /// <param name="p_i_limit">constant limit amount of characters</param>
+        /// <param name="p_s_callerFilePath">log source path or filled by CallerFilePath</param>
+        /// <param name="p_s_callerMemberName">log member name or filled by CallerMemberName</param>
+        /// <param name="p_i_callerLineNumber">log line number or filled by CallerLineNumber</param>
+        public static void ILogLarge(string p_s_log, int p_i_limit, [System.Runtime.CompilerServices.CallerFilePath] string p_s_callerFilePath = "", [System.Runtime.CompilerServices.CallerMemberName] string p_s_callerMemberName = "", [System.Runtime.CompilerServices.CallerLineNumber] int p_i_callerLineNumber = 0)
+        {
+            if ((p_i_limit > 0) && (p_s_log.Length > p_i_limit))
+            {
+                if ((Instance.InternalLogControl & (byte)Level.INFO) == (byte)Level.INFO)
+                {
+                    Instance.ILOG?.LogInformation(p_s_log.Substring(0, p_i_limit), p_s_callerFilePath, p_s_callerMemberName, p_i_callerLineNumber);
+
+                    /* call other log implementation */
+                    Instance.DelegateLogImplementation?.Invoke(true, (byte)Level.INFO, p_s_callerFilePath, p_s_callerMemberName, p_i_callerLineNumber, p_s_log.Substring(0, p_i_limit));
+
+                    /* call recursive to log the complete log message */
+                    ILogLarge(p_s_log.Substring(p_i_limit), p_i_limit);
+                }
+            }
+            else
+            {
+                if ((Instance.InternalLogControl & (byte)Level.INFO) == (byte)Level.INFO)
+                {
+                    Instance.ILOG?.LogInformation(p_s_log, p_s_callerFilePath, p_s_callerMemberName, p_i_callerLineNumber);
+
+                    /* call other log implementation */
+                    Instance.DelegateLogImplementation?.Invoke(true, (byte)Level.INFO, p_s_callerFilePath, p_s_callerMemberName, p_i_callerLineNumber, p_s_log);
+                }
+            }
+        }
+
+        /// <summary>
         /// Create internal log message with CONFIG log level, if internal log level is included in logControl field
         /// </summary>
         /// <param name="p_s_log">log message which will be logged</param>

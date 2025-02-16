@@ -244,7 +244,11 @@ namespace ForestNETTests.Core
                 "03/31/2020 13:45",
                 "2020/31/03 13:45:32",
                 "2020/31/03 13:45:32.332",
-                "2020/31/03 13:45"
+                "2020/31/03 13:45",
+                "31-03-2020 13:45:32.576",
+                "31-03-2020T13:45:32.576",
+                "31-03-2020 13:45:32.576Z",
+                "31-03-2020T13:45:32.576Z"
             };
 
             foreach (string s_testTrue in a_testTrue)
@@ -395,7 +399,8 @@ namespace ForestNETTests.Core
                     TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 00, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
                     TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
                     TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
-                    TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"))
+                    TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
+                    TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, 576, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"))
                 };
 
                 a_testTrue = new string[] {
@@ -404,36 +409,49 @@ namespace ForestNETTests.Core
                     "14-03-2020 05:02:03",
                     "14-03-2020T05:02:03",
                     "14-03-2020T05:02:03Z",
+                    "14-03-2020T05:02:03.576",
+
                     "14.03.2020 05:02",
                     "14.03.2020T05:02",
                     "14.03.2020 05:02:03",
                     "14.03.2020T05:02:03",
                     "14.03.2020T05:02:03Z",
+                    "14.03.2020T05:02:03.576Z",
+
                     "14/03/2020 05:02",
                     "14/03/2020T05:02",
                     "14/03/2020 05:02:03",
                     "14/03/2020T05:02:03",
                     "14/03/2020T05:02:03Z",
+                    "14/03/2020T05:02:03.576",
+
                     "03/14/2020 05:02",
                     "03/14/2020T05:02",
                     "03/14/2020 05:02:03",
                     "03/14/2020T05:02:03",
                     "03/14/2020T05:02:03Z",
+                    "03/14/2020T05:02:03.576Z",
+
                     "2020-03-14 05:02",
                     "2020-03-14T05:02",
                     "2020-03-14 05:02:03",
                     "2020-03-14T05:02:03",
                     "2020-03-14T05:02:03Z",
+                    "2020-03-14T05:02:03.576",
+
                     "2020/03/14 05:02",
                     "2020/03/14T05:02",
                     "2020/03/14 05:02:03",
                     "2020/03/14T05:02:03",
                     "2020/03/14T05:02:03Z",
+                    "2020/03/14T05:02:03.576Z",
+
                     "2020/14/03 05:02",
                     "2020/14/03T05:02",
                     "2020/14/03 05:02:03",
                     "2020/14/03T05:02:03",
-                    "2020/14/03T05:02:03Z"
+                    "2020/14/03T05:02:03Z",
+                    "2020/14/03T05:02:03.576",
                 };
 
                 int i = 0;
@@ -450,7 +468,7 @@ namespace ForestNETTests.Core
                         "'" + s_testTrue + "' fromDateTimeString() is not equal local date tine object '" + a_validLocalDateTime[i] + "'"
                     );
 
-                    if (i == 4)
+                    if (i == 5)
                     {
                         i = 0;
                     }
@@ -530,7 +548,8 @@ namespace ForestNETTests.Core
                     new(05, 02, 00),
                     new(05, 02, 03),
                     new(05, 02, 03),
-                    new(05, 02, 03)
+                    new(05, 02, 03),
+                    new(0, 05, 02, 03, 576)
                 };
 
                 string[] a_testTrue3rd = new string[] {
@@ -539,36 +558,43 @@ namespace ForestNETTests.Core
                     "05:02:03",
                     "05:02:03",
                     "05:02:03",
+                    "05:02:03.576",
                     "05:02",
                     "05:02",
                     "05:02:03",
                     "05:02:03",
                     "05:02:03",
+                    "05:02:03.576",
                     "05:02",
                     "05:02",
                     "05:02:03",
                     "05:02:03",
                     "05:02:03",
+                    "05:02:03.576",
                     "05:02",
                     "05:02",
                     "05:02:03",
                     "05:02:03",
                     "05:02:03",
+                    "05:02:03.576",
                     "05:02",
                     "05:02",
                     "05:02:03",
                     "05:02:03",
                     "05:02:03",
+                    "05:02:03.576",
                     "05:02",
                     "05:02",
                     "05:02:03",
                     "05:02:03",
                     "05:02:03",
+                    "05:02:03.576",
                     "05:02",
                     "05:02",
                     "05:02:03",
                     "05:02:03",
-                    "05:02:03"
+                    "05:02:03",
+                    "05:02:03.576"
                 };
 
                 i = 0;
@@ -580,7 +606,7 @@ namespace ForestNETTests.Core
                         "'" + s_testTrue + "' fromTimeString() is not equal local date time object '" + o_validLocalTimes[i] + "'"
                     );
 
-                    if (i == 4)
+                    if (i == 5)
                     {
                         i = 0;
                     }
@@ -595,7 +621,8 @@ namespace ForestNETTests.Core
                     TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 00, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
                     TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
                     TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
-                    TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"))
+                    TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")),
+                    TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, 576, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"))
                 };
 
                 a_testFalse = new string[] {
@@ -604,77 +631,91 @@ namespace ForestNETTests.Core
                     "03-14-2020 05:02:03",
                     "03-14-2020T05:02:03",
                     "03-14-2020T05:02:03Z",
+                    "03-14-2020T05:02:03.576Z",
                     "14-03-2020 55:02",
                     "14-03-2020T55:02",
                     "14-03-2020 55:02:03",
                     "14-03-2020T55:02:03",
                     "14-03-2020T55:02:03Z",
+                    "03-14-2020T05:02:03.5Z",
 
                     "03.14.2020 05:02",
                     "03.14.2020T05:02",
                     "03.14.2020 05:02:03",
                     "03.14.2020T05:02:03",
                     "03.14.2020T05:02:03Z",
+                    "03.14.2020T05:02:03.576",
                     "14.03.2020 55:02",
                     "14.03.2020T55:02",
                     "14.03.2020 55:02:03",
                     "14.03.2020T55:02:03",
                     "14.03.2020T55:02:03Z",
+                    "03.14.2020T05:02:03.5",
 
                     "14/13/2020 05:02",
                     "14/13/2020T05:02",
                     "14/13/2020 05:02:03",
                     "14/13/2020T05:02:03",
                     "14/13/2020T05:02:03Z",
+                    "14/13/2020T05:02:03.576Z",
                     "14/03/2020 55:02",
                     "14/03/2020T55:02",
                     "14/03/2020 55:02:03",
                     "14/03/2020T55:02:03",
                     "14/03/2020T55:02:03Z",
+                    "14/13/2020T05:02:03.5Z",
 
                     "13/14/2020 05:02",
                     "13/14/2020T05:02",
                     "13/14/2020 05:02:03",
                     "13/14/2020T05:02:03",
                     "13/14/2020T05:02:03Z",
+                    "13/14/2020T05:02:03.576",
                     "03/14/2020 55:02",
                     "03/14/2020T55:02",
                     "03/14/2020 55:02:03",
                     "03/14/2020T55:02:03",
                     "03/14/2020T55:02:03Z",
+                    "13/14/2020T05:02:03.5",
 
                     "2020-14-03 05:02",
                     "2020-14-03T05:02",
                     "2020-14-03 05:02:03",
                     "2020-14-03T05:02:03",
                     "2020-14-03T05:02:03Z",
+                    "2020-14-03T05:02:03.576Z",
                     "2020-03-14 55:02",
                     "2020-03-14T55:02",
                     "2020-03-14 55:02:03",
                     "2020-03-14T55:02:03",
                     "2020-03-14T55:02:03Z",
+                    "2020-14-03T05:02:03.5Z",
 
                     "2020/13/14 05:02",
                     "2020/13/14T05:02",
                     "2020/13/14 05:02:03",
                     "2020/13/14T05:02:03",
                     "2020/13/14T05:02:03Z",
+                    "2020/13/14T05:02:03.576",
                     "2020/03/14 55:02",
                     "2020/03/14T55:02",
                     "2020/03/14 55:02:03",
                     "2020/03/14T55:02:03",
                     "2020/03/14T55:02:03Z",
+                    "2020/13/14T05:02:03.5",
 
                     "2020/14/13 05:02",
                     "2020/14/13T05:02",
                     "2020/14/13 05:02:03",
                     "2020/14/13T05:02:03",
                     "2020/14/13T05:02:03Z",
+                    "2020/14/13T05:02:03.576Z",
                     "2020/14/03 55:02",
                     "2020/14/03T55:02",
                     "2020/14/03 55:02:03",
                     "2020/14/03T55:02:03",
-                    "2020/14/03T55:02:03Z"
+                    "2020/14/03T55:02:03Z",
+                    "2020/14/13T05:02:03.5Z"
                 };
 
                 i = 0;
@@ -739,7 +780,7 @@ namespace ForestNETTests.Core
                         Assert.Fail("'" + s_testFalse + "' fromTimeString() could be parsed to local time object '" + a_validLocalDateTime[i] + "'");
                     }
 
-                    if (i == 4)
+                    if (i == 5)
                     {
                         i = 0;
                     }
@@ -1073,13 +1114,13 @@ namespace ForestNETTests.Core
                 );
 
                 Assert.That(
-                    "Das ist das Haus v"u8.ToArray().SequenceEqual(
+                    new byte[18] { 0x44, 0x61, 0x73, 0x20, 0x69, 0x73, 0x74, 0x20, 0x64, 0x61, 0x73, 0x20, 0x48, 0x61, 0x75, 0x73, 0x20, 0x76 }.SequenceEqual(
                     ForestNETLib.Core.Helper.HexStringToBytes("0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76")),
                     Is.True,
                     "HexStringToBytes result for '0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76' does not match expected value."
                 );
                 Assert.That(
-                    "Das ist das Haus v"u8.ToArray().SequenceEqual(
+                    new byte[18] { 0x44, 0x61, 0x73, 0x20, 0x69, 0x73, 0x74, 0x20, 0x64, 0x61, 0x73, 0x20, 0x48, 0x61, 0x75, 0x73, 0x20, 0x76 }.SequenceEqual(
                     ForestNETLib.Core.Helper.HexStringToBytes("446173206973742064617320486175732076")),
                     Is.True,
                     "HexStringToBytes result for '446173206973742064617320486175732076' does not match expected value."
@@ -1247,6 +1288,366 @@ namespace ForestNETTests.Core
                     "ip '" + a_ipAddresses[i * 2] + "' is " + ((!a_ipAddressesResults[i]) ? "not" : "") + " within '" + a_ipAddresses[(i * 2) + 1] + "'"
                 );
             }
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv4MulticastAddress("225.4.228.87"),
+                Is.True,
+                "'225.4.228.87' is not an ipv4 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv4MulticastAddress("225.4.228.87/16"),
+                Is.False,
+                "'225.4.228.87/16' is not an ipv4 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv4MulticastAddress("192.4.228.87"),
+                Is.False,
+                "'192.4.228.87' is not an ipv4 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv4MulticastAddress("240.4.228.87"),
+                Is.False,
+                "'240.4.228.87' is not an ipv4 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv4MulticastAddress("239.4.228.87"),
+                Is.True,
+                "'239.4.228.87' is not an ipv4 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6Address("2001:0db8:85a3:08d3:1319:8a2e:0370:7347"),
+                Is.True,
+                "'2001:0db8:85a3:08d3:1319:8a2e:0370:7347' is not an ipv6 address"
+            );
+            
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6Address("fe80::ca32:231b:f27e:b696"),
+                Is.True,
+                "'fe80::ca32:231b:f27e:b696' is not an ipv6 address"
+            );
+            
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6Address("FE80:CD00:0000:0CDE:1257:0000:211E:729C"),
+                Is.True,
+                "'FE80:CD00:0000:0CDE:1257:0000:211E:729C' is not an ipv6 address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6Address("fe80::ca32:231b:f27z:b696"),
+                Is.False,
+                "'fe80::ca32:231b:f27z:b696' is an ipv6 address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6MulticastAddress("FF05::342"),
+                Is.True,
+                "'FF05::342' is not an ipv6 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6MulticastAddress("FF05:0:0:0:0:0:0:342"),
+                Is.True,
+                "'FF05:0:0:0:0:0:0:342' is not an ipv6 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6MulticastAddress("ff02::2"),
+                Is.True,
+                "'ff02::2' is not an ipv6 multicast address"
+            );
+
+            Assert.That(
+                ForestNETLib.Core.Helper.IsIpv6MulticastAddress("FE80:CD00:0000:0CDE:1257:0000:211E:729C"),
+                Is.False,
+                "'FE80:CD00:0000:0CDE:1257:0000:211E:729C' is an ipv6 multicast address"
+            );
+
+            try
+            {
+                CompareObject o_compareOne = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                /* o_compareOne and o_compareTwo are identical */
+                CompareObject o_compareTwo = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                /* o_compareOne and o_compareThree are not identical -> see DateTime of CompareObject instance ... it is 12 and not 21 && see Boolean of SubCompareObject instance ... it is false and not true */
+                CompareObject o_compareThree = new("One", 1, new DateTime(2020, 06, 12), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, false, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                /* o_compareOne and o_compareFour are not identical, but only with deep comparison -> see DateTime of SubCompareObject instance ... it is 1920 and not 2020 */
+                CompareObject o_compareFour = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
+
+                CompareObjectProperties o_compareOneProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                /* o_compareOneProp and o_compareTwoProp are identical */
+                CompareObjectProperties o_compareTwoProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                /* o_compareOneProp and o_compareThreeProp are not identical -> see DateTime of CompareObjectProperties instance ... it is 12 and not 21 && see Boolean of SubCompareObjectProperties instance ... it is false and not true */
+                CompareObjectProperties o_compareThreeProp = new("One", 1, new DateTime(2020, 06, 12), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, false, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                /* o_compareOneProp and o_compareFourProp are not identical, but only with deep comparison -> see DateTime of SubCompareObjectProperties instance ... it is 1920 and not 2020 */
+                CompareObjectProperties o_compareFourProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
+
+                List<CompareObject> o_listOne = 
+                [
+                    o_compareOne,
+                    o_compareTwo,
+                    o_compareThree,
+                    o_compareFour
+                ];
+                /* o_listOne and o_listTwo are identical */
+                List<CompareObject> o_listTwo = 
+                [
+                    o_compareOne,
+                    o_compareTwo,
+                    o_compareThree,
+                    o_compareFour
+                ];
+                /* o_listOne and o_listThree are not identical -> see missing fourth element */
+                List<CompareObject> o_listThree = 
+                [
+                    o_compareOne,
+                    o_compareTwo,
+                    o_compareThree
+                ];
+
+                List<CompareObjectProperties> o_listOneProp = 
+                [
+                    o_compareOneProp,
+                    o_compareTwoProp,
+                    o_compareThreeProp,
+                    o_compareFourProp
+                ];
+                /* o_listOneProp and o_listTwoProp are identical */
+                List<CompareObjectProperties> o_listTwoProp = 
+                [
+                    o_compareOneProp,
+                    o_compareTwoProp,
+                    o_compareThreeProp,
+                    o_compareFourProp
+                ];
+                /* o_listOne and o_listThreeProp are not identical -> see missing fourth element */
+                List<CompareObjectProperties> o_listThreeProp = 
+                [
+                    o_compareOneProp,
+                    o_compareTwoProp,
+                    o_compareThreeProp
+                ];
+                //TODO uncomment
+                /*
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareTwo, false),
+                    Is.True,
+                    "o_compareOne[" + o_compareOne + "] is not equal to o_compareTwo[" + o_compareTwo + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOneProp, o_compareTwoProp, true),
+                    Is.True,
+                    "o_compareOneProp[" + o_compareOneProp + "] is not equal to o_compareTwoProp[" + o_compareTwoProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareTwo, false, false, true),
+                    Is.True,
+                    "o_compareOne[" + o_compareOne + "] is not equal to o_compareTwo[" + o_compareTwo + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOneProp, o_compareTwoProp, true, false, true),
+                    Is.True,
+                    "o_compareOneProp[" + o_compareOneProp + "] is not equal to o_compareTwoProp[" + o_compareTwoProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareThree, false),
+                    Is.False,
+                    "o_compareOne[" + o_compareOne + "] is equal to o_compareThree[" + o_compareThree + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOneProp, o_compareThreeProp, true),
+                    Is.False,
+                    "o_compareOneProp[" + o_compareOneProp + "] is equal to o_compareThreeProp[" + o_compareThreeProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareThree, false, false, true),
+                    Is.False,
+                    "o_compareOne[" + o_compareOne + "] is equal to o_compareThree[" + o_compareThree + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOneProp, o_compareThreeProp, true, false, true),
+                    Is.False,
+                    "o_compareOneProp[" + o_compareOneProp + "] is equal to o_compareThreeProp[" + o_compareThreeProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareFour, false),
+                    Is.True,
+                    "o_compareOne[" + o_compareOne + "] is not equal to o_compareFour[" + o_compareFour + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOneProp, o_compareFourProp, true),
+                    Is.True,
+                    "o_compareOneProp[" + o_compareOneProp + "] is not equal to o_compareFourProp[" + o_compareFourProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareFour, false, false, true),
+                    Is.False,
+                    "o_compareOne[" + o_compareOne + "] is equal to o_compareFour[" + o_compareFour + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOneProp, o_compareFourProp, true, false, true),
+                    Is.False,
+                    "o_compareOneProp[" + o_compareOneProp + "] is equal to o_compareFourProp[" + o_compareFourProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOne, o_listTwo, false),
+                    Is.True,
+                    "o_listOne[" + o_listOne + "] is not equal to o_listTwo[" + o_listTwo + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOneProp, o_listTwoProp, true),
+                    Is.True,
+                    "o_listOneProp[" + o_listOneProp + "] is not equal to o_listTwoProp[" + o_listTwoProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOne, o_listTwo, false, false, true),
+                    Is.True,
+                    "o_listOne[" + o_listOne + "] is not equal to o_listTwo[" + o_listTwo + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOneProp, o_listTwoProp, true, false, true),
+                    Is.True,
+                    "o_listOneProp[" + o_listOneProp + "] is not equal to o_listTwoProp[" + o_listTwoProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOne, o_listThree, false),
+                    Is.False,
+                    "o_listOne[" + o_listOne + "] is equal to o_listThree[" + o_listThree + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOneProp, o_listThreeProp, true),
+                    Is.False,
+                    "o_listOneProp[" + o_listOneProp + "] is equal to o_listThreeProp[" + o_listThreeProp + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOne, o_listThree, false, false, true),
+                    Is.False,
+                    "o_listOne[" + o_listOne + "] is equal to o_listThree[" + o_listThree + "]"
+                );
+
+                Assert.That(
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOneProp, o_listThreeProp, true, false, true),
+                    Is.False,
+                    "o_listOneProp[" + o_listOneProp + "] is equal to o_listThreeProp[" + o_listThreeProp + "]"
+                );*/
+            }
+            catch (Exception o_exc)
+            {
+                Assert.Fail(o_exc.ToString() + Environment.NewLine + System.Environment.StackTrace);
+            }
+        }
+    }
+
+    class CompareObject
+    {
+        public string ValueStr;
+        public int ValueInt;
+        public DateTime ValueDateTime;
+        public long[] ValueLongArray;
+        public List<short> ValueListShorts;
+        public SubCompareObject ValueSubObject;
+
+        public CompareObject(string p_s_value, int p_i_value, DateTime p_o_value, long[] p_as_value, List<short> p_a_value, SubCompareObject p_o_subValue)
+        {
+            this.ValueStr = p_s_value;
+            this.ValueInt = p_i_value;
+            this.ValueDateTime = p_o_value;
+            this.ValueLongArray = p_as_value;
+            this.ValueListShorts = p_a_value;
+            this.ValueSubObject = p_o_subValue;
+        }
+
+        override public string ToString()
+        {
+            return this.ValueStr + "|" + this.ValueInt + "|" + this.ValueDateTime + "|" + String.Join(",", this.ValueLongArray) + "|" + ForestNETLib.Core.Helper.JoinList<short>(this.ValueListShorts, ',') + "|" + this.ValueSubObject;
+        }
+    }
+
+    class SubCompareObject
+    {
+        public double ValueDbl;
+        public bool ValueBool;
+        public Decimal[] ValueDecimalArray;
+        public DateTime ValueSubDateTime;
+
+        public SubCompareObject(double p_d_value, bool p_b_value, Decimal[] p_a_value, DateTime p_o_value)
+        {
+            this.ValueDbl = p_d_value;
+            this.ValueBool = p_b_value;
+            this.ValueDecimalArray = p_a_value;
+            this.ValueSubDateTime = p_o_value;
+        }
+
+        override public string ToString()
+        {
+            return this.ValueDbl + "|" + this.ValueBool + "|" + String.Join(",", this.ValueDecimalArray) + "|" + this.ValueSubDateTime;
+        }
+    }
+
+    class CompareObjectProperties
+    {
+        public string ValueStr { get; set; }
+        public int ValueInt { get; set; }
+        public DateTime ValueDateTime { get; set; }
+        public long[] ValueLongArray { get; set; }
+        public List<short> ValueListShorts { get; set; }
+        public SubCompareObjectProperties ValueSubObject { get; set; }
+
+        public CompareObjectProperties(string p_s_value, int p_i_value, DateTime p_o_value, long[] p_as_value, List<short> p_a_value, SubCompareObjectProperties p_o_subValue)
+        {
+            this.ValueStr = p_s_value;
+            this.ValueInt = p_i_value;
+            this.ValueDateTime = p_o_value;
+            this.ValueLongArray = p_as_value;
+            this.ValueListShorts = p_a_value;
+            this.ValueSubObject = p_o_subValue;
+        }
+
+        override public string ToString()
+        {
+            return this.ValueStr + "|" + this.ValueInt + "|" + this.ValueDateTime + "|" + String.Join(",", this.ValueLongArray) + "|" + ForestNETLib.Core.Helper.JoinList<short>(this.ValueListShorts, ',') + "|" + this.ValueSubObject;
+        }
+    }
+
+    class SubCompareObjectProperties
+    {
+        public double ValueDbl { get; set; }
+        public bool ValueBool { get; set; }
+        public Decimal[] ValueDecimalArray { get; set; }
+        public DateTime ValueSubDateTime { get; set; }
+
+        public SubCompareObjectProperties(double p_d_value, bool p_b_value, Decimal[] p_a_value, DateTime p_o_value)
+        {
+            this.ValueDbl = p_d_value;
+            this.ValueBool = p_b_value;
+            this.ValueDecimalArray = p_a_value;
+            this.ValueSubDateTime = p_o_value;
+        }
+
+        override public string ToString()
+        {
+            return this.ValueDbl + "|" + this.ValueBool + "|" + String.Join(",", this.ValueDecimalArray) + "|" + this.ValueSubDateTime;
         }
     }
 }

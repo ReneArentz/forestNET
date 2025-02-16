@@ -44,7 +44,9 @@ namespace ForestNETLib.Core
             }
 
             /* get 12 bytes for salt from common secret passphrase */
-            this.a_ivLocal = System.Text.Encoding.UTF8.GetBytes(p_s_commonSecretPassphrase.Substring(0, 12));
+            byte[] by_utf8 = System.Text.Encoding.UTF8.GetBytes(p_s_commonSecretPassphrase);
+            string s_utf8 = System.Text.Encoding.UTF8.GetString(by_utf8);
+            this.a_ivLocal = System.Text.Encoding.UTF8.GetBytes(s_utf8.Substring(0, 12));
 
             /* generate secret key for cryptography instance */
             this.o_secretKeyLocal = Cryptography.GenerateSecretKey(this.a_ivLocal, p_s_commonSecretPassphrase, p_i_keyLengthOption);
@@ -416,17 +418,21 @@ namespace ForestNETLib.Core
             /* convert iteration count bytes to integer value */
             int i_iterationCount = ForestNETLib.Core.Helper.ByteArrayToInt(a_iterationCount);
 
+            /* ensure that common secret passphrase is handled as utf8-string */
+            byte[] by_utf8 = System.Text.Encoding.UTF8.GetBytes(p_s_commonSecretPassphrase);
+            string s_utf8 = System.Text.Encoding.UTF8.GetString(by_utf8);
+
             /* check key length option and set key factory algorithm */
             if (p_i_keyLengthOption == Cryptography.KEY128BIT)
             {
                 /* generate key material with RFC-2898 derived bytes and SHA-1, returning 16 bytes */
-                using var o_pbkdf2Sha1 = new Rfc2898DeriveBytes(p_s_commonSecretPassphrase, p_a_iv, i_iterationCount, HashAlgorithmName.SHA1);
+                using var o_pbkdf2Sha1 = new Rfc2898DeriveBytes(s_utf8, p_a_iv, i_iterationCount, HashAlgorithmName.SHA1);
                 return o_pbkdf2Sha1.GetBytes(16);
             }
             else if (p_i_keyLengthOption == Cryptography.KEY256BIT)
             {
                 /* generate key material with RFC-2898 derived bytes and SHA-512, returning 32 bytes */
-                using var o_pbkdf2Sha256 = new Rfc2898DeriveBytes(p_s_commonSecretPassphrase, p_a_iv, i_iterationCount, HashAlgorithmName.SHA512);
+                using var o_pbkdf2Sha256 = new Rfc2898DeriveBytes(s_utf8, p_a_iv, i_iterationCount, HashAlgorithmName.SHA512);
                 return o_pbkdf2Sha256.GetBytes(32);
             }
             else
