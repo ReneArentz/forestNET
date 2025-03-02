@@ -22,6 +22,7 @@ try
         Console.WriteLine("[2] test ConsoleProgressBar");
         Console.WriteLine("[3] test MemoryInfo");
         Console.WriteLine("[4] test Sorts");
+        Console.WriteLine("[5] test ZipProgressBar");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
@@ -45,6 +46,10 @@ try
         else if (i_input == 4)
         {
             Sandbox.Tests.SortsTest.TestSorts();
+        }
+        else if (i_input == 5)
+        {
+            Sandbox.Tests.ZipTest.TestZipProgressBar();
         }
 
         if ((i_input >= 1) && (i_input <= 13))

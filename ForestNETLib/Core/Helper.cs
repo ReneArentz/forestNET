@@ -1845,7 +1845,7 @@
             if (IsIpv4Address(p_s_string))
             {
                 string s_firstOctet = p_s_string.Split('.')[0];
-                int i_firstOctet = 0;
+                int i_firstOctet;
 
                 try
                 {
@@ -2214,6 +2214,1475 @@
                 p_a_list[i_result] = p_a_list[i_max];
                 p_a_list[i_max] = o_value;
             }
+        }
+
+        /// <summary>
+        /// Comparing two objects and all its fields if types are supported, only public fields or property methods are supported
+        /// unsupported field types will be skipped and are not part of the comparison
+        /// supported types:
+        /// byte, short, int, long, float, double, decimal, char, boolean, string,
+        /// DateTime, Object, sbyte, ushot, uint, ulong
+        /// </summary>
+        /// <param name="p_o_objectOne">first object</param>
+        /// <param name="p_o_objectTwo">second object</param>
+        /// <param name="p_b_useProperties">true - comparing by only using properties, false - fields will be accessed directly(must be public)</param>
+        /// <returns>true - both objects are equal, false - both objects are not equal</returns>
+        /// <exception cref="FieldAccessException">could not retrieve value by accessing field directly or calling property method</exception>
+        public static bool ObjectsEqualUsingReflections(Object? p_o_objectOne, Object? p_o_objectTwo, bool p_b_useProperties)
+        {
+            return ObjectsEqualUsingReflections(p_o_objectOne, p_o_objectTwo, p_b_useProperties, false, false);
+        }
+
+        /// <summary>
+        /// Comparing two objects and all its fields and/or properties if types are supported, only public fields or properties are supported
+        /// supported types:
+        /// byte, short, int, long, float, double, decimal, char, boolean, string,
+        /// DateTime, Object, sbyte, ushot, uint, ulong
+        /// </summary>
+        /// <param name="p_o_objectOne">first object</param>
+        /// <param name="p_o_objectTwo">second object</param>
+        /// <param name="p_b_useProperties">true - comparing by only using properties, false - fields will be accessed directly(must be public)</param>
+        /// <param name="p_b_useFieldsAndProperties">true - comparing by using fields and properties, false - p_b_useProperties is mandatory</param>
+        /// <param name="p_b_deepComparison">true - accept unsupported field types and compare each accessible field, false - skip unsupported field types</param>
+        /// <returns>true - both objects are equal, false - both objects are not equal</returns>
+        /// <exception cref="FieldAccessException">could not retrieve value by accessing field directly or calling property method</exception>
+        public static bool ObjectsEqualUsingReflections(Object? p_o_objectOne, Object? p_o_objectTwo, bool p_b_useProperties, bool p_b_useFieldsAndProperties, bool p_b_deepComparison)
+        {
+            if ((p_o_objectOne == null) && (p_o_objectTwo == null))
+            {
+                return true;
+            }
+            else if ((p_o_objectOne == null) ^ (p_o_objectTwo == null))
+            {
+                return false;
+            }
+
+            string s_objectOneTypeName = p_o_objectOne?.GetType().FullName ?? "null";
+            string s_objectTwoTypeName = p_o_objectTwo?.GetType().FullName ?? "null";
+
+            Global.ILogMass("compare two objects '" + s_objectOneTypeName + "' and '" + s_objectTwoTypeName + "' with '" + ((p_b_useProperties) ? "using properties" : "using fields") + "'" + ((p_b_useFieldsAndProperties) ? " and 'using fields and properties'" : ""));
+
+            /* both object parameter must be of same type */
+            if (!s_objectOneTypeName.Equals(s_objectTwoTypeName))
+            {
+                Global.ILogWarning("both object parameter have not the same type; '" + s_objectOneTypeName + "' != '" + s_objectTwoTypeName + "'");
+                return false;
+            }
+
+            /* list of allowed types for generic comparison */
+            string[] a_allowedTypes = new string[] { "System.Byte", "System.Int16", "System.Int32", "System.Int64", "System.Single", "System.Double", "System.Decimal", "System.Char", "System.Boolean", "System.String", "System.DateTime", "System.SByte", "System.UInt16", "System.UInt32", "System.UInt64", "System.Object" };
+
+            /* if both objects are allowed types, we do not need deep comparison */
+            if (a_allowedTypes.Contains(s_objectOneTypeName))
+            {
+                p_b_deepComparison = false;
+            }
+
+            if ((p_o_objectOne?.GetType() != null) && (p_o_objectOne.GetType().IsGenericType) && (p_o_objectOne.GetType().GetGenericTypeDefinition() == typeof(List<>)))
+            {
+                /* cast parameter objects to array list */
+                List<Object> o_fooOne = [];
+                List<Object> o_fooTwo = [];
+
+                if (p_o_objectOne != null)
+                {
+                    o_fooOne = [.. ((System.Collections.IEnumerable)p_o_objectOne).Cast<Object>()];
+                }
+
+                if (p_o_objectTwo != null)
+                {
+                    o_fooTwo = [.. ((System.Collections.IEnumerable)p_o_objectTwo).Cast<Object>()];
+                }
+
+                /* both object parameter as lists must have the same size to be equal */
+                if (o_fooOne.Count != o_fooTwo.Count)
+                {
+                    Global.ILogWarning("both object parameter as lists have not the same size; '" + o_fooOne.Count + "' != '" + o_fooTwo.Count + "'");
+                    return false;
+                }
+
+                /* only execute if we have more than one array element */
+                if (o_fooOne.Count > 0)
+                {
+                    /* iterate objects in lists and compare both list object values */
+                    for (int i = 0; i < o_fooOne.Count; i++)
+                    {
+                        if (!ObjectsEqualUsingReflections(o_fooOne[i], o_fooTwo[i], p_b_useProperties))
+                        {
+                            Global.ILogWarning("both objects in lists are not equal; '" + o_fooOne[i].ToString() + "' != '" + o_fooTwo[i].ToString() + "'");
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!p_b_useProperties) /* access object by fields and properties */
+                {
+                    /* compare by fields */
+                    if (!ObjectsEqualUsingReflectionsByFields(p_o_objectOne, p_o_objectTwo, p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison))
+                    {
+                        return false;
+                    }
+
+                    /* compare by properties */
+                    if (!ObjectsEqualUsingReflectionsByProperties(p_o_objectOne, p_o_objectTwo, p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison))
+                    {
+                        return false;
+                    }
+                }
+                else if (!p_b_useProperties) /* access object by fields */
+                {
+                    return ObjectsEqualUsingReflectionsByFields(p_o_objectOne, p_o_objectTwo, p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison);
+                }
+                else /* access object by properties */
+                {
+                    return ObjectsEqualUsingReflectionsByProperties(p_o_objectOne, p_o_objectTwo, p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison);
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Comparing two objects by public fields
+        /// supported field types:
+        /// byte, short, int, long, float, double, decimal, char, boolean, string,
+        /// DateTime, Object, sbyte, ushot, uint, ulong
+        /// </summary>
+        /// <param name="p_o_objectOne">first object</param>
+        /// <param name="p_o_objectTwo">second object</param>
+        /// <param name="p_b_useProperties">true - comparing by only using properties, false - fields will be accessed directly(must be public)</param>
+        /// <param name="p_b_useFieldsAndProperties">true - comparing by using fields and properties, false - p_b_useProperties is mandatory</param>
+        /// <param name="p_b_deepComparison">true - accept unsupported field types and compare each accessible field, false - skip unsupported field types</param>
+        /// <returns>true - both objects are equal, false - both objects are not equal</returns>
+        /// <exception cref="FieldAccessException">could not retrieve value by accessing field directly or calling property method</exception>
+        private static bool ObjectsEqualUsingReflectionsByFields(Object? p_o_objectOne, Object? p_o_objectTwo, bool p_b_useProperties, bool p_b_useFieldsAndProperties, bool p_b_deepComparison)
+        {
+            /* object for iterating fields */
+            object o_object;
+
+            if (p_o_objectOne != null)
+            {
+                /* use object one parameter */
+                o_object = p_o_objectOne;
+            }
+            else if (p_o_objectTwo != null)
+            {
+                /* use object two parameter */
+                o_object = p_o_objectTwo;
+            }
+            else
+            {
+                /* both parameter objects are null */
+                return true;
+            }
+
+            /* list of allowed types for generic comparison */
+            string[] a_allowedTypes = new string[] { "System.Byte", "System.Int16", "System.Int32", "System.Int64", "System.Single", "System.Double", "System.Decimal", "System.Char", "System.Boolean", "System.String", "System.DateTime", "System.SByte", "System.UInt16", "System.UInt32", "System.UInt64", "System.Object" };
+
+            /* iterate all fields of parameter object */
+            foreach (System.Reflection.FieldInfo o_fieldInfo in o_object.GetType().GetFields())
+            {
+                /* skip empty field info instance */
+                if (o_fieldInfo == null)
+                {
+                    continue;
+                }
+
+                /* skip empty field type */
+                if (o_fieldInfo.FieldType == null)
+                {
+                    continue;
+                }
+
+                Global.ILogMass("field: " + o_fieldInfo.Name + " - " + o_fieldInfo.FieldType.FullName + " - [" + "IsPrivate: " + o_fieldInfo.IsPrivate + " | " + "IsPublic: " + o_fieldInfo.IsPublic + " | " + "IsArray: " + o_fieldInfo.FieldType.IsArray + "]");
+
+                /* if field of parameter object is of type list */
+                if ((o_fieldInfo.FieldType.IsGenericType) && (o_fieldInfo.FieldType.GetGenericTypeDefinition() == typeof(List<>)))
+                {
+                    /* if type of field list is not contained in the list of allowed types, skip this field */
+                    if (!a_allowedTypes.Contains(o_fieldInfo.FieldType.GenericTypeArguments[0].FullName))
+                    {
+                        if (!p_b_deepComparison)
+                        {
+                            Global.ILogMass("object list generic type '" + o_fieldInfo.FieldType.GenericTypeArguments[0].FullName + "' is not supported; object list field will be skipped");
+                            continue;
+                        }
+                    }
+                }
+                else if ((o_fieldInfo.FieldType.IsArray) && (!a_allowedTypes.Contains(o_fieldInfo.FieldType.GetElementType()?.FullName)))
+                {
+                    /* if field array type of parameter object is not contained in the list of allowed types, skip this field */
+                    if (!p_b_deepComparison)
+                    {
+                        Global.ILogMass("object field array type '" + o_fieldInfo.FieldType.GetElementType()?.FullName + "' is not supported; field will be skipped");
+                        continue;
+                    }
+                }
+                else if ((!o_fieldInfo.FieldType.IsArray) && (!a_allowedTypes.Contains(o_fieldInfo.FieldType.FullName)))
+                {
+                    /* if field type of parameter object is not contained in the list of allowed types, skip this field */
+                    if (!p_b_deepComparison)
+                    {
+                        Global.ILogMass("object field type '" + o_fieldInfo.FieldType.FullName + "' is not supported; field will be skipped");
+                        continue;
+                    }
+                }
+
+                /* help variable for accessing object field of both parameter objects */
+                Object? o_objectOne = null;
+                Object? o_objectTwo = null;
+
+                /* if field is not public, skip this field */
+                if (!o_fieldInfo.IsPublic)
+                {
+                    Global.ILogMass("object field is not public; field will be skipped");
+                    continue;
+                }
+
+                /* call field directly to get object data values */
+                try
+                {
+                    o_objectOne = o_fieldInfo.GetValue(p_o_objectOne);
+                    o_objectTwo = o_fieldInfo.GetValue(p_o_objectTwo);
+                }
+                catch (Exception o_exc)
+                {
+                    throw new FieldAccessException("Access violation for field[" + o_fieldInfo.Name + "], type[" + o_fieldInfo.FieldType.FullName + "]: " + o_exc.ToString());
+                }
+
+                /* if both object are string but one is null, check of empty strings */
+                /* if one object is null and the other is an empty string we accept it as equal - setting both to null */
+                if (((o_objectOne != null) ^ (o_objectTwo != null)) && (o_fieldInfo.FieldType.FullName != null) && (o_fieldInfo.FieldType.FullName.Equals("System.String")))
+                {
+                    if ((o_objectOne != null) && (IsStringEmpty(o_objectOne.ToString())))
+                    {
+                        o_objectOne = null;
+                    }
+
+                    if ((o_objectTwo != null) && (IsStringEmpty(o_objectTwo.ToString())))
+                    {
+                        o_objectTwo = null;
+                    }
+                }
+
+                if ((o_objectOne == null) ^ (o_objectTwo == null))
+                { /* if one object is null but not the other, they are not equal */
+                    Global.ILogWarning("one object is null but not the other object '" + ((o_objectOne == null) ? "null" : o_objectOne.ToString() + "[" + o_objectOne.GetType().FullName + "]") + "' != '" + ((o_objectTwo == null) ? "null" : o_objectTwo.ToString() + "[" + o_objectTwo.GetType().FullName + "]'"));
+                    return false;
+                }
+                else if ((o_objectOne != null) && (o_objectTwo != null))
+                { /* if help variable got access to object field */
+                    /* if field of parameter object is of type list */
+                    if ((o_fieldInfo.FieldType.IsGenericType) && (o_fieldInfo.FieldType.GetGenericTypeDefinition() == typeof(List<>)))
+                    {
+                        /* cast current field of parameter object as list with unknown generic type */
+                        List<Object> a_objectsOne = [.. ((System.Collections.IEnumerable)o_objectOne).Cast<Object>()];
+                        List<Object> a_objectsTwo = [.. ((System.Collections.IEnumerable)o_objectTwo).Cast<Object>()];
+
+                        /* both object arrays must have the same size of elements */
+                        if (a_objectsOne.Count != a_objectsTwo.Count)
+                        {
+                            Global.ILogWarning("both object parameter lists have not the same size '" + a_objectsOne.Count + "' != '" + a_objectsTwo.Count + "'");
+                            return false;
+                        }
+
+                        /* only execute if we have more than one array element */
+                        if (a_objectsOne.Count > 0)
+                        {
+                            /* iterate objects in list and compare both object values or do a deep comparison */
+                            for (int i = 0; i < a_objectsOne.Count; i++)
+                            {
+                                Global.ILogMass(o_fieldInfo.Name + " array element objects equal: " + (((a_objectsOne[i] == null) && (a_objectsTwo[i] == null)) || (a_objectsOne[i].Equals(a_objectsTwo[i]))) + "\t" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i].ToString()) + "\t\t" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i].ToString()));
+
+                                if (p_b_deepComparison)
+                                {
+                                    /* deep comparison of both objects */
+                                    if (!ObjectsEqualUsingReflections(a_objectsOne[i], a_objectsTwo[i], p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison))
+                                    {
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    /* compare each array element of both object arrays or accept if both elements in array are null */
+                                    if (!(((a_objectsOne[i] == null) && (a_objectsTwo[i] == null)) || (a_objectsOne[i].Equals(a_objectsTwo[i]))))
+                                    {
+                                        Global.ILogWarning("both object parameter array elements are not equal or not both null '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i].ToString()) + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i].ToString()) + "'");
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (o_fieldInfo.FieldType.IsArray)
+                    {
+                        /* handle usual arrays */
+
+                        /* get array type as string to lower */
+                        string s_arrayType = o_fieldInfo.FieldType.GetElementType()?.FullName?.ToLower() ?? "";
+
+                        /* check if all array elements in both object parameters are in the correct order and match to one another */
+
+                        if (s_arrayType.Equals("system.boolean"))
+                        {
+                            /* cast current field of parameter object as array */
+                            bool[] a_objectsOne = (bool[])o_objectOne;
+                            bool[] a_objectsTwo = (bool[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.byte"))
+                        {
+                            /* cast current field of parameter object as array */
+                            byte[] a_objectsOne = (byte[])o_objectOne;
+                            byte[] a_objectsTwo = (byte[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.sbyte"))
+                        {
+                            /* cast current field of parameter object as array */
+                            sbyte[] a_objectsOne = (sbyte[])o_objectOne;
+                            sbyte[] a_objectsTwo = (sbyte[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.char"))
+                        {
+                            /* cast current field of parameter object as array */
+                            char[] a_objectsOne = (char[])o_objectOne;
+                            char[] a_objectsTwo = (char[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.single"))
+                        {
+                            /* cast current field of parameter object as array */
+                            float[] a_objectsOne = (float[])o_objectOne;
+                            float[] a_objectsTwo = (float[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.double"))
+                        {
+                            /* cast current field of parameter object as array */
+                            double[] a_objectsOne = (double[])o_objectOne;
+                            double[] a_objectsTwo = (double[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.int16"))
+                        {
+                            /* cast current field of parameter object as array */
+                            short[] a_objectsOne = (short[])o_objectOne;
+                            short[] a_objectsTwo = (short[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.int32"))
+                        {
+                            /* cast current field of parameter object as array */
+                            int[] a_objectsOne = (int[])o_objectOne;
+                            int[] a_objectsTwo = (int[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.int64"))
+                        {
+                            /* cast current field of parameter object as array */
+                            long[] a_objectsOne = (long[])o_objectOne;
+                            long[] a_objectsTwo = (long[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.uint16"))
+                        {
+                            /* cast current field of parameter object as array */
+                            ushort[] a_objectsOne = (ushort[])o_objectOne;
+                            ushort[] a_objectsTwo = (ushort[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.uint32"))
+                        {
+                            /* cast current field of parameter object as array */
+                            uint[] a_objectsOne = (uint[])o_objectOne;
+                            uint[] a_objectsTwo = (uint[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.uint64"))
+                        {
+                            /* cast current field of parameter object as array */
+                            ulong[] a_objectsOne = (ulong[])o_objectOne;
+                            ulong[] a_objectsTwo = (ulong[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.string"))
+                        {
+                            /* cast current field of parameter object as array */
+                            string?[] a_objectsOne = (string?[])o_objectOne;
+                            string?[] a_objectsTwo = (string?[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for field '" + o_fieldInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i]?.GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo[i]?.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.timespan"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.TimeSpan?[] a_objectsOne = (System.TimeSpan?[])o_objectOne;
+                            System.TimeSpan?[] a_objectsTwo = (System.TimeSpan?[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for field '" + o_fieldInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i]?.GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo[i]?.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.datetime"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.DateTime?[] a_objectsOne = (System.DateTime?[])o_objectOne;
+                            System.DateTime?[] a_objectsTwo = (System.DateTime?[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for field '" + o_fieldInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i]?.GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo[i]?.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.decimal"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.Decimal[] a_objectsOne = (System.Decimal[])o_objectOne;
+                            System.Decimal[] a_objectsTwo = (System.Decimal[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are zero */
+                                if ((a_objectsOne[i] == System.Decimal.Zero) && (a_objectsTwo[i] == System.Decimal.Zero))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is zero but not the other, they are not equal */
+                                if ((a_objectsOne[i] == System.Decimal.Zero) ^ (a_objectsTwo[i] == System.Decimal.Zero))
+                                {
+                                    Global.ILogWarning("for field '" + o_fieldInfo.Name + "' one array element is zero but not the other array element '" + a_objectsOne[i] + "[" + a_objectsOne[i].GetType().FullName + "]" + "' != '" + a_objectsTwo[i] + "[" + a_objectsTwo.GetType().FullName + "]" + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.object"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.Object[] a_objectsOne = (System.Object[])o_objectOne;
+                            System.Object[] a_objectsTwo = (System.Object[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for field '" + o_fieldInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for field '" + o_fieldInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i].GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for field '" + o_fieldInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Global.ILogMass(o_fieldInfo.Name + " objects equal: " + o_objectOne.Equals(o_objectTwo) + "\t" + o_objectOne.ToString() + "\t\t" + o_objectTwo.ToString());
+
+                        /* only execute deep comparison if both objects are not allowed types */
+                        if ((p_b_deepComparison) && (!(a_allowedTypes.Contains(o_objectOne.GetType().FullName))))
+                        {
+                            /* deep comparison of both objects */
+                            if (!ObjectsEqualUsingReflections(o_objectOne, o_objectTwo, p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison))
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            /* check if field values of both parameter objects are equal */
+                            if (!o_objectOne.Equals(o_objectTwo))
+                            {
+                                Global.ILogWarning("both " + o_fieldInfo.Name + " object parameter are not equal '" + o_objectOne.ToString() + "' != '" + o_objectTwo.ToString() + "'");
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Global.ILogMass(o_fieldInfo.Name + " objects equal: true\tnull\t\tnull");
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Comparing two objects by public properties
+        /// supported property types:
+        /// byte, short, int, long, float, double, decimal, char, boolean, string,
+        /// DateTime, Object, sbyte, ushot, uint, ulong
+        /// </summary>
+        /// <param name="p_o_objectOne">first object</param>
+        /// <param name="p_o_objectTwo">second object</param>
+        /// <param name="p_b_useProperties">true - comparing by only using properties, false - fields will be accessed directly(must be public)</param>
+        /// <param name="p_b_useFieldsAndProperties">true - comparing by using fields and properties, false - p_b_useProperties is mandatory</param>
+        /// <param name="p_b_deepComparison">true - accept unsupported field types and compare each accessible field, false - skip unsupported field types</param>
+        /// <returns>true - both objects are equal, false - both objects are not equal</returns>
+        private static bool ObjectsEqualUsingReflectionsByProperties(Object? p_o_objectOne, Object? p_o_objectTwo, bool p_b_useProperties, bool p_b_useFieldsAndProperties, bool p_b_deepComparison)
+        {
+            /* object for iterating fields */
+            object o_object;
+
+            if (p_o_objectOne != null)
+            {
+                /* use object one parameter */
+                o_object = p_o_objectOne;
+            }
+            else if (p_o_objectTwo != null)
+            {
+                /* use object two parameter */
+                o_object = p_o_objectTwo;
+            }
+            else
+            {
+                /* both parameter objects are null */
+                return true;
+            }
+
+            /* list of allowed types for generic comparison */
+            string[] a_allowedTypes = new string[] { "System.Byte", "System.Int16", "System.Int32", "System.Int64", "System.Single", "System.Double", "System.Decimal", "System.Char", "System.Boolean", "System.String", "System.DateTime", "System.SByte", "System.UInt16", "System.UInt32", "System.UInt64", "System.Object" };
+
+            /* iterate all properties of parameter object */
+            foreach (System.Reflection.PropertyInfo o_propertyInfo in o_object.GetType().GetProperties())
+            {
+                /* skip empty property info instance */
+                if (o_propertyInfo == null)
+                {
+                    continue;
+                }
+
+                /* skip empty property type */
+                if (o_propertyInfo.PropertyType == null)
+                {
+                    continue;
+                }
+
+                Global.ILogMass("property: " + o_propertyInfo.Name + " - " + o_propertyInfo.PropertyType.FullName + " - [" + "CanRead: " + o_propertyInfo.CanRead + " | " + "CanWrite: " + o_propertyInfo.CanWrite + " | " + "IsArray: " + o_propertyInfo.PropertyType.IsArray + "]");
+
+                /* if property of parameter object is of type list */
+                if ((o_propertyInfo.PropertyType.IsGenericType) && (o_propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(List<>)))
+                {
+                    /* if type of property list is not contained in the list of allowed types, skip this property */
+                    if (!a_allowedTypes.Contains(o_propertyInfo.PropertyType.GenericTypeArguments[0].FullName))
+                    {
+                        if (!p_b_deepComparison)
+                        {
+                            Global.ILogMass("object list generic type '" + o_propertyInfo.PropertyType.GenericTypeArguments[0].FullName + "' is not supported; object list property will be skipped");
+                            continue;
+                        }
+                    }
+                }
+                else if ((o_propertyInfo.PropertyType.IsArray) && (!a_allowedTypes.Contains(o_propertyInfo.PropertyType.GetElementType()?.FullName)))
+                {
+                    /* if property array type of parameter object is not contained in the list of allowed types, skip this field */
+                    if (!p_b_deepComparison)
+                    {
+                        Global.ILogMass("object property array type '" + o_propertyInfo.PropertyType.GetElementType()?.FullName + "' is not supported; property will be skipped");
+                        continue;
+                    }
+                }
+                else if ((!o_propertyInfo.PropertyType.IsArray) && (!a_allowedTypes.Contains(o_propertyInfo.PropertyType.FullName)))
+                {
+                    /* if property type of parameter object is not contained in the list of allowed types, skip this property */
+                    if (!p_b_deepComparison)
+                    {
+                        Global.ILogMass("object property type '" + o_propertyInfo.PropertyType.FullName + "' is not supported; property will be skipped");
+                        continue;
+                    }
+                }
+
+                /* help variable for accessing object property of both parameter objects */
+                Object? o_objectOne = null;
+                Object? o_objectTwo = null;
+
+                /* if property is not public, skip this property */
+                if (!o_propertyInfo.CanRead)
+                {
+                    Global.ILogMass("object property is not public; property will be skipped");
+                    continue;
+                }
+
+                /* call property directly to get object data values */
+                try
+                {
+                    o_objectOne = o_propertyInfo.GetValue(p_o_objectOne);
+                    o_objectTwo = o_propertyInfo.GetValue(p_o_objectTwo);
+                }
+                catch (Exception o_exc)
+                {
+                    throw new FieldAccessException("Access violation for property[" + o_propertyInfo.Name + "], type[" + o_propertyInfo.PropertyType.FullName + "]: " + o_exc.ToString());
+                }
+
+                /* if both object are string but one is null, check of empty strings */
+                /* if one object is null and the other is an empty string we accept it as equal - setting both to null */
+                if (((o_objectOne != null) ^ (o_objectTwo != null)) && (o_propertyInfo.PropertyType.FullName != null) && (o_propertyInfo.PropertyType.FullName.Equals("System.String")))
+                {
+                    if ((o_objectOne != null) && (IsStringEmpty(o_objectOne.ToString())))
+                    {
+                        o_objectOne = null;
+                    }
+
+                    if ((o_objectTwo != null) && (IsStringEmpty(o_objectTwo.ToString())))
+                    {
+                        o_objectTwo = null;
+                    }
+                }
+
+                if ((o_objectOne == null) ^ (o_objectTwo == null))
+                { /* if one object is null but not the other, they are not equal */
+                    Global.ILogWarning("one object is null but not the other object '" + ((o_objectOne == null) ? "null" : o_objectOne.ToString() + "[" + o_objectOne.GetType().FullName + "]") + "' != '" + ((o_objectTwo == null) ? "null" : o_objectTwo.ToString() + "[" + o_objectTwo.GetType().FullName + "]'"));
+                    return false;
+                }
+                else if ((o_objectOne != null) && (o_objectTwo != null))
+                { /* if help variable got access to object property */
+                    /* if property of parameter object is of type list */
+                    if ((o_propertyInfo.PropertyType.IsGenericType) && (o_propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(List<>)))
+                    {
+                        /* cast current property of parameter object as list with unknown generic type */
+                        List<Object> a_objectsOne = [.. ((System.Collections.IEnumerable)o_objectOne).Cast<Object>()];
+                        List<Object> a_objectsTwo = [.. ((System.Collections.IEnumerable)o_objectTwo).Cast<Object>()];
+
+                        /* both object arrays must have the same size of elements */
+                        if (a_objectsOne.Count != a_objectsTwo.Count)
+                        {
+                            Global.ILogWarning("both object parameter lists have not the same size '" + a_objectsOne.Count + "' != '" + a_objectsTwo.Count + "'");
+                            return false;
+                        }
+
+                        /* only execute if we have more than one array element */
+                        if (a_objectsOne.Count > 0)
+                        {
+                            /* iterate objects in list and compare both object values or do a deep comparison */
+                            for (int i = 0; i < a_objectsOne.Count; i++)
+                            {
+                                Global.ILogMass(o_propertyInfo.Name + " array element objects equal: " + (((a_objectsOne[i] == null) && (a_objectsTwo[i] == null)) || (a_objectsOne[i].Equals(a_objectsTwo[i]))) + "\t" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i].ToString()) + "\t\t" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i].ToString()));
+
+                                if (p_b_deepComparison)
+                                {
+                                    /* deep comparison of both objects */
+                                    if (!ObjectsEqualUsingReflections(a_objectsOne[i], a_objectsTwo[i], p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison))
+                                    {
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    /* compare each array element of both object arrays or accept if both elements in array are null */
+                                    if (!(((a_objectsOne[i] == null) && (a_objectsTwo[i] == null)) || (a_objectsOne[i].Equals(a_objectsTwo[i]))))
+                                    {
+                                        Global.ILogWarning("both object parameter array elements are not equal or not both null '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i].ToString()) + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i].ToString()) + "'");
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (o_propertyInfo.PropertyType.IsArray)
+                    {
+                        /* handle usual arrays */
+
+                        /* get array type as string to lower */
+                        string s_arrayType = o_propertyInfo.PropertyType.GetElementType()?.FullName?.ToLower() ?? "";
+
+                        /* check if all array elements in both object parameters are in the correct order and match to one another */
+
+                        if (s_arrayType.Equals("system.boolean"))
+                        {
+                            /* cast current field of parameter object as array */
+                            bool[] a_objectsOne = (bool[])o_objectOne;
+                            bool[] a_objectsTwo = (bool[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.byte"))
+                        {
+                            /* cast current field of parameter object as array */
+                            byte[] a_objectsOne = (byte[])o_objectOne;
+                            byte[] a_objectsTwo = (byte[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.sbyte"))
+                        {
+                            /* cast current field of parameter object as array */
+                            sbyte[] a_objectsOne = (sbyte[])o_objectOne;
+                            sbyte[] a_objectsTwo = (sbyte[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.char"))
+                        {
+                            /* cast current field of parameter object as array */
+                            char[] a_objectsOne = (char[])o_objectOne;
+                            char[] a_objectsTwo = (char[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.single"))
+                        {
+                            /* cast current field of parameter object as array */
+                            float[] a_objectsOne = (float[])o_objectOne;
+                            float[] a_objectsTwo = (float[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.double"))
+                        {
+                            /* cast current field of parameter object as array */
+                            double[] a_objectsOne = (double[])o_objectOne;
+                            double[] a_objectsTwo = (double[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.int16"))
+                        {
+                            /* cast current field of parameter object as array */
+                            short[] a_objectsOne = (short[])o_objectOne;
+                            short[] a_objectsTwo = (short[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.int32"))
+                        {
+                            /* cast current field of parameter object as array */
+                            int[] a_objectsOne = (int[])o_objectOne;
+                            int[] a_objectsTwo = (int[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.int64"))
+                        {
+                            /* cast current field of parameter object as array */
+                            long[] a_objectsOne = (long[])o_objectOne;
+                            long[] a_objectsTwo = (long[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.uint16"))
+                        {
+                            /* cast current field of parameter object as array */
+                            ushort[] a_objectsOne = (ushort[])o_objectOne;
+                            ushort[] a_objectsTwo = (ushort[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.uint32"))
+                        {
+                            /* cast current field of parameter object as array */
+                            uint[] a_objectsOne = (uint[])o_objectOne;
+                            uint[] a_objectsTwo = (uint[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.uint64"))
+                        {
+                            /* cast current field of parameter object as array */
+                            ulong[] a_objectsOne = (ulong[])o_objectOne;
+                            ulong[] a_objectsTwo = (ulong[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.string"))
+                        {
+                            /* cast current field of parameter object as array */
+                            string?[] a_objectsOne = (string?[])o_objectOne;
+                            string?[] a_objectsTwo = (string?[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for property '" + o_propertyInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i]?.GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo[i]?.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (a_objectsOne[i] != a_objectsTwo[i])
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.timespan"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.TimeSpan?[] a_objectsOne = (System.TimeSpan?[])o_objectOne;
+                            System.TimeSpan?[] a_objectsTwo = (System.TimeSpan?[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for property '" + o_propertyInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i]?.GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo[i]?.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.datetime"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.DateTime?[] a_objectsOne = (System.DateTime?[])o_objectOne;
+                            System.DateTime?[] a_objectsTwo = (System.DateTime?[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for property '" + o_propertyInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i]?.GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo[i]?.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.decimal"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.Decimal[] a_objectsOne = (System.Decimal[])o_objectOne;
+                            System.Decimal[] a_objectsTwo = (System.Decimal[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are zero */
+                                if ((a_objectsOne[i] == System.Decimal.Zero) && (a_objectsTwo[i] == System.Decimal.Zero))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is zero but not the other, they are not equal */
+                                if ((a_objectsOne[i] == System.Decimal.Zero) ^ (a_objectsTwo[i] == System.Decimal.Zero))
+                                {
+                                    Global.ILogWarning("for property '" + o_propertyInfo.Name + "' one array element is zero but not the other array element '" + a_objectsOne[i] + "[" + a_objectsOne[i].GetType().FullName + "]" + "' != '" + a_objectsTwo[i] + "[" + a_objectsTwo.GetType().FullName + "]" + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                        else if (s_arrayType.Equals("system.object"))
+                        {
+                            /* cast current field of parameter object as array */
+                            System.Object[] a_objectsOne = (System.Object[])o_objectOne;
+                            System.Object[] a_objectsTwo = (System.Object[])o_objectTwo;
+
+                            /* both arrays must have the same length */
+                            if (a_objectsOne.Length != a_objectsTwo.Length)
+                            {
+                                Global.ILogWarning("both arrays for property '" + o_propertyInfo.Name + "' have not the same length '" + a_objectsOne.Length + " != " + a_objectsTwo.Length + "'");
+                                return false;
+                            }
+
+                            /* check each array element for equality */
+                            for (int i = 0; i < a_objectsOne.Length; i++)
+                            {
+                                /* both array elements are null */
+                                if ((a_objectsOne[i] == null) && (a_objectsTwo[i] == null))
+                                {
+                                    continue;
+                                }
+
+                                /* if one array element is null but not the other, they are not equal */
+                                if ((a_objectsOne[i] == null) ^ (a_objectsTwo[i] == null))
+                                {
+                                    Global.ILogWarning("for property '" + o_propertyInfo.Name + "' one array element is null but not the other array element '" + ((a_objectsOne[i] == null) ? "null" : a_objectsOne[i] + "[" + a_objectsOne[i].GetType().FullName + "]") + "' != '" + ((a_objectsTwo[i] == null) ? "null" : a_objectsTwo[i] + "[" + a_objectsTwo.GetType().FullName + "]") + "'");
+                                    return false;
+                                }
+
+                                if (!a_objectsOne[i].Equals(a_objectsTwo[i]))
+                                {
+                                    Global.ILogWarning("both array elements for property '" + o_propertyInfo.Name + "' are not equal '" + a_objectsOne[i] + "' != '" + a_objectsTwo[i] + "'");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Global.ILogMass(o_propertyInfo.Name + " objects equal: " + o_objectOne.Equals(o_objectTwo) + "\t" + o_objectOne.ToString() + "\t\t" + o_objectTwo.ToString());
+
+                        /* only execute deep comparison if both objects are not allowed types */
+                        if ((p_b_deepComparison) && (!(a_allowedTypes.Contains(o_objectOne.GetType().FullName))))
+                        {
+                            /* deep comparison of both objects */
+                            if (!ObjectsEqualUsingReflections(o_objectOne, o_objectTwo, p_b_useProperties, p_b_useFieldsAndProperties, p_b_deepComparison))
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            /* check if field values of both parameter objects are equal */
+                            if (!o_objectOne.Equals(o_objectTwo))
+                            {
+                                Global.ILogWarning("both " + o_propertyInfo.Name + " object parameters are not equal '" + o_objectOne.ToString() + "' != '" + o_objectTwo.ToString() + "'");
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Global.ILogMass(o_propertyInfo.Name + " objects equal: true\tnull\t\tnull");
+                }
+            }
+
+            return true;
         }
     }
 }

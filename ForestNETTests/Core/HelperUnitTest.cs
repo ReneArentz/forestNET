@@ -1131,34 +1131,34 @@ namespace ForestNETTests.Core
                 Assert.Fail(o_exc.ToString() + Environment.NewLine + System.Environment.StackTrace);
             }
 
-            List<string> a_list1 = new(new[] { "a", "bc", "def", "ghij", "klmno" });
+            List<string> a_list1 = [.. new[] { "a", "bc", "def", "ghij", "klmno" }];
             Assert.That(
                 ForestNETLib.Core.Helper.JoinList(a_list1, ','), Is.EqualTo("a,bc,def,ghij,klmno"),
                 "concated list '" + ForestNETLib.Core.Helper.JoinList(a_list1, ',') + "' is not equal 'a,bc,def,ghij,klmno'"
             );
 
-            List<int> a_list2 = new(new[] { 1, 23, 45, 678, 910111213 });
+            List<int> a_list2 = [.. new[] { 1, 23, 45, 678, 910111213 }];
             Assert.That(
                 ForestNETLib.Core.Helper.JoinList(a_list2, ':'), Is.EqualTo("1:23:45:678:910111213"),
                 "concated list '" + ForestNETLib.Core.Helper.JoinList(a_list1, ':') + "' is not equal '1:23:45:678:910111213'"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.GetIndexOfObjectInList(new List<string>(new[] { "two", "one", "three" }), "one"), Is.GreaterThan(0),
+                ForestNETLib.Core.Helper.GetIndexOfObjectInList([.. new[] { "two", "one", "three" }], "one"), Is.GreaterThan(0),
                 "'one' not found and no index returned from array list"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.GetIndexOfObjectInList(new List<string>(new[] { "two", "four", "three" }), "one"), Is.LessThanOrEqualTo(0),
+                ForestNETLib.Core.Helper.GetIndexOfObjectInList([.. new[] { "two", "four", "three" }], "one"), Is.LessThanOrEqualTo(0),
                 "'one' found and index returned from array list"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsIndexValid(new List<string>(new[] { "two", "one", "three" }), 2),
+                ForestNETLib.Core.Helper.IsIndexValid([.. new[] { "two", "one", "three" }], 2),
                 Is.True,
                 "index '2' is not valid"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsIndexValid(new List<string>(new[] { "two", "four", "three" }), 42),
+                ForestNETLib.Core.Helper.IsIndexValid([.. new[] { "two", "four", "three" }], 42),
                 Is.False,
                 "index '42' is valid"
             );
@@ -1369,21 +1369,21 @@ namespace ForestNETTests.Core
 
             try
             {
-                CompareObject o_compareOne = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                CompareObject o_compareOne = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
                 /* o_compareOne and o_compareTwo are identical */
-                CompareObject o_compareTwo = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                CompareObject o_compareTwo = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
                 /* o_compareOne and o_compareThree are not identical -> see DateTime of CompareObject instance ... it is 12 and not 21 && see Boolean of SubCompareObject instance ... it is false and not true */
-                CompareObject o_compareThree = new("One", 1, new DateTime(2020, 06, 12), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, false, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                CompareObject o_compareThree = new("One", 1, new DateTime(2020, 06, 12), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObject(42.125d, false, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
                 /* o_compareOne and o_compareFour are not identical, but only with deep comparison -> see DateTime of SubCompareObject instance ... it is 1920 and not 2020 */
-                CompareObject o_compareFour = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
+                CompareObject o_compareFour = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObject(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
 
-                CompareObjectProperties o_compareOneProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                CompareObjectProperties o_compareOneProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
                 /* o_compareOneProp and o_compareTwoProp are identical */
-                CompareObjectProperties o_compareTwoProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                CompareObjectProperties o_compareTwoProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
                 /* o_compareOneProp and o_compareThreeProp are not identical -> see DateTime of CompareObjectProperties instance ... it is 12 and not 21 && see Boolean of SubCompareObjectProperties instance ... it is false and not true */
-                CompareObjectProperties o_compareThreeProp = new("One", 1, new DateTime(2020, 06, 12), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, false, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
+                CompareObjectProperties o_compareThreeProp = new("One", 1, new DateTime(2020, 06, 12), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObjectProperties(42.125d, false, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(2020, 12, 21)));
                 /* o_compareOneProp and o_compareFourProp are not identical, but only with deep comparison -> see DateTime of SubCompareObjectProperties instance ... it is 1920 and not 2020 */
-                CompareObjectProperties o_compareFourProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, new List<short>(new short[] { 42, 21, 12, 14378 }), new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
+                CompareObjectProperties o_compareFourProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
 
                 List<CompareObject> o_listOne = 
                 [
@@ -1430,8 +1430,7 @@ namespace ForestNETTests.Core
                     o_compareTwoProp,
                     o_compareThreeProp
                 ];
-                //TODO uncomment
-                /*
+                
                 Assert.That(
                     ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareTwo, false),
                     Is.True,
@@ -1550,7 +1549,7 @@ namespace ForestNETTests.Core
                     ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_listOneProp, o_listThreeProp, true, false, true),
                     Is.False,
                     "o_listOneProp[" + o_listOneProp + "] is equal to o_listThreeProp[" + o_listThreeProp + "]"
-                );*/
+                );
             }
             catch (Exception o_exc)
             {

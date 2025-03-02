@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.8 (stable)
+Additional functionalities: ZIP compression, CSV file parser. *03/2025*
+
 ### 1.0.7 (stable)
 Added support for flat files or fixed record length files. Automatically detecting records, group headers or footers as stacks of data. *02/2025*
 
