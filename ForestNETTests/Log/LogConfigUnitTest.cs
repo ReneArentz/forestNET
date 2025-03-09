@@ -62,7 +62,7 @@
 
                 /* ##################################################################################################### */
 
-                System.Collections.Generic.List<string> a_configLines = 
+                System.Collections.Generic.List<string> a_configLines =
                 [
                     "MinimumLevel = FINEST",
                     "UseConsole = false",
@@ -206,7 +206,7 @@
 
                 /* ##################################################################################################### */
 
-                a_configLines = 
+                a_configLines =
                 [
                     "MinimumLevel = FINEST",
                     "UseConsole = false",

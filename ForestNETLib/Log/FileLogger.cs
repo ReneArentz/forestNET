@@ -65,7 +65,7 @@ namespace ForestNETLib.Log
                 /* interrupt thread */
                 this.Thread?.Interrupt();
             }
-            
+
             GC.SuppressFinalize(this);
         }
 
@@ -182,10 +182,10 @@ namespace ForestNETLib.Log
                             s_line += Environment.NewLine;
 
                             /* determine complete file path, with settings of file configuration element and parsing method for file name */
-                            string s_filePath = this.FileConfigurationElement?.FilePath + 
-                                ((!this.FileConfigurationElement?.FilePath.EndsWith(ForestNETLib.IO.File.DIR.ToString())) ?? false ? ForestNETLib.IO.File.DIR.ToString() : "") + 
+                            string s_filePath = this.FileConfigurationElement?.FilePath +
+                                ((!this.FileConfigurationElement?.FilePath.EndsWith(ForestNETLib.IO.File.DIR.ToString())) ?? false ? ForestNETLib.IO.File.DIR.ToString() : "") +
                                 this.FileConfigurationElement?.ParseFileName(s_line.Length);
-                            
+
                             /* add line to log file */
                             System.IO.File.AppendAllText(s_filePath, s_line);
                         }
@@ -315,12 +315,11 @@ namespace ForestNETLib.Log
 
                 /* get to the path where we want to handle our potential log file(s), order by last modified time, name and filtered by name */
                 string s_filePath = this.FilePath + ((!this.FilePath.EndsWith(ForestNETLib.IO.File.DIR.ToString())) ? ForestNETLib.IO.File.DIR.ToString() : "");
-                System.Collections.Generic.List<ForestNETLib.IO.ListingElement> a_potentialFiles = ForestNETLib.IO.File.ListDirectory(s_filePath)
+                System.Collections.Generic.List<ForestNETLib.IO.ListingElement> a_potentialFiles = [.. ForestNETLib.IO.File.ListDirectory(s_filePath)
                     .OrderByDescending(o_listingElement => o_listingElement.LastModifiedTime)
                     .ThenByDescending(o_listingElement => o_listingElement.Name)
-                    .Where(o_listingElement => !o_listingElement.IsDirectory && (o_listingElement.Name?.StartsWith(s_filter) ?? false))
-                    .ToList();
-                
+                    .Where(o_listingElement => !o_listingElement.IsDirectory && (o_listingElement.Name?.StartsWith(s_filter) ?? false))];
+
                 if (a_potentialFiles.Count < 1) /* we found no file */
                 {
                     /* prepare file path and name with file count '1' */
@@ -517,7 +516,7 @@ namespace ForestNETLib.Log
         public void Dispose()
         {
             /* anything to close here */
-            
+
             GC.SuppressFinalize(this);
         }
 

@@ -1324,13 +1324,13 @@ namespace ForestNETTests.Core
                 Is.True,
                 "'2001:0db8:85a3:08d3:1319:8a2e:0370:7347' is not an ipv6 address"
             );
-            
+
             Assert.That(
                 ForestNETLib.Core.Helper.IsIpv6Address("fe80::ca32:231b:f27e:b696"),
                 Is.True,
                 "'fe80::ca32:231b:f27e:b696' is not an ipv6 address"
             );
-            
+
             Assert.That(
                 ForestNETLib.Core.Helper.IsIpv6Address("FE80:CD00:0000:0CDE:1257:0000:211E:729C"),
                 Is.True,
@@ -1385,7 +1385,7 @@ namespace ForestNETTests.Core
                 /* o_compareOneProp and o_compareFourProp are not identical, but only with deep comparison -> see DateTime of SubCompareObjectProperties instance ... it is 1920 and not 2020 */
                 CompareObjectProperties o_compareFourProp = new("One", 1, new DateTime(2020, 06, 21), new long[] { 42135792468, 21135792468, 12135792468, 14378135792468 }, [.. new short[] { 42, 21, 12, 14378 }], new SubCompareObjectProperties(42.125d, true, new Decimal[] { 1.602176634m, 8.8541878128m, 6.62607015m, 9.80665m, 3.14159265359m }, new DateTime(1920, 12, 21)));
 
-                List<CompareObject> o_listOne = 
+                List<CompareObject> o_listOne =
                 [
                     o_compareOne,
                     o_compareTwo,
@@ -1393,7 +1393,7 @@ namespace ForestNETTests.Core
                     o_compareFour
                 ];
                 /* o_listOne and o_listTwo are identical */
-                List<CompareObject> o_listTwo = 
+                List<CompareObject> o_listTwo =
                 [
                     o_compareOne,
                     o_compareTwo,
@@ -1401,14 +1401,14 @@ namespace ForestNETTests.Core
                     o_compareFour
                 ];
                 /* o_listOne and o_listThree are not identical -> see missing fourth element */
-                List<CompareObject> o_listThree = 
+                List<CompareObject> o_listThree =
                 [
                     o_compareOne,
                     o_compareTwo,
                     o_compareThree
                 ];
 
-                List<CompareObjectProperties> o_listOneProp = 
+                List<CompareObjectProperties> o_listOneProp =
                 [
                     o_compareOneProp,
                     o_compareTwoProp,
@@ -1416,7 +1416,7 @@ namespace ForestNETTests.Core
                     o_compareFourProp
                 ];
                 /* o_listOneProp and o_listTwoProp are identical */
-                List<CompareObjectProperties> o_listTwoProp = 
+                List<CompareObjectProperties> o_listTwoProp =
                 [
                     o_compareOneProp,
                     o_compareTwoProp,
@@ -1424,13 +1424,13 @@ namespace ForestNETTests.Core
                     o_compareFourProp
                 ];
                 /* o_listOne and o_listThreeProp are not identical -> see missing fourth element */
-                List<CompareObjectProperties> o_listThreeProp = 
+                List<CompareObjectProperties> o_listThreeProp =
                 [
                     o_compareOneProp,
                     o_compareTwoProp,
                     o_compareThreeProp
                 ];
-                
+
                 Assert.That(
                     ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_compareOne, o_compareTwo, false),
                     Is.True,

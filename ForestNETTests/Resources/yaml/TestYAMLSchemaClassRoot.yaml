@@ -1,0 +1,166 @@
+---
+type: object
+mapping: ForestNETTests.IO.Data+ShipOrderCollection, ForestNETTests
+properties:
+    OrderAmountYAML:
+        type: integer
+        mapping: OrderAmount
+    ShipOrdersYAML:
+        type: array
+        mapping: "ShipOrders:List"
+        items:
+            ShipOrderRef:
+                type: object
+                mapping: ForestNETTests.IO.Data+ShipOrder, ForestNETTests
+                properties:
+                    OrderIdYAML:
+                        type: string
+                        mapping: OrderId
+                    OrderPersonYAML:
+                        type: string
+                        mapping: OrderPerson
+                    OrderDateYAML:
+                        type: string
+                        mapping: OrderDate
+                    OverallPriceYAML:
+                        type: number
+                        mapping: OverallPrice
+                    ShipToYAML:
+                        type: object
+                        mapping: "ShipTo:ForestNETTests.IO.Data+ShipTo, ForestNETTests"
+                        properties:
+                            NameYAML:
+                                type: string
+                                mapping: Name
+                            StreetYAML:
+                                type: string
+                                mapping: Street
+                            NumberYAML:
+                                type: integer
+                                mapping: Number
+                            CityYAML:
+                                type: string
+                                mapping: City
+                            CountryYAML:
+                                type: string
+                                mapping: Country
+                            DeliveredYAML:
+                                type: string
+                                mapping: Delivered
+                            StoredYAML:
+                                type: string
+                                mapping: Stored
+                            HighPriorityYAML:
+                                type: boolean
+                                mapping: HighPriority
+                    ShipMoreInfoYAML:
+                        type: object
+                        mapping: "ShipMoreInfo:ForestNETTests.IO.Data+ShipMoreInfo, ForestNETTests"
+                        properties:
+                            MoreNoteYAML:
+                                type: string
+                                mapping: MoreNote
+                            ShipFromYAML:
+                                type: object
+                                mapping: "ShipFrom:ForestNETTests.IO.Data+ShipFrom, ForestNETTests"
+                                properties:
+                                    DeliveredBy:
+                                        type: string
+                                        mapping: DeliveredBy
+                                    DeliveredCountry:
+                                        type: string
+                                        mapping: DeliveredCountry
+                                    ShipVia:
+                                        type: integer
+                                        mapping: ShipVia
+                                    ShipRegistered:
+                                        type: string
+                                        mapping: ShipRegistered
+                            ShipSiteYAML:
+                                type: object
+                                mapping: "ShipSite:ForestNETTests.IO.Data+ShipSite, ForestNETTests"
+                                properties:
+                                    SiteName:
+                                        type: string
+                                        mapping: SiteName
+                                    Building:
+                                        type: string
+                                        mapping: Building
+                            ShipLocationYAML:
+                                type: object
+                                mapping: "ShipLocation:ForestNETTests.IO.Data+ShipLocation, ForestNETTests"
+                                properties:
+                                    LocName:
+                                        type: string
+                                        mapping: LocName
+                                    LocFloor:
+                                        type: integer
+                                        mapping: LocFloor
+                                    LocRack:
+                                        type: integer
+                                        mapping: LocRack
+                                        minimum: 0
+                                        maximum: 100
+                    SomeBoolsYAML:            
+                        type: array
+                        mapping: SomeBools
+                        items:
+                            type: boolean[]
+                    ShipItemsYAML:
+                        type: array
+                        mapping: "ShipItems:List"
+                        items:
+                            ShipItemRef:
+                                type: object
+                                mapping: ForestNETTests.IO.Data+ShipItem, ForestNETTests
+                                properties:
+                                    TitleYAML:
+                                        type: string
+                                        mapping: Title
+                                    NoteYAML:
+                                        type: string
+                                        mapping: Note
+                                        minLength: 4
+                                        maxLength: 100
+                                    ManufacturedTimeYAML:
+                                        type: string
+                                        mapping: ManufacturedTime
+                                    QuantityYAML:
+                                        type: integer
+                                        mapping: Quantity
+                                    PriceYAML:
+                                        type: number
+                                        mapping: Price
+                                    CurrencyYAML:
+                                        type: string
+                                        mapping: Currency
+                                        pattern: "EUR|USD|GBP"
+                                    SkontoYAML:
+                                        type: number
+                                        mapping: Skonto
+                                    SomeDecimalsYAML:
+                                        type: array
+                                        mapping: SomeDecimals
+                                        items:
+                                            type: number[]
+                                    ShipItemInfoYAML:
+                                        type: object
+                                        mapping: "ShipItemInfo:ForestNETTests.IO.Data+ShipItemInfo, ForestNETTests"
+                                        properties:
+                                            DevelopmentYAML:
+                                                type: string
+                                                mapping: Development
+                                            ConstructionYAML:
+                                                type: string
+                                                mapping: Construction
+                                            ImplementationYAML:
+                                                type: string
+                                                mapping: Implementation
+                        minItems: 0
+                        maxItems: 5
+                    required:
+                      - OrderIdYAML
+        maxItems: 10
+required:
+  - OrderAmountYAML
+...

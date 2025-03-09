@@ -23,7 +23,7 @@
 
         private static void ExecuteSortsList(bool p_b_unique, int p_i_amount, bool p_b_selection, bool p_b_insertion, bool p_b_bubble, bool p_b_heap, bool p_b_merge, bool p_b_quick)
         {
-            List<int> a_list = new();
+            List<int> a_list = [];
 
             if (p_b_unique)
             {
@@ -124,8 +124,8 @@
 
         private static void ExecuteSortsMap(bool p_b_unique, int p_i_amount, bool p_b_selection, bool p_b_insertion, bool p_b_bubble, bool p_b_heap, bool p_b_merge, bool p_b_quick, bool p_b_sortByValue)
         {
-            List<int> a_list = new();
-            Dictionary<string, int> a_map = new();
+            List<int> a_list = [];
+            Dictionary<string, int> a_map = [];
             List<KeyValuePair<string, int>> a_return;
 
             if (p_b_unique)

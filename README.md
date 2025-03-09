@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.9 (stable)
+Added YAML file parser. *03/2005*
+
 ### 1.0.8 (stable)
 Additional functionalities: ZIP compression, CSV file parser. *03/2025*
 

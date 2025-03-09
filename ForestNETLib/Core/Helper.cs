@@ -559,7 +559,7 @@
                     throw new ArgumentException("Invalid date time string[" + p_s_string + "]; date and time are not separated by 'T' or ' '");
                 }
             }
-            
+
             /* remove UTC 'Z' at the end of time part */
             if (a_dateAndTimeParts[1].EndsWith("Z"))
             {
@@ -705,12 +705,13 @@
                     throw new ArgumentException("Invalid date time string[" + p_s_string + "]; only one ' ' in parameter string value is valid");
                 }
             }
-            else if ((p_s_string.Length == 14) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")) ) { /* 14 digits in a row -> yyyyMMddHHmmss */
+            else if ((p_s_string.Length == 14) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
+            { /* 14 digits in a row -> yyyyMMddHHmmss */
                 /* separate date and time part */
-			    a_dateAndTimeParts = new String[2];
-			    a_dateAndTimeParts[0] = p_s_string.Substring(0, 8); /* date part yyyyMMdd */
-			    a_dateAndTimeParts[1] = p_s_string.Substring(8); /* time part HHmmss */
-		    }
+                a_dateAndTimeParts = new String[2];
+                a_dateAndTimeParts[0] = p_s_string.Substring(0, 8); /* date part yyyyMMdd */
+                a_dateAndTimeParts[1] = p_s_string.Substring(8); /* time part HHmmss */
+            }
             else if ((p_s_string.Length == 17) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
             { /* 17 digits in a row -> yyyyMMddHHmmssfff */
                 /* separate date and time part */

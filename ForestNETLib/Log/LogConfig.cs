@@ -93,7 +93,7 @@ namespace ForestNETLib.Log
         {
             /* dispose current logger factory and current logging */
             this.LoggerFactory?.Dispose();
-            
+
             GC.SuppressFinalize(this);
         }
 
@@ -194,7 +194,7 @@ namespace ForestNETLib.Log
             {
                 throw new ArgumentException("Config file '" + p_s_configFile + "' does not exist.");
             }
-            
+
             /* open config file and read all lines */
             ForestNETLib.IO.File o_file = new(p_s_configFile, false);
 
@@ -497,7 +497,7 @@ namespace ForestNETLib.Log
                             s_filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + ForestNETLib.IO.File.DIR + "temp" + ForestNETLib.IO.File.DIR
                                 + s_filePath.Substring(10);
                         }
-                        
+
                         /* add directory separator if it is not at the end of file path */
                         if (!s_filePath.EndsWith(ForestNETLib.IO.File.DIR))
                         {
@@ -509,7 +509,7 @@ namespace ForestNETLib.Log
                         {
                             continue;
                         }
-                        
+
                         /* read file name from value */
                         string s_fileName = a_valueParts[2].Trim();
 

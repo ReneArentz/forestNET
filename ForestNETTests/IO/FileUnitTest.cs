@@ -223,7 +223,7 @@ namespace ForestNETTests.IO
 
                 string s_fileContentFromList = s_testDirectory + "fileContentFromList.txt";
                 ForestNETLib.IO.File o_fileContentFromList = new(s_fileContentFromList, true);
-                List<string> a_lines = new(new string[] { "one", "two", "three", "four", "five", "six" });
+                List<string> a_lines = [.. new string[] { "one", "two", "three", "four", "five", "six" }];
                 o_fileContentFromList.FileContentFromList = a_lines;
 
                 ForestNETLib.IO.File o_fileContentFromListCheck = new(s_fileContentFromList);

@@ -19,7 +19,7 @@ namespace ForestNETLib.Core
 
         private static readonly Lazy<Global> o_instance = new(() => new Global());
         private readonly LogConfig o_logConfig;
-        
+
         /* Properties */
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ForestNETLib.Core
         public Microsoft.Extensions.Logging.ILogger? ILOG { get; private set; }
         public System.Security.Cryptography.RandomNumberGenerator RandomNumberGenerator { get; private set; }
         public OtherLogImplementation? DelegateLogImplementation { private get; set; }
-        
+
         /* Methods */
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ForestNETLib.Core
         private Global()
         {
             this.o_logConfig = new();
-            
+
             this.InternalLogControl = (byte)Level.OFF;
             this.LogControl = (byte)Level.SEVERE + (byte)Level.WARNING + (byte)Level.INFO;
             this.RandomNumberGenerator = System.Security.Cryptography.RandomNumberGenerator.Create();

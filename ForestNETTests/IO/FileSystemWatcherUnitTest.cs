@@ -11,7 +11,7 @@
 
                 string s_currentDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'");
                 string s_testDirectory = s_currentDirectory + ForestNETLib.IO.File.DIR + "testFileSystemWatcher" + ForestNETLib.IO.File.DIR;
-                
+
                 if (ForestNETLib.IO.File.FolderExists(s_testDirectory))
                 {
                     ForestNETLib.IO.File.DeleteDirectory(s_testDirectory);
