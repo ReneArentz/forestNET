@@ -1,16 +1,16 @@
 ﻿namespace ForestNETTests.IO
 {
-    public class YAMLUnitTest
+    public class JSONUnitTest
     {
         [Test]
-        public void TestYAML()
+        public void TestJSON()
         {
             try
             {
                 TestConfig.InitiateTestLogging();
 
                 string s_currentDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'");
-                string s_testDirectory = s_currentDirectory + ForestNETLib.IO.File.DIR + "testYAML" + ForestNETLib.IO.File.DIR;
+                string s_testDirectory = s_currentDirectory + ForestNETLib.IO.File.DIR + "testJSON" + ForestNETLib.IO.File.DIR;
 
                 if (ForestNETLib.IO.File.FolderExists(s_testDirectory))
                 {
@@ -24,19 +24,19 @@
                     "directory[" + s_testDirectory + "] does not exist"
                 );
 
-                YamlValidate();
-                YamlVirtualFiles();
-                YamlObject(s_testDirectory, "_0");
-                YamlClass(s_testDirectory, "TestYAMLSchemaClass.yaml", "_1");
-                YamlArray(s_testDirectory, "TestYAMLSchemaSimpleClassArray.yaml", "_A");
-                YamlArray(s_testDirectory, "TestYAMLSchemaSimpleClassObjectMultiReferences.yaml", "_B");
-                YamlArray(s_testDirectory, "TestYAMLSchemaSimpleClassObjectOneReference.yaml", "_C");
-                YamlArray(s_testDirectory, "TestYAMLSchemaSimpleClassNoReferences.yaml", "_D");
-                YamlComplex(s_testDirectory, true, false, false, false, "_E");
-                YamlComplex(s_testDirectory, false, true, false, false, "_F");
-                YamlComplex(s_testDirectory, false, false, true, false, "_G");
-                YamlComplex(s_testDirectory, false, false, false, true, "_H");
-                YamlMultipleUseOfOneSchemaObject(s_testDirectory);
+                JsonValidate();
+                JsonVirtualFiles();
+                JsonObject(s_testDirectory, "_0");
+                JsonClass(s_testDirectory, "TestJSONSchemaClass.json", "_1");
+                JsonArray(s_testDirectory, "TestJSONSchemaSimpleClassArray.json", "_A");
+                JsonArray(s_testDirectory, "TestJSONSchemaSimpleClassObjectMultiReferences.json", "_B");
+                JsonArray(s_testDirectory, "TestJSONSchemaSimpleClassObjectOneReference.json", "_C");
+                JsonArray(s_testDirectory, "TestJSONSchemaSimpleClassNoReferences.json", "_D");
+                JsonComplex(s_testDirectory, true, false, false, false, "_E");
+                JsonComplex(s_testDirectory, false, true, false, false, "_F");
+                JsonComplex(s_testDirectory, false, false, true, false, "_G");
+                JsonComplex(s_testDirectory, false, false, false, true, "_H");
+                JsonMultipleUseOfOneSchemaObject(s_testDirectory);
 
                 ForestNETLib.IO.File.DeleteDirectory(s_testDirectory);
                 Assert.That(
@@ -51,17 +51,17 @@
             }
         }
 
-        private static void YamlValidate()
+        private static void JsonValidate()
         {
             string s_resourcesDirectory = Environment.CurrentDirectory + ForestNETLib.IO.File.DIR + "Resources" + ForestNETLib.IO.File.DIR;
-            string s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaClassRootWithRef.yaml";
-            string s_yamlFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "ValidateYAML.yaml";
-            string s_invalidYamlFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "ValidateYAMLIsInvalid.yaml";
+            string s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaClassRootWithRef.json";
+            string s_jsonFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "ValidateJSON.json";
+            string s_invalidJsonFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "ValidateJSONIsInvalid.json";
 
             Assert.That(
-                new ForestNETLib.IO.YAML(s_yamlSchemaFile, 4).ValidateAgainstSchema(s_yamlFile),
-                    Is.True,
-                "file 'ValidateYAML.yaml' is not valid with schema 'TestYAMLSchemaClassRootWithRef.yaml'"
+                new ForestNETLib.IO.JSON(s_jsonSchemaFile).ValidateAgainstSchema(s_jsonFile),
+                Is.True,
+                "file 'ValidateJSON.json' is not valid with schema 'TestJSONSchemaClassRootWithRef.json'"
             );
 
             bool b_check = true;
@@ -69,9 +69,9 @@
             try
             {
                 Assert.That(
-                    new ForestNETLib.IO.YAML(s_yamlSchemaFile, 4).ValidateAgainstSchema(s_invalidYamlFile),
+                    new ForestNETLib.IO.JSON(s_jsonSchemaFile).ValidateAgainstSchema(s_invalidJsonFile),
                     Is.False,
-                    "file 'ValidateYAMLIsInvalid.yaml' is valid with schema 'TestYAMLSchemaClassRootWithRef.yaml'"
+                    "file 'ValidateJSONIsInvalid.json' is valid with schema 'TestJSONSchemaClassRootWithRef.json'"
                 );
             }
             catch (Exception)
@@ -81,11 +81,11 @@
 
             if (b_check)
             {
-                Assert.Fail("file 'ValidateYAMLIsInvalid.yaml' is valid with schema 'TestYAMLSchemaClassRootWithRef.yaml'");
+                Assert.Fail("file 'ValidateJSONIsInvalid.json' is valid with schema 'TestJSONSchemaClassRootWithRef.json'");
             }
         }
 
-        private static void YamlVirtualFiles()
+        private static void JsonVirtualFiles()
         {
             ForestNETTests.SQL.AllTypesRecord? o_recordOut = new()
             {
@@ -99,111 +99,106 @@
                 ColumnLocalDateTime = new DateTime(2019, 2, 2, 2, 2, 2)
             };
 
-            ForestNETLib.IO.YAML.YAMLElement o_yamlSchema = new("Root")
+            ForestNETLib.IO.JSON.JSONElement o_jsonSchema = new("Root")
             {
                 Type = "object",
                 MappingClass = "ForestNETTests.SQL.AllTypesRecord, ForestNETTests"
             };
 
-            ForestNETLib.IO.YAML.YAMLElement o_yamlElement = new("Id")
+            ForestNETLib.IO.JSON.JSONElement o_jsonElement = new("Id")
             {
                 Type = "integer",
                 MappingClass = "ColumnId",
                 Required = true
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("UUID")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("UUID")
             {
                 Type = "string",
                 MappingClass = "ColumnUUID",
                 Required = true
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("ShortText")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("ShortText")
             {
                 Type = "string",
                 MappingClass = "ColumnShortText",
                 Required = true
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("Text")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("Text")
             {
                 Type = "string",
                 MappingClass = "ColumnText"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("SmallInt")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("SmallInt")
             {
                 Type = "integer",
                 MappingClass = "ColumnSmallInt"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("Int")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("Int")
             {
                 Type = "integer",
                 MappingClass = "ColumnInt"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("BigInt")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("BigInt")
             {
                 Type = "integer",
                 MappingClass = "ColumnBigInt"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("LocalDateTime")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("LocalDateTime")
             {
                 Type = "string",
                 MappingClass = "ColumnLocalDateTime"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            ForestNETLib.IO.YAML o_yaml = new(o_yamlSchema, 4);
+            ForestNETLib.IO.JSON o_json = new(o_jsonSchema);
 
-            string s_yamlEncoded = o_yaml.YamlEncode(o_recordOut);
+            string s_jsonEncoded = o_json.JsonEncode(o_recordOut);
 
-            List<string> a_fileLines = [];
+            List<string> a_fileLines = [.. s_jsonEncoded.Split(Environment.NewLine)];
 
-            foreach (string s_line in s_yamlEncoded.Split(Environment.NewLine))
-            {
-                a_fileLines.Add(s_line);
-            }
-
-            ForestNETTests.SQL.AllTypesRecord? o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_yaml.YamlDecode(a_fileLines);
+            ForestNETTests.SQL.AllTypesRecord? o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_json.JsonDecode(a_fileLines);
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_json.UseProperties),
                 Is.True,
                 "output object class is not equal to input object class"
             );
 
-            string s_virtualYamlFile = ""
-                + "---" + Environment.NewLine
-                + "Id: 42" + Environment.NewLine
-                + "UUID: \"421824ce-72b8-4aad-bb12-dbc448682437\"" + Environment.NewLine
-                + "ShortText: \"Datensatz 42\"" + Environment.NewLine
-                + "Text: \"Die Handelsstreitigkeiten zwischen den; \"42 und 42\" sorgen für eine Art Umdenken auf beiden Seiten.\"" + Environment.NewLine
-                + "SmallInt: -42" + Environment.NewLine
-                + "Int: 40002" + Environment.NewLine
-                + "BigInt: 400001112" + Environment.NewLine
-                + "LocalDateTime: \"2042-02-02T01:02:02Z\"" + Environment.NewLine
-                + "..." + Environment.NewLine;
+            string s_virtualJsonFile = ""
+                + "{" + Environment.NewLine
+                + "	\"Id\": 42," + Environment.NewLine
+                + "	\"UUID\": \"421824ce-72b8-4aad-bb12-dbc448682437\"," + Environment.NewLine
+                + "	\"ShortText\": \"Datensatz 42\"," + Environment.NewLine
+                + "	\"Text\": \"Die Handelsstreitigkeiten zwischen den; \\\"42 und 42\\\" sorgen für eine Art Umdenken auf beiden Seiten.\"," + Environment.NewLine
+                + "	\"SmallInt\": -42," + Environment.NewLine
+                + "	\"Int\": 40002," + Environment.NewLine
+                + "	\"BigInt\": 400001112," + Environment.NewLine
+                + "	\"LocalDateTime\": \"2042-02-02T01:02:02Z\"" + Environment.NewLine
+                + "}" + Environment.NewLine;
 
-            o_recordOut = new()
+            o_recordOut = new ForestNETTests.SQL.AllTypesRecord
             {
                 ColumnId = 42,
                 ColumnUUID = "421824ce-72b8-4aad-bb12-dbc448682437",
@@ -215,18 +210,18 @@
                 ColumnLocalDateTime = new DateTime(2042, 2, 2, 2, 2, 2)
             };
 
-            a_fileLines = [.. s_virtualYamlFile.Split(Environment.NewLine)];
+            a_fileLines = [.. s_virtualJsonFile.Split(Environment.NewLine)];
 
-            o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_yaml.YamlDecode(a_fileLines);
+            o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_json.JsonDecode(a_fileLines);
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_json.UseProperties),
                 Is.True,
                 "output object class is not equal to input object class"
             );
         }
 
-        private static void YamlObject(string p_s_testDirectory, string p_s_fileNameSuffix)
+        private static void JsonObject(string p_s_testDirectory, string p_s_fileNameSuffix)
         {
             ForestNETTests.SQL.AllTypesRecord? o_recordOut = new()
             {
@@ -241,95 +236,95 @@
             };
 
 
-            ForestNETLib.IO.YAML.YAMLElement o_yamlSchema = new("Root")
+            ForestNETLib.IO.JSON.JSONElement o_jsonSchema = new("Root")
             {
                 Type = "object",
                 MappingClass = "ForestNETTests.SQL.AllTypesRecord, ForestNETTests"
             };
 
-            ForestNETLib.IO.YAML.YAMLElement o_yamlElement = new("Id")
+            ForestNETLib.IO.JSON.JSONElement o_jsonElement = new("Id")
             {
                 Type = "integer",
                 MappingClass = "ColumnId",
                 Required = true
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("UUID")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("UUID")
             {
                 Type = "string",
                 MappingClass = "ColumnUUID",
                 Required = true
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("ShortText")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("ShortText")
             {
                 Type = "string",
                 MappingClass = "ColumnShortText",
                 Required = true
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("Text")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("Text")
             {
                 Type = "string",
                 MappingClass = "ColumnText"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("SmallInt")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("SmallInt")
             {
                 Type = "integer",
                 MappingClass = "ColumnSmallInt"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("Int")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("Int")
             {
                 Type = "integer",
                 MappingClass = "ColumnInt"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("BigInt")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("BigInt")
             {
                 Type = "integer",
                 MappingClass = "ColumnBigInt"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            o_yamlElement = new ForestNETLib.IO.YAML.YAMLElement("LocalDateTime")
+            o_jsonElement = new ForestNETLib.IO.JSON.JSONElement("LocalDateTime")
             {
                 Type = "string",
                 MappingClass = "ColumnLocalDateTime"
             };
 
-            o_yamlSchema.Children.Add(o_yamlElement);
+            o_jsonSchema.Children.Add(o_jsonElement);
 
-            ForestNETLib.IO.YAML o_yaml = new(o_yamlSchema, 4);
+            ForestNETLib.IO.JSON o_json = new(o_jsonSchema);
 
-            string s_fileSimpleClass = p_s_testDirectory + "TestYAMLObject" + p_s_fileNameSuffix + ".yaml";
+            string s_fileSimpleClass = p_s_testDirectory + "TestJSONObject" + p_s_fileNameSuffix + ".json";
 
-            _ = o_yaml.YamlEncode(o_recordOut, s_fileSimpleClass, true);
+            _ = o_json.JsonEncode(o_recordOut, s_fileSimpleClass, true);
 
-            ForestNETTests.SQL.AllTypesRecord? o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_yaml.YamlDecode(s_fileSimpleClass);
+            ForestNETTests.SQL.AllTypesRecord? o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_json.JsonDecode(s_fileSimpleClass);
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_json.UseProperties),
                 Is.True,
                 "output object class is not equal to input object class"
             );
         }
 
-        private static void YamlClass(string p_s_testDirectory, string p_s_yamlSchemaFileName, string p_s_fileNameSuffix)
+        private static void JsonClass(string p_s_testDirectory, string p_s_jsonSchemaFileName, string p_s_fileNameSuffix)
         {
             ForestNETTests.SQL.AllTypesRecord? o_recordOut = new()
             {
@@ -354,24 +349,24 @@
             };
 
             string s_resourcesDirectory = Environment.CurrentDirectory + ForestNETLib.IO.File.DIR + "Resources" + ForestNETLib.IO.File.DIR;
-            string s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + p_s_yamlSchemaFileName;
+            string s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + p_s_jsonSchemaFileName;
 
-            ForestNETLib.IO.YAML o_yaml = new(s_yamlSchemaFile, 4);
+            ForestNETLib.IO.JSON o_json = new(s_jsonSchemaFile);
 
-            string s_fileSimpleClass = p_s_testDirectory + "TestYAMLClass" + p_s_fileNameSuffix + ".yaml";
+            string s_fileSimpleClass = p_s_testDirectory + "TestJSONClass" + p_s_fileNameSuffix + ".json";
 
-            _ = o_yaml.YamlEncode(o_recordOut, s_fileSimpleClass, true);
+            _ = o_json.JsonEncode(o_recordOut, s_fileSimpleClass, true);
 
-            ForestNETTests.SQL.AllTypesRecord? o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_yaml.YamlDecode(s_fileSimpleClass);
+            ForestNETTests.SQL.AllTypesRecord? o_recordIn = (ForestNETTests.SQL.AllTypesRecord?)o_json.JsonDecode(s_fileSimpleClass);
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_recordOut, o_recordIn, o_json.UseProperties),
                 Is.True,
                 "output object class is not equal to input object class"
             );
         }
 
-        private static void YamlArray(string p_s_testDirectory, string p_s_yamlSchemaFileName, string p_s_fileNameSuffix)
+        private static void JsonArray(string p_s_testDirectory, string p_s_jsonSchemaFileName, string p_s_fileNameSuffix)
         {
             List<ForestNETTests.IO.Data.SimpleClass>? a_dataOut =
             [
@@ -393,34 +388,34 @@
             }
 
             string s_resourcesDirectory = Environment.CurrentDirectory + ForestNETLib.IO.File.DIR + "Resources" + ForestNETLib.IO.File.DIR;
-            string s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + p_s_yamlSchemaFileName;
-            ForestNETLib.IO.YAML o_yaml = new(s_yamlSchemaFile, 4)
+            string s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + p_s_jsonSchemaFileName;
+            ForestNETLib.IO.JSON o_json = new(s_jsonSchemaFile)
             {
                 UseProperties = true
             };
 
-            string s_fileSimpleClass = p_s_testDirectory + "TestYAMLSimpleClass" + p_s_fileNameSuffix + ".yaml";
+            string s_fileSimpleClass = p_s_testDirectory + "TestJSONSimpleClass" + p_s_fileNameSuffix + ".json";
 
-            if (p_s_yamlSchemaFileName.Equals("TestYAMLSchemaSimpleClassArray.yaml"))
+            if (p_s_jsonSchemaFileName.Equals("TestJSONSchemaSimpleClassArray.json"))
             {
-                _ = o_yaml.YamlEncode(a_dataOut, s_fileSimpleClass, true);
+                _ = o_json.JsonEncode(a_dataOut, s_fileSimpleClass, true);
             }
             else
             {
-                _ = o_yaml.YamlEncode(o_collectionOut, s_fileSimpleClass, true);
+                _ = o_json.JsonEncode(o_collectionOut, s_fileSimpleClass, true);
             }
 
             ForestNETTests.IO.Data.SimpleClassCollection? o_collectionIn = null;
             List<ForestNETTests.IO.Data.SimpleClass>? a_dataIn;
 
-            if (p_s_yamlSchemaFileName.Equals("TestYAMLSchemaSimpleClassArray.yaml"))
+            if (p_s_jsonSchemaFileName.Equals("TestJSONSchemaSimpleClassArray.json"))
             {
-                List<ForestNETTests.IO.Data.SimpleClass>? a_foo = [.. ((System.Collections.IEnumerable)(o_yaml.YamlDecode(s_fileSimpleClass) ?? new List<ForestNETTests.IO.Data.SimpleClass>())).Cast<ForestNETTests.IO.Data.SimpleClass>()];
+                List<ForestNETTests.IO.Data.SimpleClass>? a_foo = [.. ((System.Collections.IEnumerable)(o_json.JsonDecode(s_fileSimpleClass) ?? new List<ForestNETTests.IO.Data.SimpleClass>())).Cast<ForestNETTests.IO.Data.SimpleClass>()];
                 a_dataIn = a_foo;
             }
             else
             {
-                o_collectionIn = (ForestNETTests.IO.Data.SimpleClassCollection?)o_yaml.YamlDecode(s_fileSimpleClass);
+                o_collectionIn = (ForestNETTests.IO.Data.SimpleClassCollection?)o_json.JsonDecode(s_fileSimpleClass);
                 a_dataIn = o_collectionIn?.SimpleClasses;
             }
 
@@ -447,17 +442,17 @@
                 }
             }
 
-            if (!p_s_yamlSchemaFileName.Equals("TestYAMLSchemaSimpleClassArray.yaml"))
+            if (!p_s_jsonSchemaFileName.Equals("TestJSONSchemaSimpleClassArray.json"))
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_collectionOut, o_collectionIn, o_yaml.UseProperties),
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_collectionOut, o_collectionIn, o_json.UseProperties),
                     Is.True,
                     "output object inner class collection is not equal to input object inner class collection"
                 );
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut, a_dataIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut, a_dataIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class array is not equal to input object inner class array"
             );
@@ -465,7 +460,7 @@
             for (int i = 0; i < a_dataOut.Count; i++)
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut[i], a_dataIn?[i], o_yaml.UseProperties, false, true),
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut[i], a_dataIn?[i], o_json.UseProperties, false, true),
                     Is.True,
                     "output object inner class array element object is not equal to input object inner class array element object"
                 );
@@ -477,7 +472,7 @@
             }
         }
 
-        private static void YamlComplex(string p_s_testDirectory, bool p_b_classRoot, bool p_b_listRoot, bool p_b_classRootWithRef, bool p_b_listRootWithRef, string p_s_fileNameSuffix)
+        private static void JsonComplex(string p_s_testDirectory, bool p_b_classRoot, bool p_b_listRoot, bool p_b_classRootWithRef, bool p_b_listRootWithRef, string p_s_fileNameSuffix)
         {
             List<ForestNETTests.IO.Data.ShipOrder> a_shipOrdersOut = ForestNETTests.IO.Data.GenerateData();
 
@@ -496,41 +491,41 @@
                 a_out[i_cnt++] = o_shipOrderObject.ToString();
             }
 
-            string s_yamlSchemaFile = "";
+            string s_jsonSchemaFile = "";
 
             string s_resourcesDirectory = Environment.CurrentDirectory + ForestNETLib.IO.File.DIR + "Resources" + ForestNETLib.IO.File.DIR;
 
             if (p_b_classRoot)
             {
-                s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaClassRoot.yaml";
+                s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaClassRoot.json";
             }
             else if (p_b_listRoot)
             {
-                s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaListRoot.yaml";
+                s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaListRoot.json";
             }
             else if (p_b_classRootWithRef)
             {
-                s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaClassRootWithRef.yaml";
+                s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaClassRootWithRef.json";
             }
             else if (p_b_listRootWithRef)
             {
-                s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaListRootWithRef.yaml";
+                s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaListRootWithRef.json";
             }
 
-            ForestNETLib.IO.YAML o_yaml = new(s_yamlSchemaFile, 4)
+            ForestNETLib.IO.JSON o_json = new(s_jsonSchemaFile)
             {
                 UseProperties = true
             };
 
-            string s_file = p_s_testDirectory + "TestYAML" + p_s_fileNameSuffix + ".yaml";
+            string s_file = p_s_testDirectory + "TestJSON" + p_s_fileNameSuffix + ".json";
 
             if ((p_b_classRoot) || (p_b_classRootWithRef))
             {
-                _ = o_yaml.YamlEncode(o_shipOrderCollectionOut, s_file, true);
+                _ = o_json.JsonEncode(o_shipOrderCollectionOut, s_file, true);
             }
             else
             {
-                _ = o_yaml.YamlEncode(a_shipOrdersOut, s_file, true);
+                _ = o_json.JsonEncode(a_shipOrdersOut, s_file, true);
             }
 
             List<ForestNETTests.IO.Data.ShipOrder>? a_shipOrdersIn = null;
@@ -538,7 +533,7 @@
 
             if ((p_b_classRoot) || (p_b_classRootWithRef))
             {
-                o_shipOrderCollectionIn = (ForestNETTests.IO.Data.ShipOrderCollection?)o_yaml.YamlDecode(s_file);
+                o_shipOrderCollectionIn = (ForestNETTests.IO.Data.ShipOrderCollection?)o_json.JsonDecode(s_file);
 
                 if (o_shipOrderCollectionIn != null)
                 {
@@ -549,7 +544,7 @@
             }
             else
             {
-                List<ForestNETTests.IO.Data.ShipOrder> a_foo = [.. ((System.Collections.IEnumerable)(o_yaml.YamlDecode(s_file) ?? new List<ForestNETTests.IO.Data.ShipOrder>())).Cast<ForestNETTests.IO.Data.ShipOrder>()];
+                List<ForestNETTests.IO.Data.ShipOrder> a_foo = [.. ((System.Collections.IEnumerable)(o_json.JsonDecode(s_file) ?? new List<ForestNETTests.IO.Data.ShipOrder>())).Cast<ForestNETTests.IO.Data.ShipOrder>()];
                 a_shipOrdersIn = a_foo;
             }
 
@@ -566,14 +561,14 @@
             if ((p_b_classRoot) || (p_b_classRootWithRef))
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_shipOrderCollectionOut, o_shipOrderCollectionIn, o_yaml.UseProperties),
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_shipOrderCollectionOut, o_shipOrderCollectionIn, o_json.UseProperties),
                     Is.True,
                     "output object inner class collection is not equal to input object inner class collection"
                 );
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class array is not equal to input object inner class array"
             );
@@ -583,7 +578,7 @@
                 for (int i = 0; i < a_shipOrdersIn.Count; i++)
                 {
                     Assert.That(
-                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_yaml.UseProperties, false, true),
+                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_json.UseProperties, false, true),
                         Is.True,
                         "output object inner class array element object is not equal to input object inner class array element object"
                     );
@@ -600,10 +595,10 @@
 
             if (p_b_listRootWithRef)
             {
-                s_file = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLPrimitiveArrayOneLine.yaml";
+                s_file = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONPrimitiveArrayOneLine.json";
                 a_in = new string[a_shipOrdersOut.Count];
 
-                List<ForestNETTests.IO.Data.ShipOrder> a_foo = [.. ((System.Collections.IEnumerable)(o_yaml.YamlDecode(s_file) ?? new List<ForestNETTests.IO.Data.ShipOrder>())).Cast<ForestNETTests.IO.Data.ShipOrder>()];
+                List<ForestNETTests.IO.Data.ShipOrder> a_foo = [.. ((System.Collections.IEnumerable)(o_json.JsonDecode(s_file) ?? new List<ForestNETTests.IO.Data.ShipOrder>())).Cast<ForestNETTests.IO.Data.ShipOrder>()];
                 a_shipOrdersIn = a_foo;
 
                 i_cnt = 0;
@@ -614,7 +609,7 @@
                 }
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_yaml.UseProperties),
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_json.UseProperties),
                     Is.True,
                     "output object inner class array is not equal to input object inner class array"
                 );
@@ -622,7 +617,7 @@
                 for (int i = 0; i < a_shipOrdersIn.Count; i++)
                 {
                     Assert.That(
-                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_yaml.UseProperties, false, true),
+                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_json.UseProperties, false, true),
                         Is.True,
                         "output object inner class array element object is not equal to input object inner class array element object"
                     );
@@ -638,7 +633,7 @@
             }
         }
 
-        private static void YamlMultipleUseOfOneSchemaObject(string p_s_testDirectory)
+        private static void JsonMultipleUseOfOneSchemaObject(string p_s_testDirectory)
         {
 
             /* Simple #1 */
@@ -663,19 +658,19 @@
             }
 
             string s_resourcesDirectory = Environment.CurrentDirectory + ForestNETLib.IO.File.DIR + "Resources" + ForestNETLib.IO.File.DIR;
-            string s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaSimpleClassObjectMultiReferences.yaml";
-            ForestNETLib.IO.YAML o_yaml = new(s_yamlSchemaFile, 4)
+            string s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaSimpleClassObjectMultiReferences.json";
+            ForestNETLib.IO.JSON o_json = new(s_jsonSchemaFile)
             {
                 UseProperties = true
             };
 
-            string s_fileSimpleClass = p_s_testDirectory + "TestYAMLSimpleClass_I.yaml";
-            _ = o_yaml.YamlEncode(o_collectionOut, s_fileSimpleClass, true);
+            string s_fileSimpleClass = p_s_testDirectory + "TestJSONSimpleClass_I.json";
+            _ = o_json.JsonEncode(o_collectionOut, s_fileSimpleClass, true);
 
             ForestNETTests.IO.Data.SimpleClassCollection? o_collectionIn;
             List<ForestNETTests.IO.Data.SimpleClass>? a_dataIn;
 
-            o_collectionIn = (ForestNETTests.IO.Data.SimpleClassCollection?)o_yaml.YamlDecode(s_fileSimpleClass);
+            o_collectionIn = (ForestNETTests.IO.Data.SimpleClassCollection?)o_json.JsonDecode(s_fileSimpleClass);
             a_dataIn = o_collectionIn?.SimpleClasses;
 
             i_cnt = 0;
@@ -689,13 +684,13 @@
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_collectionOut, o_collectionIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_collectionOut, o_collectionIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class collection is not equal to input object inner class collection"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut, a_dataIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut, a_dataIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class array is not equal to input object inner class array"
             );
@@ -703,7 +698,7 @@
             for (int i = 0; i < a_dataOut.Count; i++)
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut[i], a_dataIn?[i], o_yaml.UseProperties, false, true),
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut[i], a_dataIn?[i], o_json.UseProperties, false, true),
                     Is.True,
                     "output object inner class array element object is not equal to input object inner class array element object"
                 );
@@ -724,7 +719,7 @@
                 new("Record #2 Value A", "Record #2 Value B", "", [1, 2, -3, -4])
             ];
 
-            o_collectionOut = new(a_dataOut);
+            o_collectionOut = new ForestNETTests.IO.Data.SimpleClassCollection(a_dataOut);
 
             a_out = new string[a_dataOut.Count];
             a_in = new string[a_dataOut.Count];
@@ -735,10 +730,10 @@
                 a_out[i_cnt++] = o_simpleClassObject.ToString();
             }
 
-            s_fileSimpleClass = p_s_testDirectory + "TestYAMLSimpleClass_J.yaml";
-            _ = o_yaml.YamlEncode(o_collectionOut, s_fileSimpleClass, true);
+            s_fileSimpleClass = p_s_testDirectory + "TestJSONSimpleClass_J.json";
+            _ = o_json.JsonEncode(o_collectionOut, s_fileSimpleClass, true);
 
-            o_collectionIn = (ForestNETTests.IO.Data.SimpleClassCollection?)o_yaml.YamlDecode(s_fileSimpleClass);
+            o_collectionIn = (ForestNETTests.IO.Data.SimpleClassCollection?)o_json.JsonDecode(s_fileSimpleClass);
             a_dataIn = o_collectionIn?.SimpleClasses;
 
             i_cnt = 0;
@@ -752,13 +747,13 @@
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_collectionOut, o_collectionIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_collectionOut, o_collectionIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class collection is not equal to input object inner class collection"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut, a_dataIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut, a_dataIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class array is not equal to input object inner class array"
             );
@@ -766,7 +761,7 @@
             for (int i = 0; i < a_dataOut.Count; i++)
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut[i], a_dataIn?[i], o_yaml.UseProperties, false, true),
+                    ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_dataOut[i], a_dataIn?[i], o_json.UseProperties, false, true),
                     Is.True,
                     "output object inner class array element object is not equal to input object inner class array element object"
                 );
@@ -796,20 +791,20 @@
                 a_out[i_cnt++] = o_shipOrderObject.ToString();
             }
 
-            s_yamlSchemaFile = s_resourcesDirectory + "yaml" + ForestNETLib.IO.File.DIR + "TestYAMLSchemaClassRootWithRef.yaml";
+            s_jsonSchemaFile = s_resourcesDirectory + "json" + ForestNETLib.IO.File.DIR + "TestJSONSchemaClassRootWithRef.json";
 
-            o_yaml = new ForestNETLib.IO.YAML(s_yamlSchemaFile, 4)
+            o_json = new ForestNETLib.IO.JSON(s_jsonSchemaFile)
             {
                 UseProperties = true
             };
 
-            string s_file = p_s_testDirectory + "TestYAML_K.yaml";
-            _ = o_yaml.YamlEncode(o_shipOrderCollectionOut, s_file, true);
+            string s_file = p_s_testDirectory + "TestJSON_K.json";
+            _ = o_json.JsonEncode(o_shipOrderCollectionOut, s_file, true);
 
             List<ForestNETTests.IO.Data.ShipOrder>? a_shipOrdersIn = null;
             ForestNETTests.IO.Data.ShipOrderCollection? o_shipOrderCollectionIn;
 
-            o_shipOrderCollectionIn = (ForestNETTests.IO.Data.ShipOrderCollection?)o_yaml.YamlDecode(s_file);
+            o_shipOrderCollectionIn = (ForestNETTests.IO.Data.ShipOrderCollection?)o_json.JsonDecode(s_file);
 
             if (o_shipOrderCollectionIn != null)
             {
@@ -829,13 +824,13 @@
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_shipOrderCollectionOut, o_shipOrderCollectionIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_shipOrderCollectionOut, o_shipOrderCollectionIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class collection is not equal to input object inner class collection"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class array is not equal to input object inner class array"
             );
@@ -845,7 +840,7 @@
                 for (int i = 0; i < a_shipOrdersIn.Count; i++)
                 {
                     Assert.That(
-                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_yaml.UseProperties, false, true),
+                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_json.UseProperties, false, true),
                         Is.True,
                         "output object inner class array element object is not equal to input object inner class array element object"
                     );
@@ -889,10 +884,10 @@
                 a_out[i_cnt++] = o_shipOrderObject.ToString();
             }
 
-            s_file = p_s_testDirectory + "TestYAML_L.yaml";
-            _ = o_yaml.YamlEncode(o_shipOrderCollectionOut, s_file, true);
+            s_file = p_s_testDirectory + "TestJSON_L.json";
+            _ = o_json.JsonEncode(o_shipOrderCollectionOut, s_file, true);
 
-            o_shipOrderCollectionIn = (ForestNETTests.IO.Data.ShipOrderCollection?)o_yaml.YamlDecode(s_file);
+            o_shipOrderCollectionIn = (ForestNETTests.IO.Data.ShipOrderCollection?)o_json.JsonDecode(s_file);
 
             if (o_shipOrderCollectionIn != null)
             {
@@ -912,13 +907,13 @@
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_shipOrderCollectionOut, o_shipOrderCollectionIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(o_shipOrderCollectionOut, o_shipOrderCollectionIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class collection is not equal to input object inner class collection"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_yaml.UseProperties),
+                ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut, a_shipOrdersIn, o_json.UseProperties),
                 Is.True,
                 "output object inner class array is not equal to input object inner class array"
             );
@@ -928,7 +923,7 @@
                 for (int i = 0; i < a_shipOrdersIn.Count; i++)
                 {
                     Assert.That(
-                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_yaml.UseProperties, false, true),
+                        ForestNETLib.Core.Helper.ObjectsEqualUsingReflections(a_shipOrdersOut[i], a_shipOrdersIn[i], o_json.UseProperties, false, true),
                         Is.True,
                         "output object inner class array element object is not equal to input object inner class array element object"
                     );
