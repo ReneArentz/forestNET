@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageVersion>1.0.0</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <ApplicationIcon>forestnet.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>ForestNET Library Core</Title>
+    <Authors>Rene Arentz</Authors>
+    <Company>forestany.net</Company>
+    <Product>ForestNET</Product>
+    <Description>Custom-built forestNET framework is designed to streamline the development of robust applications by providing a comprehensive suite of tools and interfaces.</Description>
+    <Copyright>© 2025 forestany.net</Copyright>
+    <PackageProjectUrl>https://forestany.net</PackageProjectUrl>
+    <PackageIcon>fany-logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ReneArentz/forestNET.git</RepositoryUrl>
+    <PackageReleaseNotes>First release of the forestNET Framework 1.0.0 (stable). Provision of foundation files(Helper) + console application library functions.</PackageReleaseNotes>
+    <PackageTags>opensource;framework;basic tasks;application;network;database;tools;all purposes</PackageTags>
+    <PackAsTool>False</PackAsTool>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="forestnet.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\fany-logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="forestnet.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

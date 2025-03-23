@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForestNETLib\ForestNETLib.csproj" />
+    <PackageReference Include="ForestNET.Lib" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
