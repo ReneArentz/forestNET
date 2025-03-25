@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ForestNETLib.IO
+namespace ForestNET.Lib.IO
 {
     /// <summary>
     /// File class for creating, manipulating or deleting files in various ways.
@@ -63,7 +63,7 @@ namespace ForestNETLib.IO
         {
             get
             {
-                List<string> a_content = new();
+                List<string> a_content = [];
 
                 if (!this.b_ready)
                 {
@@ -256,7 +256,7 @@ namespace ForestNETLib.IO
             this.s_filename = "";
             this.l_fileLength = 0;
             this.b_ready = false;
-            this.a_fileContent = new List<string>();
+            this.a_fileContent = [];
             this.o_encoding = p_o_encoding;
             this.s_lineBreak = p_s_lineBreak;
 
@@ -314,7 +314,7 @@ namespace ForestNETLib.IO
                     /* if filelength > 0, read content of the file */
                     if (this.l_fileLength > 0)
                     {
-                        this.a_fileContent = System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding).ToList<string>();
+                        this.a_fileContent = [.. System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding)];
                     }
                 }
                 catch (Exception o_exc) when (o_exc is UnauthorizedAccessException || o_exc is System.Security.SecurityException)
@@ -327,7 +327,7 @@ namespace ForestNETLib.IO
                 }
 
                 /* if last element is empty, delete it */
-                if ((this.l_fileLength > 0) && (Core.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
+                if ((this.l_fileLength > 0) && (ForestNET.Lib.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
                 {
                     this.a_fileContent.RemoveAt(this.a_fileContent.Count - 1);
                 }
@@ -534,7 +534,7 @@ namespace ForestNETLib.IO
                 throw new InvalidOperationException("File[" + this.s_filename + "] cannot be used, not ready for writing");
             }
 
-            if (!Core.Helper.IsStringEmpty(p_s_value))
+            if (!ForestNET.Lib.Helper.IsStringEmpty(p_s_value))
             {
                 /* generate file content array with the new file content string and CRLF as separate sign */
                 this.a_fileContent.Clear();
@@ -599,7 +599,7 @@ namespace ForestNETLib.IO
                 /* if filelength > 0, read content of the file */
                 if (this.l_fileLength > 0)
                 {
-                    this.a_fileContent = System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding).ToList<string>();
+                    this.a_fileContent = [.. System.IO.File.ReadAllLines(this.s_pathToFile, this.o_encoding)];
                 }
             }
             catch (Exception o_exc) when (o_exc is UnauthorizedAccessException || o_exc is System.Security.SecurityException)
@@ -612,7 +612,7 @@ namespace ForestNETLib.IO
             }
 
             /* if last element is empty, delete it */
-            if ((this.l_fileLength > 0) && (Core.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
+            if ((this.l_fileLength > 0) && (ForestNET.Lib.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
             {
                 this.a_fileContent.RemoveAt(this.a_fileContent.Count - 1);
             }
@@ -700,7 +700,7 @@ namespace ForestNETLib.IO
             }
 
             /* check new name parameter */
-            if (Core.Helper.IsStringEmpty(p_s_newName))
+            if (ForestNET.Lib.Helper.IsStringEmpty(p_s_newName))
             {
                 throw new ArgumentException("New file name parameter is null or empty");
             }
@@ -737,7 +737,7 @@ namespace ForestNETLib.IO
         /// <exception cref="NullReferenceException">has method returned null value</exception>
         public string Hash(string p_s_algorithm)
         {
-            return Core.Helper.HashByteArray(p_s_algorithm, this.o_encoding.GetBytes(this.FileContent)) ?? throw new NullReferenceException("Method returned 'null' with algorithm '" + p_s_algorithm + "'");
+            return ForestNET.Lib.Helper.HashByteArray(p_s_algorithm, this.o_encoding.GetBytes(this.FileContent)) ?? throw new NullReferenceException("Method returned 'null' with algorithm '" + p_s_algorithm + "'");
         }
 
         /// <summary>
@@ -890,7 +890,7 @@ namespace ForestNETLib.IO
         {
             if (File.Exists(p_s_pathTofile))
             {
-                return Core.Helper.HashByteArray(p_s_algorithm, File.ReadAllBytes(p_s_pathTofile)) ?? null;
+                return ForestNET.Lib.Helper.HashByteArray(p_s_algorithm, File.ReadAllBytes(p_s_pathTofile)) ?? null;
             }
             else
             {
@@ -936,7 +936,7 @@ namespace ForestNETLib.IO
 
             /* get list of all file elements, sub directories are optional with p_b_recursive */
             List<ListingElement> a_files = File.ListDirectory(p_s_pathToDirectory, p_b_recursive);
-            List<string> a_filePaths = new();
+            List<string> a_filePaths = [];
 
             long l_size = 0;
 
@@ -981,7 +981,7 @@ namespace ForestNETLib.IO
             }
 
             /* returned hashed overall byte array */
-            return Core.Helper.HashByteArray(p_s_algorithm, by_array);
+            return ForestNET.Lib.Helper.HashByteArray(p_s_algorithm, by_array);
         }
 
         /// <summary>
@@ -1279,7 +1279,7 @@ namespace ForestNETLib.IO
         /// <exception cref="System.IO.IOException">directory could not be listed or issue with reading file/directory attributes</exception>
         public static List<ListingElement> ListDirectory(string p_s_path, bool p_b_recursive)
         {
-            List<ListingElement> a_listing = new();
+            List<ListingElement> a_listing = [];
 
             /* check if parameter is not a directory */
             if (File.IsFile(p_s_path))
@@ -1837,7 +1837,7 @@ namespace ForestNETLib.IO
         public static void ReplaceFileContent(string p_s_pathToFile, StringBuilder p_o_stringBuilder, Encoding p_o_encoding)
         {
             /* check file path parameter */
-            if (Core.Helper.IsStringEmpty(p_s_pathToFile))
+            if (ForestNET.Lib.Helper.IsStringEmpty(p_s_pathToFile))
             {
                 throw new ArgumentException("File path parameter is empty");
             }

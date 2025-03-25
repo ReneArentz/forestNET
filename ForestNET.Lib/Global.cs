@@ -1,4 +1,4 @@
-﻿namespace ForestNETLib.Core
+﻿namespace ForestNET.Lib
 {
     /// <summary>
     /// Global singleton class to store central values and objects, global log methods using Microsoft.Extensions.Logging.

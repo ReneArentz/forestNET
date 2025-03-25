@@ -5,10 +5,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageVersion>1.0.1</PackageVersion>
+	  <AssemblyVersion>1.0.1</AssemblyVersion>
+	  <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForestNETLib\ForestNETLib.csproj" />
+    <PackageReference Include="ForestNET.Lib" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

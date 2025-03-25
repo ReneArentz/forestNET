@@ -1,4 +1,4 @@
-﻿namespace ForestNETLib.Core
+﻿namespace ForestNET.Lib
 {
     /// <summary>
     /// Collection of static methods to help most often used program sequences which are helpful.
@@ -419,21 +419,21 @@
                     return false;
                 }
             }
-            else if ((p_s_string.Length == 14) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
+            else if ((p_s_string.Length == 14) && (ForestNET.Lib.Helper.MatchesRegex(p_s_string, "[0-9]+")))
             { /* 14 digits in a row -> yyyyMMddHHmmss */
                 /* separate date and time part */
                 a_dateAndTimeParts = new String[2];
                 a_dateAndTimeParts[0] = p_s_string.Substring(0, 8); /* date part yyyyMMdd */
                 a_dateAndTimeParts[1] = p_s_string.Substring(8); /* time part HHmmss */
             }
-            else if ((p_s_string.Length == 17) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
+            else if ((p_s_string.Length == 17) && (ForestNET.Lib.Helper.MatchesRegex(p_s_string, "[0-9]+")))
             { /* 17 digits in a row -> yyyyMMddHHmmssfff */
                 /* separate date and time part */
                 a_dateAndTimeParts = new String[2];
                 a_dateAndTimeParts[0] = p_s_string.Substring(0, 8); /* date part yyyyMMdd */
                 a_dateAndTimeParts[1] = p_s_string.Substring(8); /* time part HHmmssfff */
             }
-            else if ((p_s_string.Length == 8) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
+            else if ((p_s_string.Length == 8) && (ForestNET.Lib.Helper.MatchesRegex(p_s_string, "[0-9]+")))
             { /* 8 digits in a row -> yyyyMMdd, no time part */
                 /* separate date and time part */
                 a_dateAndTimeParts = new String[2];
@@ -629,20 +629,20 @@
                     throw new ArgumentException("Invalid date time string[" + p_s_string + "]; only one ' ' in parameter string value is valid");
                 }
             }
-            else if ((p_s_string.Length == 14) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")) ) { /* 14 digits in a row -> yyyyMMddHHmmss */
+            else if ((p_s_string.Length == 14) && (ForestNET.Lib.Helper.MatchesRegex(p_s_string, "[0-9]+")) ) { /* 14 digits in a row -> yyyyMMddHHmmss */
                 /* separate date and time part */
 			    a_dateAndTimeParts = new String[2];
 			    a_dateAndTimeParts[0] = p_s_string.Substring(0, 8); /* date part yyyyMMdd */
 			    a_dateAndTimeParts[1] = p_s_string.Substring(8); /* time part HHmmss */
 		    }
-            else if ((p_s_string.Length == 17) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
+            else if ((p_s_string.Length == 17) && (ForestNET.Lib.Helper.MatchesRegex(p_s_string, "[0-9]+")))
             { /* 17 digits in a row -> yyyyMMddHHmmssfff */
                 /* separate date and time part */
                 a_dateAndTimeParts = new String[2];
                 a_dateAndTimeParts[0] = p_s_string.Substring(0, 8); /* date part yyyyMMdd */
                 a_dateAndTimeParts[1] = p_s_string.Substring(8); /* time part HHmmssfff */
             }
-            else if ((p_s_string.Length == 8) && (ForestNETLib.Core.Helper.MatchesRegex(p_s_string, "[0-9]+")))
+            else if ((p_s_string.Length == 8) && (ForestNET.Lib.Helper.MatchesRegex(p_s_string, "[0-9]+")))
             { /* 8 digits in a row -> yyyyMMdd, no time part */
                 /* separate date and time part */
                 a_dateAndTimeParts = new String[2];
@@ -1153,7 +1153,7 @@
             }
 
             byte[] a_return = new byte[p_i_nBytes];
-            byte[]? a_longToByteArray = ForestNETLib.Core.Helper.LongToByteArray(p_l_amount);
+            byte[]? a_longToByteArray = ForestNET.Lib.Helper.LongToByteArray(p_l_amount);
 
             for (int i = p_i_nBytes; i > 0; i--)
             {
@@ -1882,7 +1882,7 @@
                 do
                 {
                     /* generate random byte values for all 32 bits */
-                    ForestNETLib.Core.Global.Instance.RandomNumberGenerator.GetBytes(a_byte);
+                    ForestNET.Lib.Global.Instance.RandomNumberGenerator.GetBytes(a_byte);
                     /*using (var o_foo = System.Security.Cryptography.RandomNumberGenerator.Create())
                         o_foo.GetBytes(a_byte);*/
 
