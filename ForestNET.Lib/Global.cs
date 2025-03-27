@@ -1,6 +1,6 @@
-﻿using ForestNETLib.Log;
+﻿using ForestNET.Lib.Log;
 
-namespace ForestNETLib.Core
+namespace ForestNET.Lib
 {
     /// <summary>
     /// Global singleton class to store central values and objects, global log methods using Microsoft.Extensions.Logging.
@@ -19,7 +19,7 @@ namespace ForestNETLib.Core
 
         private static readonly Lazy<Global> o_instance = new(() => new Global());
         private readonly LogConfig o_logConfig;
-        
+
         /* Properties */
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ForestNETLib.Core
         public Microsoft.Extensions.Logging.ILogger? ILOG { get; private set; }
         public System.Security.Cryptography.RandomNumberGenerator RandomNumberGenerator { get; private set; }
         public OtherLogImplementation? DelegateLogImplementation { private get; set; }
-        
+
         /* Methods */
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ForestNETLib.Core
         private Global()
         {
             this.o_logConfig = new();
-            
+
             this.InternalLogControl = (byte)Level.OFF;
             this.LogControl = (byte)Level.SEVERE + (byte)Level.WARNING + (byte)Level.INFO;
             this.RandomNumberGenerator = System.Security.Cryptography.RandomNumberGenerator.Create();
@@ -346,7 +346,7 @@ namespace ForestNETLib.Core
             do
             {
                 /* check stack trace of exception */
-                if ((!ForestNETLib.Core.Helper.IsStringEmpty(o_exception.StackTrace)) && (o_exception.StackTrace != null))
+                if ((!ForestNET.Lib.Helper.IsStringEmpty(o_exception.StackTrace)) && (o_exception.StackTrace != null))
                 {
                     System.Collections.Generic.List<string> a_lines = [];
                     string[]? a_foo = null;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace ForestNETLib.Log
+namespace ForestNET.Lib.Log
 {
     /// <summary>
     /// File holder class holding all necessary information for one log file; file configuration element, it's log message queue, source max. width and thread control
@@ -52,7 +52,7 @@ namespace ForestNETLib.Log
                 /* try for amount of time parameter (ms) to wait for closing thread */
                 if (j > (5000 / 25))
                 {
-                    Console.WriteLine("EXCEPTION: file logging thread has not been closed within 5 seconds. Thread will be aborted.");
+                    System.Console.WriteLine("EXCEPTION: file logging thread has not been closed within 5 seconds. Thread will be aborted.");
 
                     /* time has elapsed */
                     break;
@@ -65,7 +65,7 @@ namespace ForestNETLib.Log
                 /* interrupt thread */
                 this.Thread?.Interrupt();
             }
-            
+
             GC.SuppressFinalize(this);
         }
 
@@ -79,10 +79,10 @@ namespace ForestNETLib.Log
             {
                 if (this.o_queue.TryDequeue(out string? s_log)) /* try to dequeue log message */
                 {
-                    if (!ForestNETLib.Core.Helper.IsStringEmpty(s_log))
+                    if (!ForestNET.Lib.Helper.IsStringEmpty(s_log))
                     {
                         /* log message parameter must start with an integer */
-                        if (ForestNETLib.Core.Helper.IsInteger(s_log.Substring(0, 1)))
+                        if (ForestNET.Lib.Helper.IsInteger(s_log.Substring(0, 1)))
                         {
                             /* cast integer from log message to log level */
                             LogLevel o_logLevel = (LogLevel)int.Parse(s_log.Substring(0, 1));
@@ -97,7 +97,7 @@ namespace ForestNETLib.Log
                             s_line += $"[{o_logLevel,-11}] ";
 
                             /* log message must not be empty */
-                            if (!ForestNETLib.Core.Helper.IsStringEmpty(s_message))
+                            if (!ForestNET.Lib.Helper.IsStringEmpty(s_message))
                             {
                                 /* log messag must start with 'fNET§§§' */
                                 if (s_message.StartsWith("fNET§§§"))
@@ -106,7 +106,7 @@ namespace ForestNETLib.Log
                                     string[] a_messageParts = s_message.Split("§§§");
 
                                     /* if log source path is not empty */
-                                    if (!ForestNETLib.Core.Helper.IsStringEmpty(a_messageParts[3]))
+                                    if (!ForestNET.Lib.Helper.IsStringEmpty(a_messageParts[3]))
                                     {
                                         string s_sourcePath = "";
 
@@ -122,13 +122,13 @@ namespace ForestNETLib.Log
                                         }
 
                                         /* if log member name is not empty */
-                                        if (!ForestNETLib.Core.Helper.IsStringEmpty(a_messageParts[4]))
+                                        if (!ForestNET.Lib.Helper.IsStringEmpty(a_messageParts[4]))
                                         {
                                             /* store member name of source path */
                                             s_sourcePath += " -> " + a_messageParts[4];
 
                                             /* if line number is not empty, an integer and not zero */
-                                            if ((!ForestNETLib.Core.Helper.IsStringEmpty(a_messageParts[5])) && (ForestNETLib.Core.Helper.IsInteger(a_messageParts[5])) && (!a_messageParts[5].Equals("0")))
+                                            if ((!ForestNET.Lib.Helper.IsStringEmpty(a_messageParts[5])) && (ForestNET.Lib.Helper.IsInteger(a_messageParts[5])) && (!a_messageParts[5].Equals("0")))
                                             {
                                                 /* store line number of source path */
                                                 s_sourcePath += ":" + a_messageParts[5];
@@ -182,10 +182,10 @@ namespace ForestNETLib.Log
                             s_line += Environment.NewLine;
 
                             /* determine complete file path, with settings of file configuration element and parsing method for file name */
-                            string s_filePath = this.FileConfigurationElement?.FilePath + 
-                                ((!this.FileConfigurationElement?.FilePath.EndsWith(ForestNETLib.IO.File.DIR.ToString())) ?? false ? ForestNETLib.IO.File.DIR.ToString() : "") + 
+                            string s_filePath = this.FileConfigurationElement?.FilePath +
+                                ((!this.FileConfigurationElement?.FilePath.EndsWith(ForestNET.Lib.IO.File.DIR.ToString())) ?? false ? ForestNET.Lib.IO.File.DIR.ToString() : "") +
                                 this.FileConfigurationElement?.ParseFileName(s_line.Length);
-                            
+
                             /* add line to log file */
                             System.IO.File.AppendAllText(s_filePath, s_line);
                         }
@@ -314,13 +314,12 @@ namespace ForestNETLib.Log
                 string s_filter = s_foo.Substring(0, i_placeHolderPosition);
 
                 /* get to the path where we want to handle our potential log file(s), order by last modified time, name and filtered by name */
-                string s_filePath = this.FilePath + ((!this.FilePath.EndsWith(ForestNETLib.IO.File.DIR.ToString())) ? ForestNETLib.IO.File.DIR.ToString() : "");
-                System.Collections.Generic.List<ForestNETLib.IO.ListingElement> a_potentialFiles = ForestNETLib.IO.File.ListDirectory(s_filePath)
+                string s_filePath = this.FilePath + ((!this.FilePath.EndsWith(ForestNET.Lib.IO.File.DIR.ToString())) ? ForestNET.Lib.IO.File.DIR.ToString() : "");
+                System.Collections.Generic.List<ForestNET.Lib.IO.ListingElement> a_potentialFiles = [.. ForestNET.Lib.IO.File.ListDirectory(s_filePath)
                     .OrderByDescending(o_listingElement => o_listingElement.LastModifiedTime)
                     .ThenByDescending(o_listingElement => o_listingElement.Name)
-                    .Where(o_listingElement => !o_listingElement.IsDirectory && (o_listingElement.Name?.StartsWith(s_filter) ?? false))
-                    .ToList();
-                
+                    .Where(o_listingElement => !o_listingElement.IsDirectory && (o_listingElement.Name?.StartsWith(s_filter) ?? false))];
+
                 if (a_potentialFiles.Count < 1) /* we found no file */
                 {
                     /* prepare file path and name with file count '1' */
@@ -333,7 +332,7 @@ namespace ForestNETLib.Log
                         string s_potentialFile = a_potentialFiles[0].Name ?? "Name property is null";
 
                         /* check if found file exceed our file limit from this configuration element */
-                        if ((ForestNETLib.IO.File.FileLength(s_filePath + s_potentialFile) + p_i_lineLength) > this.FileLimitInBytes)
+                        if ((ForestNET.Lib.IO.File.FileLength(s_filePath + s_potentialFile) + p_i_lineLength) > this.FileLimitInBytes)
                         {
                             /* retrieve file part which is variable after position of file count placeholder */
                             string s_fileVariablePart = s_potentialFile.Substring(i_placeHolderPosition);
@@ -366,10 +365,10 @@ namespace ForestNETLib.Log
                                 string s_foo2 = s_potentialFile.Substring(0, i_placeHolderPosition) + i_fileNameNumber.ToString().PadLeft(j + 1, '0') + s_potentialFile.Substring(i_placeHolderPosition + i);
 
                                 /* check if this potential file exists */
-                                if (ForestNETLib.IO.File.Exists(s_filePath + s_foo2))
+                                if (ForestNET.Lib.IO.File.Exists(s_filePath + s_foo2))
                                 {
                                     /* delete it, so we can create a new one */
-                                    ForestNETLib.IO.File.DeleteFile(s_filePath + s_foo2);
+                                    ForestNET.Lib.IO.File.DeleteFile(s_filePath + s_foo2);
                                 }
                             }
                         }
@@ -517,7 +516,7 @@ namespace ForestNETLib.Log
         public void Dispose()
         {
             /* anything to close here */
-            
+
             GC.SuppressFinalize(this);
         }
 
@@ -606,7 +605,7 @@ namespace ForestNETLib.Log
             foreach (FileLoggerConfigurationElement o_element in p_o_config.ConfigurationElements)
             {
                 /* check if we have a just one placeholder '%n[0-4]' for file count within file name */
-                if ((o_element.FileCount > 1) && ((!ForestNETLib.Core.Helper.MatchesRegex(o_element.FileName, "(.*)(%n[0-4]{1})(.*)")) || (ForestNETLib.Core.Helper.CountSubStrings(o_element.FileName, "%n[0-4]{1}") != 1)))
+                if ((o_element.FileCount > 1) && ((!ForestNET.Lib.Helper.MatchesRegex(o_element.FileName, "(.*)(%n[0-4]{1})(.*)")) || (ForestNET.Lib.Helper.CountSubStrings(o_element.FileName, "%n[0-4]{1}") != 1)))
                 {
                     throw new ArgumentException("File configuration instance has a file count greater than 1, but no placeholder(only one allowed) '%n[0-4]' within file name setting.");
                 }

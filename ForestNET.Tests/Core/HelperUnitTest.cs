@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ForestNETTests.Core
+namespace ForestNET.Tests.Core
 {
     public class HelperUnitTest
     {
@@ -10,211 +10,211 @@ namespace ForestNETTests.Core
             /* log some info -> Microsoft.VisualStudio.TestTools.UnitTesting.Logging.Logger.LogMessage("text I want to log", new object[] { }); */
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsStringEmpty(null),
+                ForestNET.Lib.Helper.IsStringEmpty(null),
                 Is.True,
                 "null is not string empty"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsStringEmpty(""),
+                ForestNET.Lib.Helper.IsStringEmpty(""),
                 Is.True,
                 "empty string is not string empty"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsStringEmpty("  "),
+                ForestNET.Lib.Helper.IsStringEmpty("  "),
                 Is.True,
                 "two white spaces is not string empty"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsStringEmpty("notEmpty"),
+                ForestNET.Lib.Helper.IsStringEmpty("notEmpty"),
                 Is.False,
                 "'notEmpty' is string empty"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsString("test"),
+                ForestNET.Lib.Helper.IsString("test"),
                 Is.True,
                 "'test' is not string"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsString(123),
+                ForestNET.Lib.Helper.IsString(123),
                 Is.False,
                 "123 is a string"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsShort("test"),
+                ForestNET.Lib.Helper.IsShort("test"),
                 Is.False,
                 "'test' is a short"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsShort("123"),
+                ForestNET.Lib.Helper.IsShort("123"),
                 Is.True,
                 "123 is not a short"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsInteger("test"),
+                ForestNET.Lib.Helper.IsInteger("test"),
                 Is.False,
                 "'test' is an integer"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsInteger("123550"),
+                ForestNET.Lib.Helper.IsInteger("123550"),
                 Is.True,
                 "1234550 is not an integer"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsLong("test"),
+                ForestNET.Lib.Helper.IsLong("test"),
                 Is.False,
                 "'test' is a long"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsLong("1235464545464654550"),
+                ForestNET.Lib.Helper.IsLong("1235464545464654550"),
                 Is.True,
                 "1235464545464654550 is not a long"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsFloat("test"),
+                ForestNET.Lib.Helper.IsFloat("test"),
                 Is.False,
                 "'test' is a float"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsFloat("1235464.454644545464654550"),
+                ForestNET.Lib.Helper.IsFloat("1235464.454644545464654550"),
                 Is.True,
                 "1235464.454644545464654550 is no a float"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsDouble("test"),
+                ForestNET.Lib.Helper.IsDouble("test"),
                 Is.False,
                 "'test' is a double"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDouble("12354645.45446445464654550"),
+                ForestNET.Lib.Helper.IsDouble("12354645.45446445464654550"),
                 Is.True,
                 "12354645.45446445464654550 is not a double"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsBoolean("1"),
+                ForestNET.Lib.Helper.IsBoolean("1"),
                 Is.False,
                 "'1' is boolean true"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsBoolean("true"),
+                ForestNET.Lib.Helper.IsBoolean("true"),
                 Is.True,
                 "'true' is not boolean true"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.MatchesRegex("123e4567-e89b-12Q3-a456-426614174000", "^[a-f0-9\\-]*$"),
+                ForestNET.Lib.Helper.MatchesRegex("123e4567-e89b-12Q3-a456-426614174000", "^[a-f0-9\\-]*$"),
                 Is.False,
                 "'123e4567-e89b-12___Q___3-a456-426614174000' matches regex '" + "^[a-f0-9\\-]*$" + "'"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.MatchesRegex("123e4567-e89b-12d3-a456-426614174000", "^[a-f0-9\\-]*$"),
+                ForestNET.Lib.Helper.MatchesRegex("123e4567-e89b-12d3-a456-426614174000", "^[a-f0-9\\-]*$"),
                 Is.True,
                 "'123e4567-e89b-12d3-a456-426614174000' not matches regex '" + "^[a-f0-9\\-]*$" + "'"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.CountSubStrings("HelloabcdefgHelloabcdefgHelloHello", "Hallo"), Is.Not.EqualTo(4),
+                ForestNET.Lib.Helper.CountSubStrings("HelloabcdefgHelloabcdefgHelloHello", "Hallo"), Is.Not.EqualTo(4),
                 "'Hallo' is 4 times in 'HelloabcdefgHelloabcdefgHelloHello'"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.CountSubStrings("HelloabcdefgHelloabcdefgHelloHello", "Hello"), Is.EqualTo(4),
+                ForestNET.Lib.Helper.CountSubStrings("HelloabcdefgHelloabcdefgHelloHello", "Hello"), Is.EqualTo(4),
                 "'Hello' is not 4 times in 'HelloabcdefgHelloabcdefgHelloHello'"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PowIntegers(2, 16), Is.EqualTo(65536),
+                ForestNET.Lib.Helper.PowIntegers(2, 16), Is.EqualTo(65536),
                 "Exponentiation of 2^16 is not 65536"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PowIntegers(12, 5), Is.EqualTo(248832),
+                ForestNET.Lib.Helper.PowIntegers(12, 5), Is.EqualTo(248832),
                 "Exponentiation of 12^5 is not 248832"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("31-03-2020"),
+                ForestNET.Lib.Helper.IsDate("31-03-2020"),
                 Is.True,
                 "'31-03-2020' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("03-31-2020"),
+                ForestNET.Lib.Helper.IsDate("03-31-2020"),
                 Is.False,
                 "'03-31-2020' is a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("31.03.2020"),
+                ForestNET.Lib.Helper.IsDate("31.03.2020"),
                 Is.True,
                 "'31.03.2020' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("03.31.2020"),
+                ForestNET.Lib.Helper.IsDate("03.31.2020"),
                 Is.False,
                 "'03.31.2020' is a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("31/03/2020"),
+                ForestNET.Lib.Helper.IsDate("31/03/2020"),
                 Is.True,
                 "'31/03/2020' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("31/13/2020"),
+                ForestNET.Lib.Helper.IsDate("31/13/2020"),
                 Is.False,
                 "'31/13/2020' is a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("2020/03/31"),
+                ForestNET.Lib.Helper.IsDate("2020/03/31"),
                 Is.True,
                 "'2020/03/31' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("2020/13/31"),
+                ForestNET.Lib.Helper.IsDate("2020/13/31"),
                 Is.False,
                 "'2020/13/31' is a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("2020-03-31"),
+                ForestNET.Lib.Helper.IsDate("2020-03-31"),
                 Is.True,
                 "'2020-03-31' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("2020-31-03"),
+                ForestNET.Lib.Helper.IsDate("2020-31-03"),
                 Is.False,
                 "'2020-31-03' is a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("03/31/2020"),
+                ForestNET.Lib.Helper.IsDate("03/31/2020"),
                 Is.True,
                 "'03/31/2020' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("13/31/2020"),
+                ForestNET.Lib.Helper.IsDate("13/31/2020"),
                 Is.False,
                 "'13/31/2020' is a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("2020/31/03"),
+                ForestNET.Lib.Helper.IsDate("2020/31/03"),
                 Is.True,
                 "'2020/31/03' is not a date"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDate("2020/31/13"),
+                ForestNET.Lib.Helper.IsDate("2020/31/13"),
                 Is.False,
                 "'2020/31/13' is a date"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsTime("53:45:32"),
+                ForestNET.Lib.Helper.IsTime("53:45:32"),
                 Is.False,
                 "'53:45:32' is a time"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsTime("13:45:32"),
+                ForestNET.Lib.Helper.IsTime("13:45:32"),
                 Is.True,
                 "'13:45:32' is not a time"
             );
@@ -250,7 +250,7 @@ namespace ForestNETTests.Core
             foreach (string s_testTrue in a_testTrue)
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.IsDateTime(s_testTrue),
+                    ForestNET.Lib.Helper.IsDateTime(s_testTrue),
                     Is.True,
                     "'" + s_testTrue + "' is not a date time"
                 );
@@ -286,29 +286,29 @@ namespace ForestNETTests.Core
             foreach (string s_testFalse in a_testFalse)
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.IsDateTime(s_testFalse),
+                    ForestNET.Lib.Helper.IsDateTime(s_testFalse),
                     Is.False,
                     "'" + s_testFalse + "' is a date time"
                 );
             }
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsDateInterval("P2DQ6Y"),
+                ForestNET.Lib.Helper.IsDateInterval("P2DQ6Y"),
                 Is.False,
                 "'P2DQ6Y' is a date interval"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDateInterval("P4Y"),
+                ForestNET.Lib.Helper.IsDateInterval("P4Y"),
                 Is.True,
                 "'P4Y' is not a date interval"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDateInterval("PT15S"),
+                ForestNET.Lib.Helper.IsDateInterval("PT15S"),
                 Is.True,
                 "'PT15S' is not a date interval"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsDateInterval("P2DT2H3M55S"),
+                ForestNET.Lib.Helper.IsDateInterval("P2DT2H3M55S"),
                 Is.True,
                 "'P2DT2H3M55S' is not a date interval"
             );
@@ -319,21 +319,21 @@ namespace ForestNETTests.Core
 
                 DateTime o_localDateTime = TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 03, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"));
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime), Is.EqualTo("2020-03-14T05:02:03Z"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime) + "] is not equal with toISO8601UTC to '2020-03-14T05:02:03Z'"
+                    ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime), Is.EqualTo("2020-03-14T05:02:03Z"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime) + "] is not equal with toISO8601UTC to '2020-03-14T05:02:03Z'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime), Is.Not.EqualTo("2030-03-14T05:02:03Z"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime) + "] is equal with toISO8601UTC to '2030-03-14T05:02:03Z'"
+                    ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime), Is.Not.EqualTo("2030-03-14T05:02:03Z"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime) + "] is equal with toISO8601UTC to '2030-03-14T05:02:03Z'"
                 );
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime), Is.EqualTo("Sat, 14 Mar 2020 05:02:03 GMT"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime) + "] is not equal with toRFC1123 to 'Sat, 14 Mar 2020 05:02:03 GMT'"
+                    ForestNET.Lib.Helper.ToRFC1123(o_localDateTime), Is.EqualTo("Sat, 14 Mar 2020 05:02:03 GMT"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToRFC1123(o_localDateTime) + "] is not equal with toRFC1123 to 'Sat, 14 Mar 2020 05:02:03 GMT'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime), Is.Not.EqualTo("Sat, 14 Mar 2030 05:02:03 GMT"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime) + "] is equal with toRFC1123 to 'Sat, 14 Mar 2030 05:02:03 GMT'"
+                    ForestNET.Lib.Helper.ToRFC1123(o_localDateTime), Is.Not.EqualTo("Sat, 14 Mar 2030 05:02:03 GMT"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToRFC1123(o_localDateTime) + "] is equal with toRFC1123 to 'Sat, 14 Mar 2030 05:02:03 GMT'"
                 );
 
                 if (b_isDaySavingTime)
@@ -342,31 +342,31 @@ namespace ForestNETTests.Core
                 }
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime), Is.EqualTo("2020-03-14T06:02:03"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime) + "] is not equal with toDateTimeString to '2020-03-14T06:02:03'"
+                    ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime), Is.EqualTo("2020-03-14T06:02:03"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime) + "] is not equal with toDateTimeString to '2020-03-14T06:02:03'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime), Is.Not.EqualTo("2030-03-14T06:02:03"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime) + "] is equal with toDateTimeString to '2030-03-14T06:02:03'"
+                    ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime), Is.Not.EqualTo("2030-03-14T06:02:03"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime) + "] is equal with toDateTimeString to '2030-03-14T06:02:03'"
                 );
 
                 o_localDateTime = TimeZoneInfo.ConvertTime(TimeZoneInfo.ConvertTimeToUtc(new DateTime(2020, 03, 14, 06, 02, 00, DateTimeKind.Unspecified), TimeZoneInfo.Local), TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"));
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime), Is.EqualTo("2020-03-14T05:02:00Z"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime) + "] is not equal with toISO8601UTC to '2020-03-14T05:02:00Z'"
+                    ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime), Is.EqualTo("2020-03-14T05:02:00Z"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime) + "] is not equal with toISO8601UTC to '2020-03-14T05:02:00Z'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime), Is.Not.EqualTo("2030-03-14T05:02:00Z"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToISO8601UTC(o_localDateTime) + "] is equal with toISO8601UTC to '2030-03-14T05:02:00Z'"
+                    ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime), Is.Not.EqualTo("2030-03-14T05:02:00Z"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToISO8601UTC(o_localDateTime) + "] is equal with toISO8601UTC to '2030-03-14T05:02:00Z'"
                 );
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime), Is.EqualTo("Sat, 14 Mar 2020 05:02:00 GMT"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime) + "] is not equal with toRFC1123 to 'Sat, 14 Mar 2020 05:02:00 GMT'"
+                    ForestNET.Lib.Helper.ToRFC1123(o_localDateTime), Is.EqualTo("Sat, 14 Mar 2020 05:02:00 GMT"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToRFC1123(o_localDateTime) + "] is not equal with toRFC1123 to 'Sat, 14 Mar 2020 05:02:00 GMT'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime), Is.Not.EqualTo("Sat, 14 Mar 2030 05:02:00 GMT"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToRFC1123(o_localDateTime) + "] is equal with toRFC1123 to 'Sat, 14 Mar 2030 05:02:00 GMT'"
+                    ForestNET.Lib.Helper.ToRFC1123(o_localDateTime), Is.Not.EqualTo("Sat, 14 Mar 2030 05:02:00 GMT"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToRFC1123(o_localDateTime) + "] is equal with toRFC1123 to 'Sat, 14 Mar 2030 05:02:00 GMT'"
                 );
 
                 if (b_isDaySavingTime)
@@ -375,12 +375,12 @@ namespace ForestNETTests.Core
                 }
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime), Is.EqualTo("2020-03-14T06:02:00"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime) + "] is not equal with toDateTimeString to '2020-03-14T06:02:00'"
+                    ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime), Is.EqualTo("2020-03-14T06:02:00"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime) + "] is not equal with toDateTimeString to '2020-03-14T06:02:00'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime), Is.Not.EqualTo("2030-03-14T06:02:00"),
-                    "local date time object[" + ForestNETLib.Core.Helper.ToDateTimeString(o_localDateTime) + "] is equal with toDateTimeString to '2030-03-14T06:02:00'"
+                    ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime), Is.Not.EqualTo("2030-03-14T06:02:00"),
+                    "local date time object[" + ForestNET.Lib.Helper.ToDateTimeString(o_localDateTime) + "] is equal with toDateTimeString to '2030-03-14T06:02:00'"
                 );
             }
             catch (Exception o_exc)
@@ -441,12 +441,12 @@ namespace ForestNETTests.Core
                 foreach (string s_testTrue in a_testTrue)
                 {
                     Assert.That(
-                        a_validLocalDateTime[i], Is.EqualTo(ForestNETLib.Core.Helper.FromISO8601UTC(s_testTrue)),
+                        a_validLocalDateTime[i], Is.EqualTo(ForestNET.Lib.Helper.FromISO8601UTC(s_testTrue)),
                         "'" + s_testTrue + "' fromISO8601UTC() is not equal local date tine object '" + a_validLocalDateTime[i] + "'"
                     );
 
                     Assert.That(
-                        a_validLocalDateTime[i].AddHours(-1), Is.EqualTo(ForestNETLib.Core.Helper.FromDateTimeString(s_testTrue)),
+                        a_validLocalDateTime[i].AddHours(-1), Is.EqualTo(ForestNET.Lib.Helper.FromDateTimeString(s_testTrue)),
                         "'" + s_testTrue + "' fromDateTimeString() is not equal local date tine object '" + a_validLocalDateTime[i] + "'"
                     );
 
@@ -511,7 +511,7 @@ namespace ForestNETTests.Core
                 foreach (string s_testTrue in a_testTrue2nd)
                 {
                     Assert.That(
-                        o_validLocalDates[i], Is.EqualTo(ForestNETLib.Core.Helper.FromDateString(s_testTrue)),
+                        o_validLocalDates[i], Is.EqualTo(ForestNET.Lib.Helper.FromDateString(s_testTrue)),
                         "'" + s_testTrue + "' fromDateString() is not equal local date tine object '" + o_validLocalDates[i] + "'"
                     );
 
@@ -576,7 +576,7 @@ namespace ForestNETTests.Core
                 foreach (string s_testTrue in a_testTrue3rd)
                 {
                     Assert.That(
-                        o_validLocalTimes[i], Is.EqualTo(ForestNETLib.Core.Helper.FromTimeString(s_testTrue)),
+                        o_validLocalTimes[i], Is.EqualTo(ForestNET.Lib.Helper.FromTimeString(s_testTrue)),
                         "'" + s_testTrue + "' fromTimeString() is not equal local date time object '" + o_validLocalTimes[i] + "'"
                     );
 
@@ -685,7 +685,7 @@ namespace ForestNETTests.Core
 
                     try
                     {
-                        ForestNETLib.Core.Helper.FromISO8601UTC(s_testFalse);
+                        ForestNET.Lib.Helper.FromISO8601UTC(s_testFalse);
                     }
                     catch (Exception)
                     {
@@ -699,7 +699,7 @@ namespace ForestNETTests.Core
 
                     try
                     {
-                        ForestNETLib.Core.Helper.FromDateTimeString(s_testFalse);
+                        ForestNET.Lib.Helper.FromDateTimeString(s_testFalse);
                     }
                     catch (Exception)
                     {
@@ -713,7 +713,7 @@ namespace ForestNETTests.Core
 
                     try
                     {
-                        ForestNETLib.Core.Helper.FromDateString(s_testFalse);
+                        ForestNET.Lib.Helper.FromDateString(s_testFalse);
                     }
                     catch (Exception)
                     {
@@ -727,7 +727,7 @@ namespace ForestNETTests.Core
 
                     try
                     {
-                        ForestNETLib.Core.Helper.FromTimeString(s_testFalse);
+                        ForestNET.Lib.Helper.FromTimeString(s_testFalse);
                     }
                     catch (Exception)
                     {
@@ -756,7 +756,7 @@ namespace ForestNETTests.Core
 
             for (int i = 0; i < 1000; i++)
             {
-                int i_random = ForestNETLib.Core.Helper.RandomIntegerRange(1, 10);
+                int i_random = ForestNET.Lib.Helper.RandomIntegerRange(1, 10);
                 Assert.That(
                     i_random >= 1 && i_random <= 10,
                     Is.True,
@@ -771,7 +771,7 @@ namespace ForestNETTests.Core
 
             for (int i = 0; i < 1000; i++)
             {
-                int i_random = ForestNETLib.Core.Helper.SecureRandomIntegerRange(1, 10);
+                int i_random = ForestNET.Lib.Helper.SecureRandomIntegerRange(1, 10);
                 Assert.That(
                     i_random >= 1 && i_random <= 10,
                     Is.True,
@@ -786,7 +786,7 @@ namespace ForestNETTests.Core
 
             for (int i = 0; i < 1000; i++)
             {
-                double d_random = ForestNETLib.Core.Helper.RandomDoubleRange(1.5d, 10.75d);
+                double d_random = ForestNET.Lib.Helper.RandomDoubleRange(1.5d, 10.75d);
                 Assert.That(
                     d_random.CompareTo(1.5d) >= 0 && d_random.CompareTo(10.75d) < 1,
                     Is.True,
@@ -799,8 +799,8 @@ namespace ForestNETTests.Core
                 );
             }
 
-            byte[]? bytes = ForestNETLib.Core.Helper.ShortToByteArray((short)558);
-            short sh_test = ForestNETLib.Core.Helper.ByteArrayToShort(bytes);
+            byte[]? bytes = ForestNET.Lib.Helper.ShortToByteArray((short)558);
+            short sh_test = ForestNET.Lib.Helper.ByteArrayToShort(bytes);
             Assert.That(
                 sh_test, Is.EqualTo(558),
                 "short to byte and back to short != 558"
@@ -811,16 +811,16 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("00000010 00101110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("00000010 00101110"),
                 "bytes of short are not matching printed byte array"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, true), Is.EqualTo("00000000 00000000 00000010 00101110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, true), Is.EqualTo("00000000 00000000 00000010 00101110"),
                 "bytes of short are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.ShortToByteArray((short)25134);
-            sh_test = ForestNETLib.Core.Helper.ByteArrayToShort(bytes);
+            bytes = ForestNET.Lib.Helper.ShortToByteArray((short)25134);
+            sh_test = ForestNET.Lib.Helper.ByteArrayToShort(bytes);
             Assert.That(
                 sh_test, Is.EqualTo(25134),
                 "short to byte and back to short != 25134"
@@ -831,16 +831,16 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("01100010 00101110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("01100010 00101110"),
                 "bytes of short are not matching printed byte array"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, true), Is.EqualTo("00000000 00000000 01100010 00101110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, true), Is.EqualTo("00000000 00000000 01100010 00101110"),
                 "bytes of short are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.IntToByteArray(916040294);
-            int i_test = ForestNETLib.Core.Helper.ByteArrayToInt(bytes);
+            bytes = ForestNET.Lib.Helper.IntToByteArray(916040294);
+            int i_test = ForestNET.Lib.Helper.ByteArrayToInt(bytes);
             Assert.That(
                 i_test, Is.EqualTo(916040294),
                 "int to byte and back to int != 916040294"
@@ -851,16 +851,16 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes), Is.EqualTo("00110110 10011001 10101010 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes), Is.EqualTo("00110110 10011001 10101010 01100110"),
                 "bytes of int are not matching printed byte array"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("00110110 10011001 10101010 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("00110110 10011001 10101010 01100110"),
                 "bytes of int are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.IntToByteArray(10070630);
-            i_test = ForestNETLib.Core.Helper.ByteArrayToInt(bytes);
+            bytes = ForestNET.Lib.Helper.IntToByteArray(10070630);
+            i_test = ForestNET.Lib.Helper.ByteArrayToInt(bytes);
             Assert.That(
                 i_test, Is.EqualTo(10070630),
                 "int to byte and back to int != 10070630"
@@ -871,16 +871,16 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes), Is.EqualTo("00000000 10011001 10101010 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes), Is.EqualTo("00000000 10011001 10101010 01100110"),
                 "bytes of int are not matching printed byte array"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("10011001 10101010 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("10011001 10101010 01100110"),
                 "bytes of int are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.IntToByteArray(43622);
-            i_test = ForestNETLib.Core.Helper.ByteArrayToInt(bytes);
+            bytes = ForestNET.Lib.Helper.IntToByteArray(43622);
+            i_test = ForestNET.Lib.Helper.ByteArrayToInt(bytes);
             Assert.That(
                 i_test, Is.EqualTo(43622),
                 "int to byte and back to int != 43622"
@@ -891,16 +891,16 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes), Is.EqualTo("00000000 00000000 10101010 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes), Is.EqualTo("00000000 00000000 10101010 01100110"),
                 "bytes of int are not matching printed byte array"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("10101010 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("10101010 01100110"),
                 "bytes of int are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.IntToByteArray(102);
-            i_test = ForestNETLib.Core.Helper.ByteArrayToInt(bytes);
+            bytes = ForestNET.Lib.Helper.IntToByteArray(102);
+            i_test = ForestNET.Lib.Helper.ByteArrayToInt(bytes);
             Assert.That(
                 i_test, Is.EqualTo(102),
                 "int to byte and back to int != 102"
@@ -911,16 +911,16 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes), Is.EqualTo("00000000 00000000 00000000 01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes), Is.EqualTo("00000000 00000000 00000000 01100110"),
                 "bytes of int are not matching printed byte array"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("01100110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("01100110"),
                 "bytes of int are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.LongToByteArray(9070052179665454);
-            long l_test = ForestNETLib.Core.Helper.ByteArrayToLong(bytes);
+            bytes = ForestNET.Lib.Helper.LongToByteArray(9070052179665454);
+            long l_test = ForestNET.Lib.Helper.ByteArrayToLong(bytes);
             Assert.That(
                 l_test, Is.EqualTo(9070052179665454),
                 "long to byte and back to long != 9070052179665454"
@@ -931,12 +931,12 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("00100000 00111001 00101010 00010110 01000011 01100010 00101110"),
-                "bytes of long " + ForestNETLib.Core.Helper.PrintByteArray(bytes, false) + " are not matching printed byte array"
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("00100000 00111001 00101010 00010110 01000011 01100010 00101110"),
+                "bytes of long " + ForestNET.Lib.Helper.PrintByteArray(bytes, false) + " are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.LongToByteArray(3467834566000206382);
-            l_test = ForestNETLib.Core.Helper.ByteArrayToLong(bytes);
+            bytes = ForestNET.Lib.Helper.LongToByteArray(3467834566000206382);
+            l_test = ForestNET.Lib.Helper.ByteArrayToLong(bytes);
             Assert.That(
                 l_test, Is.EqualTo(3467834566000206382),
                 "long to byte and back to long != 3467834566000206382"
@@ -947,12 +947,12 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("00110000 00100000 00111001 00101010 00010110 01000011 01100010 00101110"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("00110000 00100000 00111001 00101010 00010110 01000011 01100010 00101110"),
                 "bytes of long are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.AmountToNByteArray(101458034, 4);
-            l_test = ForestNETLib.Core.Helper.ByteArrayToLong(bytes);
+            bytes = ForestNET.Lib.Helper.AmountToNByteArray(101458034, 4);
+            l_test = ForestNET.Lib.Helper.ByteArrayToLong(bytes);
             Assert.That(
                 l_test, Is.EqualTo(101458034),
                 "long to byte and back to long != 101458034"
@@ -963,12 +963,12 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("00000110 00001100 00100000 01110010"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("00000110 00001100 00100000 01110010"),
                 "bytes of long are not matching printed byte array"
             );
 
-            bytes = ForestNETLib.Core.Helper.AmountToNByteArray(101458034, 8);
-            l_test = ForestNETLib.Core.Helper.ByteArrayToLong(bytes);
+            bytes = ForestNET.Lib.Helper.AmountToNByteArray(101458034, 8);
+            l_test = ForestNET.Lib.Helper.ByteArrayToLong(bytes);
             Assert.That(
                 l_test, Is.EqualTo(101458034),
                 "long to byte and back to long != 101458034"
@@ -979,108 +979,108 @@ namespace ForestNETTests.Core
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.PrintByteArray(bytes, false), Is.EqualTo("00000000 00000000 00000000 00000000 00000110 00001100 00100000 01110010"),
+                ForestNET.Lib.Helper.PrintByteArray(bytes, false), Is.EqualTo("00000000 00000000 00000000 00000000 00000110 00001100 00100000 01110010"),
                 "bytes of long are not matching printed byte array"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(2123456797), Is.EqualTo("2,12 GB"),
+                ForestNET.Lib.Helper.FormatBytes(2123456797), Is.EqualTo("2,12 GB"),
                 "2123456797 is not 2,12 GB"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(2123456797, true), Is.EqualTo("1,98 GiB"),
+                ForestNET.Lib.Helper.FormatBytes(2123456797, true), Is.EqualTo("1,98 GiB"),
                 "2123456797 is not 1,98 GiB"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(129456797), Is.Not.EqualTo("2,12 GB"),
+                ForestNET.Lib.Helper.FormatBytes(129456797), Is.Not.EqualTo("2,12 GB"),
                 "129456797 is 2,12 GB"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(129456797, true), Is.Not.EqualTo("1,98 GiB"),
+                ForestNET.Lib.Helper.FormatBytes(129456797, true), Is.Not.EqualTo("1,98 GiB"),
                 "129456797 is 1,98 GiB"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(126797), Is.EqualTo("126,8 KB"),
+                ForestNET.Lib.Helper.FormatBytes(126797), Is.EqualTo("126,8 KB"),
                 "126797 is not 126,8 KB"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(126797, true), Is.EqualTo("123,83 KiB"),
+                ForestNET.Lib.Helper.FormatBytes(126797, true), Is.EqualTo("123,83 KiB"),
                 "126797 is not 123,83 KiB"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(33126797), Is.Not.EqualTo("126,8 KB"),
+                ForestNET.Lib.Helper.FormatBytes(33126797), Is.Not.EqualTo("126,8 KB"),
                 "33126797 is 126,8 KB"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.FormatBytes(6797, true), Is.Not.EqualTo("123,83 KiB"),
+                ForestNET.Lib.Helper.FormatBytes(6797, true), Is.Not.EqualTo("123,83 KiB"),
                 "6797 is 123,83 KiB"
             );
 
             try
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.HashByteArray("SHA-256", ForestNETLib.Core.Helper.IntToByteArray(43622)), Is.EqualTo("9F2778195BB08930F6455CA6C191D9DC25B77F33145141A2E89FAC794D5E7C47"),
+                    ForestNET.Lib.Helper.HashByteArray("SHA-256", ForestNET.Lib.Helper.IntToByteArray(43622)), Is.EqualTo("9F2778195BB08930F6455CA6C191D9DC25B77F33145141A2E89FAC794D5E7C47"),
                     "SHA-256 ist not '9F2778195BB08930F6455CA6C191D9DC25B77F33145141A2E89FAC794D5E7C47'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.HashByteArray("SHA-384", ForestNETLib.Core.Helper.IntToByteArray(10070630)), Is.EqualTo("4DD7D9B43AFD5CA29A794B59EE924F2226E7776C7D25E052060AB71DCD7254DA9FF5C342F8E943D85336D7D97BAD8CB9"),
+                    ForestNET.Lib.Helper.HashByteArray("SHA-384", ForestNET.Lib.Helper.IntToByteArray(10070630)), Is.EqualTo("4DD7D9B43AFD5CA29A794B59EE924F2226E7776C7D25E052060AB71DCD7254DA9FF5C342F8E943D85336D7D97BAD8CB9"),
                     "SHA-384 ist not '4DD7D9B43AFD5CA29A794B59EE924F2226E7776C7D25E052060AB71DCD7254DA9FF5C342F8E943D85336D7D97BAD8CB9'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.HashByteArray("SHA-512", ForestNETLib.Core.Helper.IntToByteArray(916040294)), Is.EqualTo("38C320515E85995FC7ACFEFD5126EBA8EDB6133E6E552565899534D03E8AF6D6FF9BB1C165C58BBB43AED8DE01FDD3FB0C9F4F6D384AD8BCD419421AC10AB9C1"),
+                    ForestNET.Lib.Helper.HashByteArray("SHA-512", ForestNET.Lib.Helper.IntToByteArray(916040294)), Is.EqualTo("38C320515E85995FC7ACFEFD5126EBA8EDB6133E6E552565899534D03E8AF6D6FF9BB1C165C58BBB43AED8DE01FDD3FB0C9F4F6D384AD8BCD419421AC10AB9C1"),
                     "SHA-512 ist not '38C320515E85995FC7ACFEFD5126EBA8EDB6133E6E552565899534D03E8AF6D6FF9BB1C165C58BBB43AED8DE01FDD3FB0C9F4F6D384AD8BCD419421AC10AB9C1'"
                 );
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.HashByteArray("SHA-256", ForestNETLib.Core.Helper.IntToByteArray(43622)), Is.Not.EqualTo("9F2778195BB08930F6455CA6C191D9DC25C77F33145141A2E89FAC794D5E7C47"),
+                    ForestNET.Lib.Helper.HashByteArray("SHA-256", ForestNET.Lib.Helper.IntToByteArray(43622)), Is.Not.EqualTo("9F2778195BB08930F6455CA6C191D9DC25C77F33145141A2E89FAC794D5E7C47"),
                     "SHA-256 is '9F2778195BB08930F6455CA6C191D9DC25C77F33145141A2E89FAC794D5E7C47'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.HashByteArray("SHA-384", ForestNETLib.Core.Helper.IntToByteArray(10070630)), Is.Not.EqualTo("4DD7D9B43AFD5CA29A794B59EE924F2226E7776C7D25E052065AB71DCD7254DA9FF5C342F8E943D85336D7D97BAD8CB9"),
+                    ForestNET.Lib.Helper.HashByteArray("SHA-384", ForestNET.Lib.Helper.IntToByteArray(10070630)), Is.Not.EqualTo("4DD7D9B43AFD5CA29A794B59EE924F2226E7776C7D25E052065AB71DCD7254DA9FF5C342F8E943D85336D7D97BAD8CB9"),
                     "SHA-384 is '4DD7D9B43AFD5CA29A794B59EE924F2226E7776C7D25E052065AB71DCD7254DA9FF5C342F8E943D85336D7D97BAD8CB9'"
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.HashByteArray("SHA-512", ForestNETLib.Core.Helper.IntToByteArray(916040294)), Is.Not.EqualTo("38C320515E85995FC7ACFEFD5126EBA8EDB6133E6E552565899534D03E8AF6D6F39BB1C165C58BBB43AED8DE01FDD3FB0C9F4F6D384AD8BCD419421AC10AB9C1"),
+                    ForestNET.Lib.Helper.HashByteArray("SHA-512", ForestNET.Lib.Helper.IntToByteArray(916040294)), Is.Not.EqualTo("38C320515E85995FC7ACFEFD5126EBA8EDB6133E6E552565899534D03E8AF6D6F39BB1C165C58BBB43AED8DE01FDD3FB0C9F4F6D384AD8BCD419421AC10AB9C1"),
                     "SHA-512 is '38C320515E85995FC7ACFEFD5126EBA8EDB6133E6E552565899534D03E8AF6D6F39BB1C165C58BBB43AED8DE01FDD3FB0C9F4F6D384AD8BCD419421AC10AB9C1'"
                 );
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.BytesToHexString(Encoding.ASCII.GetBytes("Das ist das Haus vom Nikolaus."), true), Is.EqualTo("0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76 0x6F 0x6D 0x20 0x4E 0x69 0x6B 0x6F 0x6C 0x61 0x75 0x73 0x2E"),
+                    ForestNET.Lib.Helper.BytesToHexString(Encoding.ASCII.GetBytes("Das ist das Haus vom Nikolaus."), true), Is.EqualTo("0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76 0x6F 0x6D 0x20 0x4E 0x69 0x6B 0x6F 0x6C 0x61 0x75 0x73 0x2E"),
                     "BytesToHexString result for 'Das ist das Haus vom Nikolaus.' does not match expected value."
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.BytesToHexString(Encoding.ASCII.GetBytes("Das ist das Haus vom Nikolaus."), false), Is.EqualTo("4461732069737420646173204861757320766F6D204E696B6F6C6175732E"),
+                    ForestNET.Lib.Helper.BytesToHexString(Encoding.ASCII.GetBytes("Das ist das Haus vom Nikolaus."), false), Is.EqualTo("4461732069737420646173204861757320766F6D204E696B6F6C6175732E"),
                     "BytesToHexString result for 'Das ist das Haus vom Nikolaus.' does not match expected value."
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.BytesToHexString(Encoding.GetEncoding("ISO-8859-1").GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x42 0x43 0x44 0x45 0x46 0x47 0x48 0x49 0x4A 0x4B 0x4C 0x3F"),
+                    ForestNET.Lib.Helper.BytesToHexString(Encoding.GetEncoding("ISO-8859-1").GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x42 0x43 0x44 0x45 0x46 0x47 0x48 0x49 0x4A 0x4B 0x4C 0x3F"),
                     "BytesToHexString result for 'ABCDEFGHIJKL€' does not match expected value for charset 'ISO-8859-1'."
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.BytesToHexString(Encoding.UTF8.GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x42 0x43 0x44 0x45 0x46 0x47 0x48 0x49 0x4A 0x4B 0x4C 0xE2 0x82 0xAC"),
+                    ForestNET.Lib.Helper.BytesToHexString(Encoding.UTF8.GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x42 0x43 0x44 0x45 0x46 0x47 0x48 0x49 0x4A 0x4B 0x4C 0xE2 0x82 0xAC"),
                     "BytesToHexString result for 'ABCDEFGHIJKL€' does not match expected value for charset 'UTF-8'."
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.BytesToHexString(Encoding.GetEncoding("UTF-16").GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x00 0x42 0x00 0x43 0x00 0x44 0x00 0x45 0x00 0x46 0x00 0x47 0x00 0x48 0x00 0x49 0x00 0x4A 0x00 0x4B 0x00 0x4C 0x00 0xAC 0x20"),
+                    ForestNET.Lib.Helper.BytesToHexString(Encoding.GetEncoding("UTF-16").GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x00 0x42 0x00 0x43 0x00 0x44 0x00 0x45 0x00 0x46 0x00 0x47 0x00 0x48 0x00 0x49 0x00 0x4A 0x00 0x4B 0x00 0x4C 0x00 0xAC 0x20"),
                     "BytesToHexString result for 'ABCDEFGHIJKL€' does not match expected value for charset 'UTF-16'."
                 );
                 Assert.That(
-                    ForestNETLib.Core.Helper.BytesToHexString(Encoding.Unicode.GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x00 0x42 0x00 0x43 0x00 0x44 0x00 0x45 0x00 0x46 0x00 0x47 0x00 0x48 0x00 0x49 0x00 0x4A 0x00 0x4B 0x00 0x4C 0x00 0xAC 0x20"),
+                    ForestNET.Lib.Helper.BytesToHexString(Encoding.Unicode.GetBytes("ABCDEFGHIJKL€"), true), Is.EqualTo("0x41 0x00 0x42 0x00 0x43 0x00 0x44 0x00 0x45 0x00 0x46 0x00 0x47 0x00 0x48 0x00 0x49 0x00 0x4A 0x00 0x4B 0x00 0x4C 0x00 0xAC 0x20"),
                     "BytesToHexString result for 'ABCDEFGHIJKL€' does not match expected value for charset 'Unicode'."
                 );
 
                 Assert.That(
                     "Das ist das Haus v"u8.ToArray().SequenceEqual(
-                    ForestNETLib.Core.Helper.HexStringToBytes("0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76")),
+                    ForestNET.Lib.Helper.HexStringToBytes("0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76")),
                     Is.True,
                     "HexStringToBytes result for '0x44 0x61 0x73 0x20 0x69 0x73 0x74 0x20 0x64 0x61 0x73 0x20 0x48 0x61 0x75 0x73 0x20 0x76' does not match expected value."
                 );
                 Assert.That(
                     "Das ist das Haus v"u8.ToArray().SequenceEqual(
-                    ForestNETLib.Core.Helper.HexStringToBytes("446173206973742064617320486175732076")),
+                    ForestNET.Lib.Helper.HexStringToBytes("446173206973742064617320486175732076")),
                     Is.True,
                     "HexStringToBytes result for '446173206973742064617320486175732076' does not match expected value."
                 );
@@ -1090,56 +1090,56 @@ namespace ForestNETTests.Core
                 Assert.Fail(o_exc.ToString() + Environment.NewLine + System.Environment.StackTrace);
             }
 
-            List<string> a_list1 = new(new[] { "a", "bc", "def", "ghij", "klmno" });
+            List<string> a_list1 = [.. new[] { "a", "bc", "def", "ghij", "klmno" }];
             Assert.That(
-                ForestNETLib.Core.Helper.JoinList(a_list1, ','), Is.EqualTo("a,bc,def,ghij,klmno"),
-                "concated list '" + ForestNETLib.Core.Helper.JoinList(a_list1, ',') + "' is not equal 'a,bc,def,ghij,klmno'"
+                ForestNET.Lib.Helper.JoinList(a_list1, ','), Is.EqualTo("a,bc,def,ghij,klmno"),
+                "concated list '" + ForestNET.Lib.Helper.JoinList(a_list1, ',') + "' is not equal 'a,bc,def,ghij,klmno'"
             );
 
-            List<int> a_list2 = new(new[] { 1, 23, 45, 678, 910111213 });
+            List<int> a_list2 = [.. new[] { 1, 23, 45, 678, 910111213 }];
             Assert.That(
-                ForestNETLib.Core.Helper.JoinList(a_list2, ':'), Is.EqualTo("1:23:45:678:910111213"),
-                "concated list '" + ForestNETLib.Core.Helper.JoinList(a_list1, ':') + "' is not equal '1:23:45:678:910111213'"
+                ForestNET.Lib.Helper.JoinList(a_list2, ':'), Is.EqualTo("1:23:45:678:910111213"),
+                "concated list '" + ForestNET.Lib.Helper.JoinList(a_list1, ':') + "' is not equal '1:23:45:678:910111213'"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.GetIndexOfObjectInList(new List<string>(new[] { "two", "one", "three" }), "one"), Is.GreaterThan(0),
+                ForestNET.Lib.Helper.GetIndexOfObjectInList([.. new[] { "two", "one", "three" }], "one"), Is.GreaterThan(0),
                 "'one' not found and no index returned from array list"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.GetIndexOfObjectInList(new List<string>(new[] { "two", "four", "three" }), "one"), Is.LessThanOrEqualTo(0),
+                ForestNET.Lib.Helper.GetIndexOfObjectInList([.. new[] { "two", "four", "three" }], "one"), Is.LessThanOrEqualTo(0),
                 "'one' found and index returned from array list"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.IsIndexValid(new List<string>(new[] { "two", "one", "three" }), 2),
+                ForestNET.Lib.Helper.IsIndexValid([.. new[] { "two", "one", "three" }], 2),
                 Is.True,
                 "index '2' is not valid"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.IsIndexValid(new List<string>(new[] { "two", "four", "three" }), 42),
+                ForestNET.Lib.Helper.IsIndexValid([.. new[] { "two", "four", "three" }], 42),
                 Is.False,
                 "index '42' is valid"
             );
 
             TimeSpan o_timeSpan = TimeSpan.FromSeconds(597845641);
             Assert.That(
-                ForestNETLib.Core.Helper.FormatTimeSpan(o_timeSpan), Is.EqualTo("2767:48:14"),
+                ForestNET.Lib.Helper.FormatTimeSpan(o_timeSpan), Is.EqualTo("2767:48:14"),
                 "duration is not '2767:48:14'"
             );
             Assert.That(
-                ForestNETLib.Core.Helper.FormatTimeSpan(o_timeSpan), Is.Not.EqualTo("767:18:14"),
+                ForestNET.Lib.Helper.FormatTimeSpan(o_timeSpan), Is.Not.EqualTo("767:18:14"),
                 "duration is '767:48:14'"
             );
 
-            string s_random = ForestNETLib.Core.Helper.GenerateRandomString(32);
+            string s_random = ForestNET.Lib.Helper.GenerateRandomString(32);
 
             Assert.That(
                 s_random, Has.Length.EqualTo(32),
                 "random generated string has not a length of 32 characters"
             );
 
-            s_random = ForestNETLib.Core.Helper.GenerateRandomString(10, ForestNETLib.Core.Helper.DIGITS_CHARACTERS);
+            s_random = ForestNET.Lib.Helper.GenerateRandomString(10, ForestNET.Lib.Helper.DIGITS_CHARACTERS);
 
             Assert.That(
                 s_random, Has.Length.EqualTo(10),
@@ -1155,7 +1155,7 @@ namespace ForestNETTests.Core
                 );
             }
 
-            s_random = ForestNETLib.Core.Helper.GenerateUUID();
+            s_random = ForestNET.Lib.Helper.GenerateUUID();
 
             Assert.That(
                 s_random, Has.Length.EqualTo(36),
@@ -1163,7 +1163,7 @@ namespace ForestNETTests.Core
             );
 
             string s_original = "ftps://user:password@expample.com:21";
-            string s_disguised = ForestNETLib.Core.Helper.DisguiseSubstring(s_original, "//", "@", '*');
+            string s_disguised = ForestNET.Lib.Helper.DisguiseSubstring(s_original, "//", "@", '*');
 
             Assert.That(
                 s_disguised, Is.EqualTo("ftps://*************@expample.com:21"),
@@ -1171,7 +1171,7 @@ namespace ForestNETTests.Core
             );
 
             s_original = "This is just a \"test\"";
-            s_disguised = ForestNETLib.Core.Helper.DisguiseSubstring(s_original, "\"", "\"", '+');
+            s_disguised = ForestNET.Lib.Helper.DisguiseSubstring(s_original, "\"", "\"", '+');
 
             Assert.That(
                 s_disguised, Is.EqualTo("This is just a \"++++\""),
@@ -1179,7 +1179,7 @@ namespace ForestNETTests.Core
             );
 
             s_original = "No disguise at all";
-            s_disguised = ForestNETLib.Core.Helper.DisguiseSubstring(s_original, ".", "&", '_');
+            s_disguised = ForestNET.Lib.Helper.DisguiseSubstring(s_original, ".", "&", '_');
 
             Assert.That(
                 s_disguised, Is.EqualTo(s_original),
@@ -1207,16 +1207,16 @@ namespace ForestNETTests.Core
                 "192.168.2.100/24"
             };
 
-            uint[] a_range = ForestNETLib.Core.Helper.GetRangeOfSubnet("192.168.2.100/24");
+            uint[] a_range = ForestNET.Lib.Helper.GetRangeOfSubnet("192.168.2.100/24");
 
             Assert.That(
-                ForestNETLib.Core.Helper.Ipv4IntToString(a_range[0]), Is.EqualTo("192.168.2.1"),
-                "conversion from ipv4 int to '192.168.2.1' failed, result is '" + ForestNETLib.Core.Helper.Ipv4IntToString(a_range[0]) + "'"
+                ForestNET.Lib.Helper.Ipv4IntToString(a_range[0]), Is.EqualTo("192.168.2.1"),
+                "conversion from ipv4 int to '192.168.2.1' failed, result is '" + ForestNET.Lib.Helper.Ipv4IntToString(a_range[0]) + "'"
             );
 
             Assert.That(
-                ForestNETLib.Core.Helper.Ipv4IntToString(a_range[1]), Is.EqualTo("192.168.2.254"),
-                "conversion from ipv4 int to '192.168.2.254' failed, result is '" + ForestNETLib.Core.Helper.Ipv4IntToString(a_range[0]) + "'"
+                ForestNET.Lib.Helper.Ipv4IntToString(a_range[1]), Is.EqualTo("192.168.2.254"),
+                "conversion from ipv4 int to '192.168.2.254' failed, result is '" + ForestNET.Lib.Helper.Ipv4IntToString(a_range[0]) + "'"
             );
 
             bool[] a_ipAddressesResults = new bool[] {
@@ -1226,24 +1226,24 @@ namespace ForestNETTests.Core
             for (int i = 0; i < a_ipAddressesResults.Length; i++)
             {
                 Assert.That(
-                    ForestNETLib.Core.Helper.IsIpv4Address(a_ipAddresses[i * 2]),
+                    ForestNET.Lib.Helper.IsIpv4Address(a_ipAddresses[i * 2]),
                     Is.True,
                     "'" + a_ipAddresses[i * 2] + "' is not an ipv4 address"
                 );
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.IsIpv4AddressWithSuffix(a_ipAddresses[(i * 2) + 1]),
+                    ForestNET.Lib.Helper.IsIpv4AddressWithSuffix(a_ipAddresses[(i * 2) + 1]),
                     Is.True,
                     "'" + a_ipAddresses[(i * 2) + 1] + "' is not an ipv4 address with suffix"
                 );
 
                 Assert.That(
-                    ForestNETLib.Core.Helper.Ipv4IntToString(ForestNETLib.Core.Helper.Ipv4ToInt(a_ipAddresses[i * 2])), Is.EqualTo(a_ipAddresses[i * 2]),
+                    ForestNET.Lib.Helper.Ipv4IntToString(ForestNET.Lib.Helper.Ipv4ToInt(a_ipAddresses[i * 2])), Is.EqualTo(a_ipAddresses[i * 2]),
                     "conversion from ipv4 int and back for '" + a_ipAddresses[i * 2] + "' failed"
                 );
 
                 Assert.That(
-                    a_ipAddressesResults[i], Is.EqualTo(ForestNETLib.Core.Helper.IsIpv4WithinRange(a_ipAddresses[i * 2], a_ipAddresses[(i * 2) + 1])),
+                    a_ipAddressesResults[i], Is.EqualTo(ForestNET.Lib.Helper.IsIpv4WithinRange(a_ipAddresses[i * 2], a_ipAddresses[(i * 2) + 1])),
                     "ip '" + a_ipAddresses[i * 2] + "' is " + ((!a_ipAddressesResults[i]) ? "not" : "") + " within '" + a_ipAddresses[(i * 2) + 1] + "'"
                 );
             }

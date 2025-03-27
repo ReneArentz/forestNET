@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ForestNETLib.IO
+namespace ForestNET.Lib.IO
 {
     /// <summary>
     /// File class for creating, manipulating or deleting files in various ways.
@@ -327,7 +327,7 @@ namespace ForestNETLib.IO
                 }
 
                 /* if last element is empty, delete it */
-                if ((this.l_fileLength > 0) && (Core.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
+                if ((this.l_fileLength > 0) && (ForestNET.Lib.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
                 {
                     this.a_fileContent.RemoveAt(this.a_fileContent.Count - 1);
                 }
@@ -534,7 +534,7 @@ namespace ForestNETLib.IO
                 throw new InvalidOperationException("File[" + this.s_filename + "] cannot be used, not ready for writing");
             }
 
-            if (!Core.Helper.IsStringEmpty(p_s_value))
+            if (!ForestNET.Lib.Helper.IsStringEmpty(p_s_value))
             {
                 /* generate file content array with the new file content string and CRLF as separate sign */
                 this.a_fileContent.Clear();
@@ -612,7 +612,7 @@ namespace ForestNETLib.IO
             }
 
             /* if last element is empty, delete it */
-            if ((this.l_fileLength > 0) && (Core.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
+            if ((this.l_fileLength > 0) && (ForestNET.Lib.Helper.IsStringEmpty(this.a_fileContent[this.a_fileContent.Count - 1])))
             {
                 this.a_fileContent.RemoveAt(this.a_fileContent.Count - 1);
             }
@@ -700,7 +700,7 @@ namespace ForestNETLib.IO
             }
 
             /* check new name parameter */
-            if (Core.Helper.IsStringEmpty(p_s_newName))
+            if (ForestNET.Lib.Helper.IsStringEmpty(p_s_newName))
             {
                 throw new ArgumentException("New file name parameter is null or empty");
             }
@@ -737,7 +737,7 @@ namespace ForestNETLib.IO
         /// <exception cref="NullReferenceException">has method returned null value</exception>
         public string Hash(string p_s_algorithm)
         {
-            return Core.Helper.HashByteArray(p_s_algorithm, this.o_encoding.GetBytes(this.FileContent)) ?? throw new NullReferenceException("Method returned 'null' with algorithm '" + p_s_algorithm + "'");
+            return ForestNET.Lib.Helper.HashByteArray(p_s_algorithm, this.o_encoding.GetBytes(this.FileContent)) ?? throw new NullReferenceException("Method returned 'null' with algorithm '" + p_s_algorithm + "'");
         }
 
         /// <summary>
@@ -890,7 +890,7 @@ namespace ForestNETLib.IO
         {
             if (File.Exists(p_s_pathTofile))
             {
-                return Core.Helper.HashByteArray(p_s_algorithm, File.ReadAllBytes(p_s_pathTofile)) ?? null;
+                return ForestNET.Lib.Helper.HashByteArray(p_s_algorithm, File.ReadAllBytes(p_s_pathTofile)) ?? null;
             }
             else
             {
@@ -946,14 +946,14 @@ namespace ForestNETLib.IO
                 /* skip directory elements */
                 if (o_file.IsDirectory)
                 {
-                    ForestNETLib.Core.Global.ILogFinest("skip directory '" + o_file.FullName + "'");
+                    ForestNET.Lib.Global.ILogFinest("skip directory '" + o_file.FullName + "'");
                     continue;
                 }
 
                 /* skip empty file name */
                 if (o_file.FullName == null)
                 {
-                    ForestNETLib.Core.Global.ILogFinest("skip emtpy file name");
+                    ForestNET.Lib.Global.ILogFinest("skip emtpy file name");
                     continue;
                 }
 
@@ -961,7 +961,7 @@ namespace ForestNETLib.IO
                 l_size += o_file.Size;
                 a_filePaths.Add(o_file.FullName);
 
-                ForestNETLib.Core.Global.ILogFinest("added file '" + o_file.FullName + "'");
+                ForestNET.Lib.Global.ILogFinest("added file '" + o_file.FullName + "'");
             }
 
             /* overall byte array for all file contents */
@@ -988,7 +988,7 @@ namespace ForestNETLib.IO
             }
 
             /* returned hashed overall byte array */
-            return Core.Helper.HashByteArray(p_s_algorithm, by_array);
+            return ForestNET.Lib.Helper.HashByteArray(p_s_algorithm, by_array);
         }
 
         /// <summary>
@@ -1432,7 +1432,7 @@ namespace ForestNETLib.IO
                             /* create directory */
                             System.IO.Directory.CreateDirectory(s_foo);
 
-                            ForestNETLib.Core.Global.ILogFinest("auto create directory '" + s_foo + "'");
+                            ForestNET.Lib.Global.ILogFinest("auto create directory '" + s_foo + "'");
                         }
                         catch (Exception o_exc)
                         {
@@ -1486,7 +1486,7 @@ namespace ForestNETLib.IO
                         /* copy directory recursively */
                         File.CopyDirectory(o_directoryInfo.FullName, p_s_destination + File.DIR + o_directoryInfo.Name);
 
-                        ForestNETLib.Core.Global.ILogFinest("copied directory '" + o_directoryInfo.Name + "'");
+                        ForestNET.Lib.Global.ILogFinest("copied directory '" + o_directoryInfo.Name + "'");
                     }
                 }
 
@@ -1499,7 +1499,7 @@ namespace ForestNETLib.IO
                         /* copy file */
                         File.CopyFile(o_fileInfo.FullName, p_s_destination + File.DIR + o_fileInfo.Name);
 
-                        ForestNETLib.Core.Global.ILogFinest("copied file '" + o_fileInfo.FullName + "'");
+                        ForestNET.Lib.Global.ILogFinest("copied file '" + o_fileInfo.FullName + "'");
                     }
                 }
             }
@@ -1534,9 +1534,9 @@ namespace ForestNETLib.IO
             try
             {
                 File.CopyDirectory(p_s_source, p_s_destination);
-                ForestNETLib.Core.Global.ILogFinest("copied directory '" + p_s_source + "'");
+                ForestNET.Lib.Global.ILogFinest("copied directory '" + p_s_source + "'");
                 File.DeleteDirectory(p_s_source);
-                ForestNETLib.Core.Global.ILogFinest("deleted directory '" + p_s_source + "'");
+                ForestNET.Lib.Global.ILogFinest("deleted directory '" + p_s_source + "'");
             }
             catch (Exception o_exc)
             {
@@ -1584,7 +1584,7 @@ namespace ForestNETLib.IO
                     {
                         /* copy directory recursively */
                         File.DeleteDirectory(o_directoryInfo.FullName);
-                        ForestNETLib.Core.Global.ILogFinest("deleted directory '" + o_directoryInfo.Name + "'");
+                        ForestNET.Lib.Global.ILogFinest("deleted directory '" + o_directoryInfo.Name + "'");
                     }
                 }
 
@@ -1596,7 +1596,7 @@ namespace ForestNETLib.IO
                     {
                         /* copy file */
                         File.DeleteFile(o_fileInfo.FullName);
-                        ForestNETLib.Core.Global.ILogFinest("deleted file '" + o_fileInfo.Name + "'");
+                        ForestNET.Lib.Global.ILogFinest("deleted file '" + o_fileInfo.Name + "'");
                     }
                 }
             }
@@ -1647,7 +1647,7 @@ namespace ForestNETLib.IO
                 /* create new hex directory */
                 File.CreateDirectory(p_s_source + File.DIR + s_hex);
 
-                if (ForestNETLib.Core.Global.IsILevel((byte)ForestNETLib.Log.Level.MASS)) ForestNETLib.Core.Global.ILogMass("created sub directory '" + s_hex + "'");
+                if (ForestNET.Lib.Global.IsILevel((byte)ForestNET.Lib.Log.Level.MASS)) ForestNET.Lib.Global.ILogMass("created sub directory '" + s_hex + "'");
             }
         }
 
@@ -1856,7 +1856,7 @@ namespace ForestNETLib.IO
         public static void ReplaceFileContent(string p_s_pathToFile, StringBuilder p_o_stringBuilder, Encoding p_o_encoding)
         {
             /* check file path parameter */
-            if (Core.Helper.IsStringEmpty(p_s_pathToFile))
+            if (ForestNET.Lib.Helper.IsStringEmpty(p_s_pathToFile))
             {
                 throw new ArgumentException("File path parameter is empty");
             }
