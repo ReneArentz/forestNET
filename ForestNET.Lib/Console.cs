@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace ForestNETLib.Core
+﻿namespace ForestNET.Lib
 {
     /// <summary>
     /// Collection of static methods to support and handle user input with console.
@@ -590,7 +588,7 @@ namespace ForestNETLib.Core
                 s_foo = DoInput(p_s_caption, false, p_s_inputErrorMessage);
             }
 
-            return Convert.ToSingle(s_foo?.Replace(',', '.'), CultureInfo.InvariantCulture);
+            return Convert.ToSingle(s_foo?.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -653,7 +651,7 @@ namespace ForestNETLib.Core
                 s_foo = DoInput(p_s_caption, false, p_s_inputErrorMessage);
             }
 
-            return Convert.ToDouble(s_foo?.Replace(',', '.'), CultureInfo.InvariantCulture);
+            return Convert.ToDouble(s_foo?.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>

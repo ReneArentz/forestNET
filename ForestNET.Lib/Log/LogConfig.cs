@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using static ForestNETLib.Log.LevelExtensions;
+using static ForestNET.Lib.Log.LevelExtensions;
 
-namespace ForestNETLib.Log
+namespace ForestNET.Lib.Log
 {
     /// <summary>
     /// Class to create logging factory for Microsoft.Extensions.Logging without having an external file, but loading from config file is supported, too.
@@ -46,8 +46,8 @@ namespace ForestNETLib.Log
             {
                 if (value)
                 {
-                    ForestNETLib.Core.Global.LogWarning("ForestNETLib.SQL.Base log query flag has been set true");
-                    ForestNETLib.Core.Global.LogWarning("if log access is not secured, using this is a security vulnerability!");
+                    ForestNET.Lib.Global.LogWarning("ForestNETLib.SQL.Base log query flag has been set true");
+                    ForestNET.Lib.Global.LogWarning("if log access is not secured, using this is a security vulnerability!");
                 }
 
                 this.b_logCompleteSqlQuery = value;
@@ -71,7 +71,7 @@ namespace ForestNETLib.Log
                 new FileLoggerConfigurationElement
                 {
                     Category = "Log;InternalLog",
-                    FilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ForestNETLib.IO.File.DIR ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'"),
+                    FilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ForestNET.Lib.IO.File.DIR ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'"),
                     FileName = "%dt_log.%n1.txt",
                     FileCount = 10,
                     FileLimitInBytes = 1000000
@@ -93,7 +93,7 @@ namespace ForestNETLib.Log
         {
             /* dispose current logger factory and current logging */
             this.LoggerFactory?.Dispose();
-            
+
             GC.SuppressFinalize(this);
         }
 
@@ -164,7 +164,7 @@ namespace ForestNETLib.Log
                 new FileLoggerConfigurationElement
                 {
                     Category = "Log;InternalLog",
-                    FilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ForestNETLib.IO.File.DIR ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'"),
+                    FilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ForestNET.Lib.IO.File.DIR ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'"),
                     FileName = "%dt_log.%n1.txt",
                     FileCount = 10,
                     FileLimitInBytes = 1000000
@@ -190,13 +190,13 @@ namespace ForestNETLib.Log
         public void ResetLogFromFile(string p_s_configFile)
         {
             /* check if config file really exists */
-            if (!ForestNETLib.IO.File.Exists(p_s_configFile))
+            if (!ForestNET.Lib.IO.File.Exists(p_s_configFile))
             {
                 throw new ArgumentException("Config file '" + p_s_configFile + "' does not exist.");
             }
-            
+
             /* open config file and read all lines */
-            ForestNETLib.IO.File o_file = new(p_s_configFile, false);
+            ForestNET.Lib.IO.File o_file = new(p_s_configFile, false);
 
             /* set logging settings from file lines */
             this.ResetLogFromLines(o_file.FileContentAsList ?? throw new ArgumentException("File '" + p_s_configFile + "' has no content to load log configuration"));
@@ -250,7 +250,7 @@ namespace ForestNETLib.Log
                 if (s_key.ToLower().Equals("UseConsoleLogging".ToLower()))
                 {
                     /* value must be true/false */
-                    if (ForestNETLib.Core.Helper.IsBoolean(s_value))
+                    if (ForestNET.Lib.Helper.IsBoolean(s_value))
                     {
                         this.UseConsoleLogging = Boolean.Parse(s_value);
                     }
@@ -258,7 +258,7 @@ namespace ForestNETLib.Log
                 else if (s_key.ToLower().Equals("UseFileLogging".ToLower()))
                 {
                     /* value must be true/false */
-                    if (ForestNETLib.Core.Helper.IsBoolean(s_value))
+                    if (ForestNET.Lib.Helper.IsBoolean(s_value))
                     {
                         this.UseFileLogging = Boolean.Parse(s_value);
                     }
@@ -266,7 +266,7 @@ namespace ForestNETLib.Log
                 else if (s_key.ToLower().Equals("LogExceptionsBoth".ToLower()))
                 {
                     /* value must be true/false */
-                    if (ForestNETLib.Core.Helper.IsBoolean(s_value))
+                    if (ForestNET.Lib.Helper.IsBoolean(s_value))
                     {
                         this.LogExceptionsBoth = Boolean.Parse(s_value);
                     }
@@ -274,7 +274,7 @@ namespace ForestNETLib.Log
                 else if (s_key.ToLower().Equals("SourceMaxWidthConsole".ToLower()))
                 {
                     /* source max. width for console must be an integer */
-                    if (ForestNETLib.Core.Helper.IsInteger(s_value))
+                    if (ForestNET.Lib.Helper.IsInteger(s_value))
                     {
                         this.SourceMaxWidthConsole = int.Parse(s_value);
                     }
@@ -282,7 +282,7 @@ namespace ForestNETLib.Log
                 else if (s_key.ToLower().Equals("SourceMaxWidthFile".ToLower()))
                 {
                     /* source max. width for file must be an integer */
-                    if (ForestNETLib.Core.Helper.IsInteger(s_value))
+                    if (ForestNET.Lib.Helper.IsInteger(s_value))
                     {
                         this.SourceMaxWidthFile = int.Parse(s_value);
                     }
@@ -304,11 +304,11 @@ namespace ForestNETLib.Log
                             by_foo += (byte)StringToLevel(s_logControlLevel.Trim());
                         }
 
-                        ForestNETLib.Core.Global.Instance.LogControl = by_foo;
+                        ForestNET.Lib.Global.Instance.LogControl = by_foo;
                     }
                     else
                     {
-                        ForestNETLib.Core.Global.Instance.LogControl = (byte)StringToLevel(s_value);
+                        ForestNET.Lib.Global.Instance.LogControl = (byte)StringToLevel(s_value);
                     }
                 }
                 else if (s_key.ToLower().Equals("InternalLogControl".ToLower()))
@@ -324,11 +324,11 @@ namespace ForestNETLib.Log
                             by_foo += (byte)StringToLevel(s_internalLogControlLevel.Trim());
                         }
 
-                        ForestNETLib.Core.Global.Instance.InternalLogControl = by_foo;
+                        ForestNET.Lib.Global.Instance.InternalLogControl = by_foo;
                     }
                     else
                     {
-                        ForestNETLib.Core.Global.Instance.InternalLogControl = (byte)StringToLevel(s_value);
+                        ForestNET.Lib.Global.Instance.InternalLogControl = (byte)StringToLevel(s_value);
                     }
                 }
                 else if (s_key.ToLower().Equals("ConsoleLoggingFilter".ToLower()))
@@ -347,7 +347,7 @@ namespace ForestNETLib.Log
                             string s_loggingFilter = a_valueParts[1].Trim();
 
                             /* logging category must be true/false */
-                            if (ForestNETLib.Core.Helper.IsBoolean(s_loggingCategory))
+                            if (ForestNET.Lib.Helper.IsBoolean(s_loggingCategory))
                             {
                                 /* check if console logging filters already has been cleared */
                                 if (!b_cleanedConsoleLoggingFilters)
@@ -380,7 +380,7 @@ namespace ForestNETLib.Log
                             string s_loggingFilter = a_valueParts[1].Trim();
 
                             /* logging category must be true/false */
-                            if (ForestNETLib.Core.Helper.IsBoolean(s_loggingCategory))
+                            if (ForestNET.Lib.Helper.IsBoolean(s_loggingCategory))
                             {
                                 /* check if file logging filters already has been cleared */
                                 if (!b_cleanedFileLoggingFilters)
@@ -410,7 +410,7 @@ namespace ForestNETLib.Log
                         {
                             /* read NET log level and console color values */
                             Microsoft.Extensions.Logging.LogLevel e_logLevel = StringToNETLogLevel(a_valueParts[0].Trim());
-                            ConsoleColor e_consoleColor = ForestNETLib.Log.ColorConsoleLoggerConfiguration.StringToConsoleColor(a_valueParts[1].Trim());
+                            ConsoleColor e_consoleColor = ForestNET.Lib.Log.ColorConsoleLoggerConfiguration.StringToConsoleColor(a_valueParts[1].Trim());
 
                             /* check if log level color map already has been cleared */
                             if (!b_cleanedLevelConsoleColorMap)
@@ -486,7 +486,7 @@ namespace ForestNETLib.Log
                         if (s_filePath.StartsWith("%localstate"))
                         {
                             /* replace '%localstate' with local folder path, where assembly is located */
-                            s_filePath = (System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ForestNETLib.IO.File.DIR ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'"))
+                            s_filePath = (System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ForestNET.Lib.IO.File.DIR ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'"))
                                 + s_filePath.Substring(11);
                         }
 
@@ -494,22 +494,22 @@ namespace ForestNETLib.Log
                         if (s_filePath.StartsWith("%tempstate"))
                         {
                             /* replace '%tempstate' with local app data temporary folder path */
-                            s_filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + ForestNETLib.IO.File.DIR + "temp" + ForestNETLib.IO.File.DIR
+                            s_filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + ForestNET.Lib.IO.File.DIR + "temp" + ForestNET.Lib.IO.File.DIR
                                 + s_filePath.Substring(10);
                         }
-                        
+
                         /* add directory separator if it is not at the end of file path */
-                        if (!s_filePath.EndsWith(ForestNETLib.IO.File.DIR))
+                        if (!s_filePath.EndsWith(ForestNET.Lib.IO.File.DIR))
                         {
-                            s_filePath += ForestNETLib.IO.File.DIR;
+                            s_filePath += ForestNET.Lib.IO.File.DIR;
                         }
 
                         /* check if file path really exists */
-                        if (!ForestNETLib.IO.File.FolderExists(s_filePath))
+                        if (!ForestNET.Lib.IO.File.FolderExists(s_filePath))
                         {
                             continue;
                         }
-                        
+
                         /* read file name from value */
                         string s_fileName = a_valueParts[2].Trim();
 
@@ -524,7 +524,7 @@ namespace ForestNETLib.Log
                             string s_fileCount = a_valueParts[3].Trim();
 
                             /* file count must be an integer */
-                            if (ForestNETLib.Core.Helper.IsInteger(s_fileCount))
+                            if (ForestNET.Lib.Helper.IsInteger(s_fileCount))
                             {
                                 i_fileCount = int.Parse(s_fileCount);
                             }
@@ -539,7 +539,7 @@ namespace ForestNETLib.Log
                             string s_fileLimitInBytes = a_valueParts[4].Trim();
 
                             /* file limit in bytes must be an integer */
-                            if (ForestNETLib.Core.Helper.IsInteger(s_fileLimitInBytes))
+                            if (ForestNET.Lib.Helper.IsInteger(s_fileLimitInBytes))
                             {
                                 i_fileLimitInBytes = int.Parse(s_fileLimitInBytes);
                             }
@@ -588,7 +588,7 @@ namespace ForestNETLib.Log
         /// <exception cref="NullReferenceException">logger factory is not initialized</exception>
         public ILogger CreateLoggerInstance(string p_s_categoryName)
         {
-            if (ForestNETLib.Core.Helper.IsStringEmpty(p_s_categoryName))
+            if (ForestNET.Lib.Helper.IsStringEmpty(p_s_categoryName))
             {
                 throw new ArgumentNullException(nameof(p_s_categoryName), "Category name parameter is null or empty");
             }

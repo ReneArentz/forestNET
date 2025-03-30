@@ -4,16 +4,16 @@
     {
         public static void TestMemoryInfo()
         {
-            ForestNETLib.Core.MemoryInfo o_memoryInfo = new(ForestNETLib.Core.Global.Instance.LOG ?? throw new NullReferenceException("LOG is not set"), 1000, ForestNETLib.Log.Level.INFO);
+            ForestNET.Lib.MemoryInfo o_memoryInfo = new(ForestNET.Lib.Global.Instance.LOG ?? throw new NullReferenceException("LOG is not set"), 1000, ForestNET.Lib.Log.Level.INFO);
             System.Threading.Thread o_memoryInfoThread = new(o_memoryInfo.Run);
 
-            ForestNETLib.Core.Global.Log("starting memory info thread . . .");
+            ForestNET.Lib.Global.Log("starting memory info thread . . .");
 
             o_memoryInfoThread.Start();
 
-            ForestNETLib.Core.Global.Log("calculate pi and occupy memory . . .");
+            ForestNET.Lib.Global.Log("calculate pi and occupy memory . . .");
 
-            System.Collections.Generic.List<string> a_foo = [];
+            //System.Collections.Generic.List<string> a_foo = [];
             double d_pi = 0.0d;
 
             for (int i = 1_000_000_000; i > 0; i--)
@@ -32,7 +32,7 @@
                 }
             }
 
-            ForestNETLib.Core.Global.LogWarning(d_pi.ToString()); /* print pi */
+            ForestNET.Lib.Global.LogWarning(d_pi.ToString()); /* print pi */
 
             if (o_memoryInfo != null)
             {
@@ -40,7 +40,7 @@
                 System.Threading.Thread.Sleep(2000);
             }
 
-            ForestNETLib.Core.Global.Log("memory info thread stopped . . .");
+            ForestNET.Lib.Global.Log("memory info thread stopped . . .");
         }
     }
 }

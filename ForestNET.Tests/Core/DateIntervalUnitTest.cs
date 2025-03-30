@@ -1,11 +1,11 @@
-﻿namespace ForestNETTests.Core
+﻿namespace ForestNET.Tests.Core
 {
     public class DateIntervalUnitTest
     {
         [Test]
         public void TestDateInterval()
         {
-            ForestNETLib.Core.DateInterval o_dateInterval;
+            ForestNET.Lib.DateInterval o_dateInterval;
 
             try
             {
