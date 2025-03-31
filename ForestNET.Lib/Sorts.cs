@@ -1,4 +1,4 @@
-﻿namespace ForestNETLib.Core
+﻿namespace ForestNET.Lib
 {
     /// <summary>
     /// Collection of static methods to sort dynamic lists and dynamic key-value maps.
@@ -869,7 +869,7 @@
             if (p_b_sortByValue)
             { /* sort by value */
                 /* put values is hash set to determine duplicates */
-                HashSet<U> a_valuesSet = new(p_m_list.Values);
+                HashSet<U> a_valuesSet = [.. p_m_list.Values];
                 bool b_duplicates = false;
 
                 /* check if dynamics key-value list as parameter contains duplicates */

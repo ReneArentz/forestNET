@@ -1,4 +1,4 @@
-﻿namespace ForestNETTests.Core
+﻿namespace ForestNET.Tests.Core
 {
     public class SortsUnitTest
     {
@@ -23,7 +23,7 @@
 
         private static void ExecuteSortsList(bool p_b_unique, int p_i_amount, bool p_b_selection, bool p_b_insertion, bool p_b_bubble, bool p_b_heap, bool p_b_merge, bool p_b_quick)
         {
-            List<int> a_list = new();
+            List<int> a_list = [];
 
             if (p_b_unique)
             {
@@ -36,7 +36,7 @@
             {
                 for (int i = 1; i <= p_i_amount; i++)
                 {
-                    a_list.Add(ForestNETLib.Core.Helper.RandomIntegerRange(1, p_i_amount));
+                    a_list.Add(ForestNET.Lib.Helper.RandomIntegerRange(1, p_i_amount));
                 }
             }
 
@@ -44,8 +44,8 @@
 
             if (p_b_selection)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
-                ForestNETLib.Core.Sorts.SelectionSort(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Sorts.SelectionSort(a_list);
                 ExecuteSortsListValidate(p_b_unique, a_list);
             }
 
@@ -53,8 +53,8 @@
 
             if (p_b_insertion)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
-                ForestNETLib.Core.Sorts.InsertionSort(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Sorts.InsertionSort(a_list);
                 ExecuteSortsListValidate(p_b_unique, a_list);
             }
 
@@ -62,8 +62,8 @@
 
             if (p_b_bubble)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
-                ForestNETLib.Core.Sorts.BubbleSort(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Sorts.BubbleSort(a_list);
                 ExecuteSortsListValidate(p_b_unique, a_list);
             }
 
@@ -71,8 +71,8 @@
 
             if (p_b_heap)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
-                ForestNETLib.Core.Sorts.HeapSort(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Sorts.HeapSort(a_list);
                 ExecuteSortsListValidate(p_b_unique, a_list);
             }
 
@@ -80,8 +80,8 @@
 
             if (p_b_merge)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
-                ForestNETLib.Core.Sorts.MergeSort(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Sorts.MergeSort(a_list);
                 ExecuteSortsListValidate(p_b_unique, a_list);
             }
 
@@ -89,8 +89,8 @@
 
             if (p_b_quick)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
-                ForestNETLib.Core.Sorts.QuickSort(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Sorts.QuickSort(a_list);
                 ExecuteSortsListValidate(p_b_unique, a_list);
             }
         }
@@ -124,8 +124,8 @@
 
         private static void ExecuteSortsMap(bool p_b_unique, int p_i_amount, bool p_b_selection, bool p_b_insertion, bool p_b_bubble, bool p_b_heap, bool p_b_merge, bool p_b_quick, bool p_b_sortByValue)
         {
-            List<int> a_list = new();
-            Dictionary<string, int> a_map = new();
+            List<int> a_list = [];
+            Dictionary<string, int> a_map = [];
             List<KeyValuePair<string, int>> a_return;
 
             if (p_b_unique)
@@ -139,7 +139,7 @@
             {
                 for (int i = 1; i <= p_i_amount; i++)
                 {
-                    a_list.Add(ForestNETLib.Core.Helper.RandomIntegerRange(1, p_i_amount));
+                    a_list.Add(ForestNET.Lib.Helper.RandomIntegerRange(1, p_i_amount));
                 }
             }
 
@@ -147,14 +147,14 @@
 
             if (p_b_selection)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int i = 1; i <= p_i_amount; i++)
                 {
                     a_map[i.ToString("X8")] = a_list[i - 1];
                 }
 
-                a_return = ForestNETLib.Core.Sorts.SelectionSort(a_map, p_b_sortByValue);
+                a_return = ForestNET.Lib.Sorts.SelectionSort(a_map, p_b_sortByValue);
                 ExecuteSortsMapValidate(p_b_unique, p_b_sortByValue, a_return);
             }
 
@@ -162,14 +162,14 @@
 
             if (p_b_insertion)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int i = 1; i <= p_i_amount; i++)
                 {
                     a_map[i.ToString("X8")] = a_list[i - 1];
                 }
 
-                a_return = ForestNETLib.Core.Sorts.InsertionSort(a_map, p_b_sortByValue);
+                a_return = ForestNET.Lib.Sorts.InsertionSort(a_map, p_b_sortByValue);
                 ExecuteSortsMapValidate(p_b_unique, p_b_sortByValue, a_return);
             }
 
@@ -177,14 +177,14 @@
 
             if (p_b_bubble)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int i = 1; i <= p_i_amount; i++)
                 {
                     a_map[i.ToString("X8")] = a_list[i - 1];
                 }
 
-                a_return = ForestNETLib.Core.Sorts.BubbleSort(a_map, p_b_sortByValue);
+                a_return = ForestNET.Lib.Sorts.BubbleSort(a_map, p_b_sortByValue);
                 ExecuteSortsMapValidate(p_b_unique, p_b_sortByValue, a_return);
             }
 
@@ -192,14 +192,14 @@
 
             if (p_b_heap)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int i = 1; i <= p_i_amount; i++)
                 {
                     a_map[i.ToString("X8")] = a_list[i - 1];
                 }
 
-                a_return = ForestNETLib.Core.Sorts.HeapSort(a_map, p_b_sortByValue);
+                a_return = ForestNET.Lib.Sorts.HeapSort(a_map, p_b_sortByValue);
                 ExecuteSortsMapValidate(p_b_unique, p_b_sortByValue, a_return);
             }
 
@@ -207,14 +207,14 @@
 
             if (p_b_merge)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int i = 1; i <= p_i_amount; i++)
                 {
                     a_map[i.ToString("X8")] = a_list[i - 1];
                 }
 
-                a_return = ForestNETLib.Core.Sorts.MergeSort(a_map, p_b_sortByValue);
+                a_return = ForestNET.Lib.Sorts.MergeSort(a_map, p_b_sortByValue);
                 ExecuteSortsMapValidate(p_b_unique, p_b_sortByValue, a_return);
             }
 
@@ -222,14 +222,14 @@
 
             if (p_b_quick)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int i = 1; i <= p_i_amount; i++)
                 {
                     a_map[i.ToString("X8")] = a_list[i - 1];
                 }
 
-                a_return = ForestNETLib.Core.Sorts.QuickSort(a_map, p_b_sortByValue);
+                a_return = ForestNET.Lib.Sorts.QuickSort(a_map, p_b_sortByValue);
                 ExecuteSortsMapValidate(p_b_unique, p_b_sortByValue, a_return);
             }
         }

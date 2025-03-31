@@ -1,4 +1,4 @@
-﻿namespace ForestNETLib.Core
+﻿namespace ForestNET.Lib
 {
     /// <summary>
     /// Class to represent a date interval from string input.

@@ -1,4 +1,4 @@
-﻿namespace ForestNETLib.IO
+﻿namespace ForestNET.Lib.IO
 {
     /// <summary>
     /// Listing element class which is holding general information about a file or a directory element.
