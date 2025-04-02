@@ -1,4 +1,4 @@
-﻿using ForestNETLib.Core;
+﻿using ForestNET.Lib;
 using Console = System.Console;
 
 Console.WriteLine("Sandbox started . . . " + Environment.NewLine);
@@ -26,7 +26,7 @@ try
 
         Console.WriteLine("");
 
-        i_input = ForestNETLib.Core.Console.ConsoleInputInteger("Enter menu number[1-13;0]: ", "Invalid input.", "Please enter a value[1-13;0].") ?? 0;
+        i_input = ForestNET.Lib.Console.ConsoleInputInteger("Enter menu number[1-13;0]: ", "Invalid input.", "Please enter a value[1-13;0].") ?? 0;
 
         Console.WriteLine("");
 
@@ -51,7 +51,7 @@ try
         {
             Console.WriteLine("");
 
-            ForestNETLib.Core.Console.ConsoleInputString("Press any key to continue . . . ", true);
+            ForestNET.Lib.Console.ConsoleInputString("Press any key to continue . . . ", true);
 
             Console.WriteLine("");
         }
@@ -66,7 +66,7 @@ catch (Exception o_exc)
 
     Console.WriteLine("");
 
-    ForestNETLib.Core.Console.ConsoleInputString("Press any key to continue . . . ", true);
+    ForestNET.Lib.Console.ConsoleInputString("Press any key to continue . . . ", true);
 
     Console.WriteLine("");
 }
@@ -78,5 +78,5 @@ finally
 Console.WriteLine("Sandbox finished . . . ");
 
 //Console.WriteLine("");
-//ForestNETLib.Core.Console.ConsoleInputString("Press any key to continue . . . ", true);
+//ForestNET.Lib.Console.ConsoleInputString("Press any key to continue . . . ", true);
 //Console.WriteLine("");
