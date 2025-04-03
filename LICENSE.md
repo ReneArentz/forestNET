@@ -1,5 +1,5 @@
 forestNET Framework
-Copyright (c) 2024, Rene Arentz
+Copyright (c) 2025, Rene Arentz
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
