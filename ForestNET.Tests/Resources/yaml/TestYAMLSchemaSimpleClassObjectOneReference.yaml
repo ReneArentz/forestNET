@@ -1,0 +1,38 @@
+---
+definitions:
+    SimpleClassRef: &SimpleClassRef
+        type: object
+        mapping: ForestNET.Tests.IO.Data+SimpleClass, ForestNET.Tests
+        properties:
+            ValueA:
+                type: string
+                mapping: ValueA
+            ValueB:
+                type: string
+                mapping: ValueB
+            ValueC:
+                type: string
+                mapping: ValueC
+            ValueD:
+                type: array
+                mapping: ValueD
+                items:
+                    type: integer
+            ValueE:
+                type: array
+                mapping: ValueE
+                items:
+                    type: number[]
+            required:
+              - ValueA
+              - ValueB
+type: object
+mapping: ForestNET.Tests.IO.Data+SimpleClassCollection, ForestNET.Tests
+properties:
+    SimpleClassesYAML:
+        type: array
+        mapping: "SimpleClasses:List"
+        items: *SimpleClassRef
+#            "$ref": "#/definitions/SimpleClassRef"
+        minItems: 1
+...

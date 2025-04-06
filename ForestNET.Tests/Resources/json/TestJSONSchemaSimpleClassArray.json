@@ -1,0 +1,44 @@
+{
+	"$id": "https://example.com/define.schema.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"description": "An example of handling a simple class with JSON",
+	
+	"type": "array",
+	"mapping": "List",
+	"items": {
+		"SimpleClassRef": {
+			"type": "object",
+			"mapping": "ForestNET.Tests.IO.Data+SimpleClass, ForestNET.Tests",
+			"properties": {
+				"ValueA": {
+					"type": "string",
+					"mapping": "ValueA"
+				},
+				"ValueB": {
+					"type": "string",
+					"mapping": "ValueB"
+				},
+				"ValueC": {
+					"type": "string",
+					"mapping": "ValueC"
+				},
+				"ValueD": {
+					"type": "array",
+					"mapping": "ValueD",
+					"items": {
+						"type": "integer"
+					}
+				},
+				"ValueE": {
+                	"type": "array",
+                	"mapping": "ValueE",
+                	"items": {
+                    	"type": "number[]"
+                    }
+                }
+			},
+			"required": ["ValueA", "ValueB"]
+		}
+	},
+	"minItems": 1
+}

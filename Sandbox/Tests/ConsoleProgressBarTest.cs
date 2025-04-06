@@ -5,7 +5,7 @@
         public static void TestConsoleProgressBar()
         {
             WorkSimulationWithDelegate o_workSim;
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar_1 = new();
+            ForestNET.Lib.ConsoleProgressBar o_progressBar_1 = new();
 
             o_workSim = new WorkSimulationWithDelegate(
                 p_i_progress =>
@@ -26,7 +26,7 @@
             System.Console.WriteLine("\n" + "++++++++++++++++++++++++++++++++++++++++++" + "\n");
             /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar_2 = new(18);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar_2 = new(18);
 
             o_workSim = new WorkSimulationWithDelegate(
                 p_i_progress =>
@@ -47,7 +47,7 @@
             System.Console.WriteLine("\n" + "++++++++++++++++++++++++++++++++++++++++++" + "\n");
             /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar_3 = new((long)75, 18);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar_3 = new((long)75, 18);
 
             o_workSim = new WorkSimulationWithDelegate(
                 p_i_progress =>
@@ -68,7 +68,7 @@
             System.Console.WriteLine("\n" + "++++++++++++++++++++++++++++++++++++++++++" + "\n");
             /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar_4 = new((long)75, 18, 10);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar_4 = new((long)75, 18, 10);
 
             o_workSim = new WorkSimulationWithDelegate(
                 p_i_progress =>
@@ -89,7 +89,7 @@
             System.Console.WriteLine("\n" + "++++++++++++++++++++++++++++++++++++++++++" + "\n");
             /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar_5 = new(10, 8);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar_5 = new(10, 8);
 
             o_workSim = new WorkSimulationWithDelegate(
                 p_i_progress =>
@@ -110,7 +110,7 @@
             System.Console.WriteLine("\n" + "++++++++++++++++++++++++++++++++++++++++++" + "\n");
             /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar_6 = new((long)75, 18, 10, 12);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar_6 = new((long)75, 18, 10, 12);
 
             o_workSim = new WorkSimulationWithDelegate(
                 p_i_progress =>
