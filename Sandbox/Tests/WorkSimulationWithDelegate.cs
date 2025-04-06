@@ -1,6 +1,6 @@
 ﻿namespace Sandbox.Tests
 {
-    public class WorkSimulationWithDelegate : ForestNETLib.Core.Runnable
+    public class WorkSimulationWithDelegate : ForestNET.Lib.Runnable
     {
 
         /* Delegates */
@@ -26,7 +26,7 @@
             {
                 this.del_postProgress?.Invoke(i);
 
-                int i_sleep = ForestNETLib.Core.Helper.RandomIntegerRange(25, 100);
+                int i_sleep = ForestNET.Lib.Helper.RandomIntegerRange(25, 100);
 
                 try
                 {

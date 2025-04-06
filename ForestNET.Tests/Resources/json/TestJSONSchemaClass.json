@@ -1,0 +1,83 @@
+{
+	"$id": "https://example.com/define.schema.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"description": "An example of handling a simple class with JSON",
+	
+	"type": "object",
+	"mapping": "ForestNET.Tests.SQL.AllTypesRecord, ForestNET.Tests",
+	"properties": {
+		"Id": {
+			"type": "integer",
+			"mapping": "ColumnId"
+		},
+		"UUID": {
+			"type": "string",
+			"mapping": "ColumnUUID"
+		},
+		"ShortText": {
+			"type": "string",
+			"mapping": "ColumnShortText"
+		},
+		"Text": {
+			"type": "string",
+			"mapping": "ColumnText"
+		},
+		"SmallInt": {
+			"type": "integer",
+			"mapping": "ColumnSmallInt"
+		},
+		"Int": {
+			"type": "integer",
+			"mapping": "ColumnInt"
+		},
+		"BigInt": {
+			"type": "integer",
+			"mapping": "ColumnBigInt"
+		},
+		"Timestamp": {
+			"type": "string",
+			"mapping": "ColumnTimestamp"
+		},
+		"Date": {
+			"type": "string",
+			"mapping": "ColumnDate"
+		},
+		"Time": {
+			"type": "string",
+			"mapping": "ColumnTime"
+		},
+		"LocalTime": {
+			"type": "string",
+			"mapping": "ColumnLocalTime"
+		},
+		"LocalDate": {
+			"type": "string",
+			"mapping": "ColumnLocalDate"
+		},
+		"LocalDateTime": {
+			"type": "string",
+			"mapping": "ColumnLocalDateTime"
+		},
+		"DoubleCol": {
+			"type": "number",
+			"mapping": "ColumnDoubleCol"
+		},
+		"Decimal": {
+			"type": "number",
+			"mapping": "ColumnDecimal"
+		},
+		"Bool": {
+			"type": "boolean",
+			"mapping": "ColumnBool"
+		},
+		"Text2": {
+			"type": "string",
+			"mapping": "ColumnText2"
+		},
+		"ShortText2": {
+			"type": "string",
+			"mapping": "ColumnShortText2"
+		}
+	},
+	"required": ["Id", "UUID", "ShortText"]
+}

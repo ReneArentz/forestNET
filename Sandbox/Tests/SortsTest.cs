@@ -23,7 +23,7 @@
         {
             int i_showValuesAmount = 10;
 
-            ForestNETLib.Core.Global.Log("Generating '" + $"{p_i_amount:N0}" + "' " + ((p_b_unique) ? "unique" : "random") + " values . . . ");
+            ForestNET.Lib.Global.Log("Generating '" + $"{p_i_amount:N0}" + "' " + ((p_b_unique) ? "unique" : "random") + " values . . . ");
 
             List<int> a_list = [];
 
@@ -38,13 +38,13 @@
             {
                 for (int i = 1; i <= p_i_amount; i++)
                 {
-                    a_list.Add(ForestNETLib.Core.Helper.RandomIntegerRange(1, p_i_amount));
+                    a_list.Add(ForestNET.Lib.Helper.RandomIntegerRange(1, p_i_amount));
                 }
             }
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar = new(4, 4);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar = new(4, 4);
 
-            ForestNETLib.Core.Sorts.PostProgress del_postProgress =
+            ForestNET.Lib.Sorts.PostProgress del_postProgress =
                 p_d_progress =>
                 {
                     o_progressBar.Report = p_d_progress;
@@ -54,9 +54,9 @@
 
             if (p_b_selection)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
                 o_progressBar.Init("SelectionSort . . .", "Done.");
-                ForestNETLib.Core.Sorts.SelectionSort(a_list, del_postProgress);
+                ForestNET.Lib.Sorts.SelectionSort(a_list, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -77,9 +77,9 @@
 
             if (p_b_insertion)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
                 o_progressBar.Init("InsertionSort . . .", "Done.");
-                ForestNETLib.Core.Sorts.InsertionSort(a_list, del_postProgress);
+                ForestNET.Lib.Sorts.InsertionSort(a_list, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -100,9 +100,9 @@
 
             if (p_b_bubble)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
                 o_progressBar.Init("BubbleSort . . .", "Done.");
-                ForestNETLib.Core.Sorts.BubbleSort(a_list, del_postProgress);
+                ForestNET.Lib.Sorts.BubbleSort(a_list, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -123,9 +123,9 @@
 
             if (p_b_heap)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
                 o_progressBar.Init("HeapSort . . .", "Done.");
-                ForestNETLib.Core.Sorts.HeapSort(a_list, del_postProgress);
+                ForestNET.Lib.Sorts.HeapSort(a_list, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -146,9 +146,9 @@
 
             if (p_b_merge)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
                 o_progressBar.Init("MergeSort . . .", "Done.");
-                ForestNETLib.Core.Sorts.MergeSort(a_list, del_postProgress);
+                ForestNET.Lib.Sorts.MergeSort(a_list, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -169,9 +169,9 @@
 
             if (p_b_quick)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
                 o_progressBar.Init("QuickSort . . .", "Done.");
-                ForestNETLib.Core.Sorts.QuickSort(a_list, del_postProgress);
+                ForestNET.Lib.Sorts.QuickSort(a_list, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -193,7 +193,7 @@
         {
             int i_showValuesAmount = 10;
 
-            ForestNETLib.Core.Global.Log("Generating '" + $"{p_i_amount:N0}" + "' " + ((p_b_unique) ? "unique" : "random") + " values - sort by value: " + p_b_sortByValue + " . . . ");
+            ForestNET.Lib.Global.Log("Generating '" + $"{p_i_amount:N0}" + "' " + ((p_b_unique) ? "unique" : "random") + " values - sort by value: " + p_b_sortByValue + " . . . ");
 
             List<int> a_list = [];
             List<KeyValuePair<string, int>> a_return = [];
@@ -210,13 +210,13 @@
             {
                 for (int i = 1; i <= p_i_amount; i++)
                 {
-                    a_list.Add(ForestNETLib.Core.Helper.RandomIntegerRange(1, p_i_amount));
+                    a_list.Add(ForestNET.Lib.Helper.RandomIntegerRange(1, p_i_amount));
                 }
             }
 
-            ForestNETLib.Core.ConsoleProgressBar o_progressBar = new(4, 4);
+            ForestNET.Lib.ConsoleProgressBar o_progressBar = new(4, 4);
 
-            ForestNETLib.Core.Sorts.PostProgress del_postProgress =
+            ForestNET.Lib.Sorts.PostProgress del_postProgress =
                 p_d_progress =>
                 {
                     o_progressBar.Report = p_d_progress;
@@ -226,7 +226,7 @@
 
             if (p_b_selection)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int j = 1; j <= p_i_amount; j++)
                 {
@@ -234,7 +234,7 @@
                 }
 
                 o_progressBar.Init("SelectionSort . . .", "Done.");
-                a_return = ForestNETLib.Core.Sorts.SelectionSort(m_map, p_b_sortByValue, del_postProgress);
+                a_return = ForestNET.Lib.Sorts.SelectionSort(m_map, p_b_sortByValue, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -255,7 +255,7 @@
 
             if (p_b_insertion)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int j = 1; j <= p_i_amount; j++)
                 {
@@ -263,7 +263,7 @@
                 }
 
                 o_progressBar.Init("InsertionSort . . .", "Done.");
-                a_return = ForestNETLib.Core.Sorts.InsertionSort(m_map, p_b_sortByValue, del_postProgress);
+                a_return = ForestNET.Lib.Sorts.InsertionSort(m_map, p_b_sortByValue, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -284,7 +284,7 @@
 
             if (p_b_bubble)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int j = 1; j <= p_i_amount; j++)
                 {
@@ -292,7 +292,7 @@
                 }
 
                 o_progressBar.Init("BubbleSort . . .", "Done.");
-                a_return = ForestNETLib.Core.Sorts.BubbleSort(m_map, p_b_sortByValue, del_postProgress);
+                a_return = ForestNET.Lib.Sorts.BubbleSort(m_map, p_b_sortByValue, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -313,7 +313,7 @@
 
             if (p_b_heap)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int j = 1; j <= p_i_amount; j++)
                 {
@@ -321,7 +321,7 @@
                 }
 
                 o_progressBar.Init("HeapSort . . .", "Done.");
-                a_return = ForestNETLib.Core.Sorts.HeapSort(m_map, p_b_sortByValue, del_postProgress);
+                a_return = ForestNET.Lib.Sorts.HeapSort(m_map, p_b_sortByValue, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -342,7 +342,7 @@
 
             if (p_b_merge)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int j = 1; j <= p_i_amount; j++)
                 {
@@ -350,7 +350,7 @@
                 }
 
                 o_progressBar.Init("MergeSort . . .", "Done.");
-                a_return = ForestNETLib.Core.Sorts.MergeSort(m_map, p_b_sortByValue, del_postProgress);
+                a_return = ForestNET.Lib.Sorts.MergeSort(m_map, p_b_sortByValue, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;
@@ -371,7 +371,7 @@
 
             if (p_b_quick)
             {
-                ForestNETLib.Core.Helper.ShuffleList(a_list);
+                ForestNET.Lib.Helper.ShuffleList(a_list);
 
                 for (int j = 1; j <= p_i_amount; j++)
                 {
@@ -379,7 +379,7 @@
                 }
 
                 o_progressBar.Init("QuickSort . . .", "Done.");
-                a_return = ForestNETLib.Core.Sorts.QuickSort(m_map, p_b_sortByValue, del_postProgress);
+                a_return = ForestNET.Lib.Sorts.QuickSort(m_map, p_b_sortByValue, del_postProgress);
                 o_progressBar.Close();
 
                 int i = 1;

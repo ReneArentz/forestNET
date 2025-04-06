@@ -1,0 +1,226 @@
+{
+	"$id": "https://example.com/define.schema.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"description": "An example of handling a complex class structure with JSON",
+	
+	"type": "object",
+	"mapping": "ForestNET.Tests.IO.Data+ShipOrderCollection, ForestNET.Tests",
+	"properties": {
+		"OrderAmountJSON" : {
+			"type": "integer",
+			"mapping": "OrderAmount"
+		},
+		"ShipOrdersJSON": {
+			"type": "array",
+			"mapping": "ShipOrders:List",
+			"items": {
+				"ShipOrderRef": {
+					"type": "object",
+					"mapping": "ForestNET.Tests.IO.Data+ShipOrder, ForestNET.Tests",
+					"properties": {
+						"OrderIdJSON" : {
+							"type": "string",
+							"mapping": "OrderId"
+						},
+						"OrderPersonJSON" : {
+							"type": "string",
+							"mapping": "OrderPerson"
+						},
+						"OrderDateJSON" : {
+							"type": "string",
+							"mapping": "OrderDate"
+						},
+						"OverallPriceJSON" : {
+							"type": "number",
+							"mapping": "OverallPrice"
+						},
+						"ShipToJSON": {
+							"type": "object",
+							"mapping": "ShipTo:ForestNET.Tests.IO.Data+ShipTo, ForestNET.Tests",
+							"properties": {
+								"NameJSON" : {
+									"type": "string",
+									"mapping": "Name"
+								},
+								"StreetJSON" : {
+									"type": "string",
+									"mapping": "Street"
+								},
+								"NumberJSON" : {
+									"type": "integer",
+									"mapping": "Number"
+								},
+								"CityJSON" : {
+									"type": "string",
+									"mapping": "City"
+								},
+								"CountryJSON" : {
+									"type": "string",
+									"mapping": "Country"
+								},
+								"DeliveredJSON" : {
+									"type": "string",
+									"mapping": "Delivered"
+								},
+								"StoredJSON" : {
+									"type": "string",
+									"mapping": "Stored"
+								},
+								"HighPriorityJSON" : {
+									"type": "boolean",
+									"mapping": "HighPriority"
+								}
+							}
+						},
+						"ShipMoreInfoJSON": {
+							"type": "object",
+							"mapping": "ShipMoreInfo:ForestNET.Tests.IO.Data+ShipMoreInfo, ForestNET.Tests",
+							"properties": {
+								"MoreNoteJSON" : {
+									"type": "string",
+									"mapping": "MoreNote"
+								},
+								"ShipFromJSON": {
+									"type": "object",
+									"mapping": "ShipFrom:ForestNET.Tests.IO.Data+ShipFrom, ForestNET.Tests",
+									"properties": {
+										"DeliveredBy" : {
+											"type": "string",
+											"mapping": "DeliveredBy"
+										},
+										"DeliveredCountry" : {
+											"type": "string",
+											"mapping": "DeliveredCountry"
+										},
+										"ShipVia" : {
+											"type": "integer",
+											"mapping": "ShipVia"
+										},
+										"ShipRegistered" : {
+											"type": "string",
+											"mapping": "ShipRegistered"
+										}
+									}
+								},
+								"ShipSiteJSON": {
+									"type": "object",
+									"mapping": "ShipSite:ForestNET.Tests.IO.Data+ShipSite, ForestNET.Tests",
+									"properties": {
+										"SiteName" : {
+											"type": "string",
+											"mapping": "SiteName"
+										},
+										"Building" : {
+											"type": "string",
+											"mapping": "Building"
+										}
+									}
+								},
+								"ShipLocationJSON": {
+									"type": "object",
+									"mapping": "ShipLocation:ForestNET.Tests.IO.Data+ShipLocation, ForestNET.Tests",
+									"properties": {
+										"LocName" : {
+											"type": "string",
+											"mapping": "LocName"
+										},
+										"LocFloor" : {
+											"type": "integer",
+											"mapping": "LocFloor"
+										},
+										"LocRack" : {
+											"type": "integer",
+											"mapping": "LocRack",
+											"minimum": 0,
+											"maximum": 100
+										}
+									}
+								}
+							}
+						},
+						"SomeBoolsYAML": {            
+							"type": "array",
+							"mapping": "SomeBools",
+							"items": {
+								"type": "boolean[]"
+							}
+						},
+						"ShipItemsJSON": {
+							"type": "array",
+							"mapping": "ShipItems:List",
+							"items": {
+								"ShipItemRef": {
+									"type": "object",
+									"mapping": "ForestNET.Tests.IO.Data+ShipItem, ForestNET.Tests",
+									"properties": {
+										"TitleJSON" : {
+											"type": "string",
+											"mapping": "Title"
+										},
+										"NoteJSON" : {
+											"type": "string",
+											"mapping": "Note",
+											"minLength": 4,
+											"maxLength": 100
+										},
+										"ManufacturedTimeJSON" : {
+											"type": "string",
+											"mapping": "ManufacturedTime"
+										},
+										"QuantityJSON" : {
+											"type": "integer",
+											"mapping": "Quantity"
+										},
+										"PriceJSON" : {
+											"type": "number",
+											"mapping": "Price"
+										},
+										"CurrencyJSON" : {
+											"type": "string",
+											"mapping": "Currency",
+											"pattern": "EUR|USD|GBP"
+										},
+										"SkontoJSON" : {
+											"type": "number",
+											"mapping": "Skonto"
+										},
+										"SomeDecimalsJSON" : {
+											"type": "array",
+											"mapping": "SomeDecimals",
+											"items" : {
+												"type": "number[]"
+											}
+										},
+										"ShipItemInfoJSON": {
+											"type": "object",
+											"mapping": "ShipItemInfo:ForestNET.Tests.IO.Data+ShipItemInfo, ForestNET.Tests",
+											"properties": {
+												"DevelopmentJSON" : {
+													"type": "string",
+													"mapping": "Development"
+												},
+												"ConstructionJSON" : {
+													"type": "string",
+													"mapping": "Construction"
+												},
+												"ImplementationJSON" : {
+													"type": "string",
+													"mapping": "Implementation"
+												}
+											}
+										}
+									}
+								}
+							},
+							"minItems": 0,
+							"maxItems": 5
+						},
+						"required": ["OrderIdJSON"]
+					}
+				}
+			},
+			"maxItems": 10
+		}
+	},
+	"required": ["OrderAmountJSON"]
+}
