@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mc="https://www.forestany.net" xsi:schemaLocation="https://www.forestany.net ./forestNetXML.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<xs:complexType name="ShipOrders" mc:mapping="ShipOrders:ArrayList(ForestNET.Tests.IO.Data+ShipOrder, ForestNET.Tests)">
+	<xs:sequence>
+		<xs:complexType name="ShipOrder" mc:mapping="ForestNET.Tests.IO.Data+ShipOrder, ForestNET.Tests" maxOccurs="10">
+			<xs:sequence>
+				<xs:element name="OrderPerson" type="xs:string" mc:mapping="OrderPerson"/>
+				<xs:element name="OrderDate" type="xs:date" mc:mapping="OrderDate"/>
+				<xs:element name="OverallPrice" type="xs:float" mc:mapping="OverallPrice"/>
+				<xs:complexType name="ShipTo" mc:mapping="ForestNET.Tests.IO.Data+ShipTo, ForestNET.Tests">
+					<xs:sequence>
+						<xs:element name="Name" type="xs:string" mc:mapping="Name"/>
+						<xs:element name="Street" type="xs:string" mc:mapping="Street"/>
+						<xs:element name="Number" type="xs:integer" mc:mapping="Number"/>
+						<xs:element name="City" type="xs:string" mc:mapping="City"/>
+						<xs:element name="Country" type="xs:string" mc:mapping="Country"/>
+						<xs:element name="Delivered" type="xs:dateTime" mc:mapping="Delivered"/>
+						<xs:element name="Stored" type="xs:time" mc:mapping="Stored"/>
+						<xs:element name="HighPriority" type="xs:boolean" mc:mapping="HighPriority"/>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:complexType name="ShipMoreInfo" mc:mapping="ForestNET.Tests.IO.Data+ShipMoreInfo, ForestNET.Tests">
+					<xs:sequence>
+						<xs:choice maxOccurs="2">
+							<xs:complexType name="ShipFrom" mc:mapping="ForestNET.Tests.IO.Data+ShipFrom, ForestNET.Tests">
+								<xs:sequence>
+									<xs:element name="DeliveredBy" type="xs:string" mc:mapping="DeliveredBy"/>
+									<xs:element name="DeliveredCountry" type="xs:string" mc:mapping="DeliveredCountry"/>
+									<xs:element name="ShipVia" type="xs:integer" mc:mapping="ShipVia"/>
+									<xs:element name="ShipRegistered" type="xs:dateTime" mc:mapping="ShipRegistered"/>
+								</xs:sequence>
+							</xs:complexType>
+							<xs:complexType name="ShipSite" mc:mapping="ForestNET.Tests.IO.Data+ShipSite, ForestNET.Tests">
+								<xs:sequence>
+									<xs:element name="SiteName" type="xs:string" mc:mapping="SiteName"/>
+									<xs:element name="Building" type="xs:string" mc:mapping="Building"/>
+								</xs:sequence>
+							</xs:complexType>
+							<xs:complexType name="ShipLocation" mc:mapping="ForestNET.Tests.IO.Data+ShipLocation, ForestNET.Tests">
+								<xs:sequence>
+									<xs:element name="LocName" type="xs:string" mc:mapping="LocName"/>
+									<xs:element name="LocFloor" type="xs:integer" mc:mapping="LocFloor"/>
+									<xs:simpleType name="LocRack" mc:mapping="LocRack">
+										<xs:restriction base="xs:integer">
+											<xs:minInclusive value="0"/>
+											<xs:maxInclusive value="100"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attribute name="MoreNote" type="xs:string" mc:mapping="MoreNote"/>
+				</xs:complexType>
+				<xs:element name="SomeBools" mc:mapping="SomeBools:boolean[]" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="boolean" type="xs:boolean" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:complexType name="ShipItems" mc:mapping="ShipItems:ArrayList(ForestNET.Tests.IO.Data+ShipItem, ForestNET.Tests)">
+					<xs:sequence>
+						<xs:complexType name="ShipItem" mc:mapping="ForestNET.Tests.IO.Data+ShipItem, ForestNET.Tests" minOccurs="0" maxOccurs="5">
+							<xs:sequence>
+								<xs:element name="Title" type="xs:string" mc:mapping="Title"/>
+								<xs:element name="ManufacturedTime" type="xs:time" mc:mapping="ManufacturedTime"/>
+								<xs:element name="Quantity" type="xs:positiveInteger" mc:mapping="Quantity"/>
+								<xs:complexType name="Price" mc:mapping="Price">
+									<xs:simpleContent>
+										<xs:extension base="xs:decimal">
+											<xs:attribute name="Currency" mc:mapping="Currency">
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:enumeration value="EUR"/>
+														<xs:enumeration value="USD"/>
+														<xs:enumeration value="GBP"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:extension>	
+									</xs:simpleContent>
+								</xs:complexType>
+								<xs:element name="Skonto" type="xs:double" mc:mapping="Skonto" minOccurs="0"/>
+								<xs:element name="SomeDecimals" mc:mapping="SomeDecimals:decimal[]" minOccurs="0">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="decimal" type="xs:decimal" minOccurs="0" maxOccurs="unbounded"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:complexType name="ShipItemInfo" mc:mapping="ForestNET.Tests.IO.Data+ShipItemInfo, ForestNET.Tests">
+									<xs:sequence>
+										<xs:choice minOccurs="0" maxOccurs="2">
+											<xs:element name="Development" type="xs:string" mc:mapping="Development"/>
+											<xs:element name="Construction" type="xs:string" mc:mapping="Construction"/>
+											<xs:element name="Implementation" type="xs:string" mc:mapping="Implementation"/>
+										</xs:choice>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:sequence>
+							<xs:attribute name="Note" mc:mapping="Note">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="4"/>
+										<xs:maxLength value="100"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:complexType>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:sequence>
+			<xs:attribute name="OrderId" type="xs:string" mc:mapping="OrderId" use="required"/>
+		</xs:complexType>
+	</xs:sequence>
+</xs:complexType>
+
+</xs:schema> 

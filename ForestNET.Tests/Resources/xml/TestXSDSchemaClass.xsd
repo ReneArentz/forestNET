@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mc="https://www.forestany.net" xsi:schemaLocation="https://www.forestany.net ./forestNetXML.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<!-- definition of simple elements -->
+<xs:element name="Id" type="xs:integer" mc:mapping="ColumnId"/>
+<xs:element name="UUID" type="xs:string" mc:mapping="ColumnUUID"/>
+<xs:element name="ShortText" type="xs:string" mc:mapping="ColumnShortText"/>
+<xs:element name="Text" type="xs:string" mc:mapping="ColumnText"/>
+
+<xs:element name="SmallInt" type="xs:short" mc:mapping="ColumnSmallInt"/>
+<xs:element name="Int" type="xs:integer" mc:mapping="ColumnInt"/>
+<xs:element name="BigInt" type="xs:long" mc:mapping="ColumnBigInt"/>
+
+<xs:element name="Timestamp" type="xs:dateTime" mc:mapping="ColumnTimestamp"/>
+<xs:element name="Date" type="xs:date" mc:mapping="ColumnDate"/>
+<xs:element name="Time" type="xs:time" mc:mapping="ColumnTime"/>
+<xs:element name="LocalDateTime" type="xs:dateTime" mc:mapping="ColumnLocalDateTime"/>
+<xs:element name="LocalDate" type="xs:date" mc:mapping="ColumnLocalDate"/>
+<xs:element name="LocalTime" type="xs:time" mc:mapping="ColumnLocalTime"/>
+
+<xs:element name="DoubleCol" type="xs:double" mc:mapping="ColumnDoubleCol"/>
+<xs:element name="Decimal" type="xs:decimal" mc:mapping="ColumnDecimal"/>
+
+<xs:element name="Bool" type="xs:boolean" mc:mapping="ColumnBool"/>
+
+<xs:element name="Text2" type="xs:string" mc:mapping="ColumnText2"/>
+<xs:element name="ShortText2" type="xs:string" mc:mapping="ColumnShortText2" minOccurs="0"/>
+
+<!-- definition of attributes -->
+
+<!-- definition of complex elements -->
+<xs:complexType name="AllTypesRecord" mc:mapping="ForestNET.Tests.SQL.AllTypesRecord, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="Id"/>
+		<xs:element ref="UUID"/>
+		<xs:element ref="ShortText"/>
+		<xs:element ref="Text"/>
+		<xs:element ref="SmallInt"/>
+		<xs:element ref="Int"/>
+		<xs:element ref="BigInt"/>
+		<xs:element ref="Timestamp"/>
+		<xs:element ref="Date"/>
+		<xs:element ref="Time"/>
+		<xs:element ref="LocalDateTime"/>
+		<xs:element ref="LocalDate"/>
+		<xs:element ref="LocalTime"/>
+		<xs:element ref="DoubleCol"/>
+		<xs:element ref="Decimal"/>
+		<xs:element ref="Bool"/>
+		<xs:element ref="Text2"/>
+		<xs:element ref="ShortText2"/>
+	</xs:sequence>
+</xs:complexType>
+
+</xs:schema> 

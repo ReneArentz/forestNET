@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.11 (stable)
+Added XML file parser. *04/2025*
+
 ### 1.0.10 (stable)
 Added JSON file parser. *03/2025*
 

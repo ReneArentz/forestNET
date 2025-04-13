@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mc="https://www.forestany.net" xsi:schemaLocation="https://www.forestany.net ./forestNetXML.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<!-- definition of simple elements -->
+<xs:element name="DeliveredBy" type="xs:string" mc:mapping="DeliveredBy"/>
+<xs:element name="DeliveredCountry" type="xs:string" mc:mapping="DeliveredCountry"/>
+<xs:element name="ShipVia" type="xs:integer" mc:mapping="ShipVia"/>
+<xs:element name="ShipRegistered" type="xs:dateTime" mc:mapping="ShipRegistered"/>
+
+<xs:element name="SiteName" type="xs:string" mc:mapping="SiteName"/>
+<xs:element name="Building" type="xs:string" mc:mapping="Building"/>
+
+<xs:element name="LocName" type="xs:string" mc:mapping="LocName"/>
+<xs:element name="LocFloor" type="xs:integer" mc:mapping="LocFloor"/>
+
+<xs:element name="Name" type="xs:string" mc:mapping="Name"/>
+<xs:element name="Street" type="xs:string" mc:mapping="Street"/>
+<xs:element name="Number" type="xs:integer" mc:mapping="Number"/>
+<xs:element name="City" type="xs:string" mc:mapping="City"/>
+<xs:element name="Country" type="xs:string" mc:mapping="Country"/>
+<xs:element name="Delivered" type="xs:dateTime" mc:mapping="Delivered"/>
+<xs:element name="Stored" type="xs:time" mc:mapping="Stored"/>
+<xs:element name="HighPriority" type="xs:boolean" mc:mapping="HighPriority"/>
+
+<xs:element name="Title" type="xs:string" mc:mapping="Title"/>
+<xs:element name="ManufacturedTime" type="xs:time" mc:mapping="ManufacturedTime"/>
+<xs:element name="Quantity" type="xs:positiveInteger" mc:mapping="Quantity"/>
+<xs:element name="Skonto" type="xs:double" mc:mapping="Skonto" minOccurs="0"/>
+
+<xs:element name="Development" type="xs:string" mc:mapping="Development"/>
+<xs:element name="Construction" type="xs:string" mc:mapping="Construction"/>
+<xs:element name="Implementation" type="xs:string" mc:mapping="Implementation"/>
+
+<xs:element name="OrderPerson" type="xs:string" mc:mapping="OrderPerson"/>
+<xs:element name="OrderDate" type="xs:date" mc:mapping="OrderDate"/>
+<xs:element name="OverallPrice" type="xs:float" mc:mapping="OverallPrice"/>
+<xs:element name="LocRack" mc:mapping="LocRack">
+	<xs:simpleType>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>
+
+<!-- definition of attributes -->
+<xs:attribute name="Note" mc:mapping="Note">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="4"/>
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="OrderId" type="xs:string" use="required" mc:mapping="OrderId"/>
+<xs:attribute name="Currency" mc:mapping="Currency">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EUR"/>
+			<xs:enumeration value="USD"/>
+			<xs:enumeration value="GBP"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="MoreNote" type="xs:string" mc:mapping="MoreNote"/>
+
+<!-- definition of complex elements -->
+<xs:complexType name="ShipFrom" mc:mapping="ForestNET.Tests.IO.Data+ShipFrom, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="DeliveredBy"/>
+		<xs:element ref="DeliveredCountry"/>
+		<xs:element ref="ShipVia"/>
+		<xs:element ref="ShipRegistered"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ShipSite" mc:mapping="ForestNET.Tests.IO.Data+ShipSite, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="SiteName"/>
+		<xs:element ref="Building"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ShipLocation" mc:mapping="ForestNET.Tests.IO.Data+ShipLocation, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="LocName"/>
+		<xs:element ref="LocFloor"/>
+		<xs:element ref="LocRack" minOccurs="1"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ShipMoreInfo" mc:mapping="ForestNET.Tests.IO.Data+ShipMoreInfo, ForestNET.Tests">
+	<xs:sequence>
+		<xs:choice maxOccurs="2">
+			<xs:element ref="ShipFrom"/>
+			<xs:element ref="ShipSite"/>
+			<xs:element ref="ShipLocation"/>
+		</xs:choice>
+	</xs:sequence>
+<xs:attribute ref="MoreNote"/>
+</xs:complexType>
+
+<xs:complexType name="ShipItemInfo" mc:mapping="ForestNET.Tests.IO.Data+ShipItemInfo, ForestNET.Tests">
+	<xs:sequence>
+		<xs:choice minOccurs="0" maxOccurs="2">
+			<xs:element ref="Development"/>
+			<xs:element ref="Construction"/>
+			<xs:element ref="Implementation"/>
+		</xs:choice>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ShipTo" mc:mapping="ForestNET.Tests.IO.Data+ShipTo, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="Name"/>
+		<xs:element ref="Street"/>
+		<xs:element ref="Number"/>
+		<xs:element ref="City"/>
+		<xs:element ref="Country"/>
+		<xs:element ref="Delivered"/>
+		<xs:element ref="Stored"/>
+		<xs:element ref="HighPriority"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:element name="SomeDecimalsXML" mc:mapping="SomeDecimals:decimal[]" minOccurs="0">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="decimal" type="xs:decimal" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="SomeBoolsXML" mc:mapping="SomeBools:boolean[]" minOccurs="0">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="boolean" type="xs:boolean" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:complexType name="ShipItem" mc:mapping="ForestNET.Tests.IO.Data+ShipItem, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="Title"/>
+		<xs:element ref="ManufacturedTime"/>
+		<xs:element ref="Quantity"/>
+		<xs:complexType name="Price" mc:mapping="Price">
+			<xs:simpleContent>
+				<xs:extension base="xs:decimal">
+					<xs:attribute ref="Currency"/>
+				</xs:extension>	
+			</xs:simpleContent>
+		</xs:complexType>
+		<xs:element ref="Skonto"/>
+		<xs:element ref="SomeDecimalsXML"/>
+		<xs:element ref="ShipItemInfo"/>
+	</xs:sequence>
+<xs:attribute ref="Note"/>
+</xs:complexType>
+
+<xs:complexType name="ShipItems" mc:mapping="ShipItems:ArrayList(ForestNET.Tests.IO.Data+ShipItem, ForestNET.Tests)">
+	<xs:sequence>
+		<xs:element ref="ShipItem" minOccurs="0" maxOccurs="5"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ShipOrder" mc:mapping="ForestNET.Tests.IO.Data+ShipOrder, ForestNET.Tests">
+	<xs:sequence>
+		<xs:element ref="OrderPerson"/>
+		<xs:element ref="OrderDate"/>
+		<xs:element ref="OverallPrice"/>
+		<xs:element ref="ShipTo"/>
+		<xs:element ref="ShipMoreInfo"/>
+		<xs:element ref="SomeBoolsXML"/>
+		<xs:element ref="ShipItems"/>
+	</xs:sequence>
+<xs:attribute ref="OrderId"/>
+</xs:complexType>
+
+<xs:complexType name="ShipOrders" mc:mapping="ShipOrders:ArrayList(ForestNET.Tests.IO.Data+ShipOrder, ForestNET.Tests)">
+	<xs:sequence>
+		<xs:element ref="ShipOrder" maxOccurs="10"/>
+	</xs:sequence>
+</xs:complexType>
+
+</xs:schema> 

@@ -89,6 +89,54 @@
 		<None Update="Resources\log\LogConfigFileUnitTest.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Resources\xml\forestNetXML.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaClass.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaClassRoot.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaDividedClassRoot.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaDividedListRoot.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaDividedListRootOnlyComplex.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaDividedListRootOnlyComplexNoRef.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaListRoot.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaListRootOnlyComplex.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaSimpleClassArray.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaSimpleClassNoReferences.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaSimpleClassObjectMultiReferences.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\TestXSDSchemaSimpleClassObjectOneReference.xsd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\ValidateXML.xml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\ValidateXMLIsInvalid.xml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\xml\ValidateXMLPart.xml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Resources\yaml\TestYAMLPrimitiveArrayOneLine.yaml">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
