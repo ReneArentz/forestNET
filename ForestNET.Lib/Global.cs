@@ -39,6 +39,9 @@ namespace ForestNET.Lib
         public Microsoft.Extensions.Logging.ILogger? ILOG { get; private set; }
         public System.Security.Cryptography.RandomNumberGenerator RandomNumberGenerator { get; private set; }
         public OtherLogImplementation? DelegateLogImplementation { private get; set; }
+        public bool LogCompleteSqlQuery { get { return this.o_logConfig.LogCompleteSqlQuery; } }
+        public ForestNET.Lib.SQL.BaseGateway BaseGateway { get; set; }
+        public ForestNET.Lib.SQL.Base? Base { get; set; }
 
         /* Methods */
 
@@ -48,6 +51,8 @@ namespace ForestNET.Lib
         private Global()
         {
             this.o_logConfig = new();
+            this.BaseGateway = ForestNET.Lib.SQL.BaseGateway.SQLITE;
+            this.Base = null;
 
             this.InternalLogControl = (byte)Level.OFF;
             this.LogControl = (byte)Level.SEVERE + (byte)Level.WARNING + (byte)Level.INFO;

@@ -8,7 +8,7 @@ This custom-built [forestNET Framework](https://forestany.net/fnet.php) in C#, d
 
 It offers seamless integration with console applications, efficient file handling solutions, and database management capabilities. Additionally, the framework supports both FTP and SFTP protocols for secure file transfers, and includes advanced features for socket programming, enabling smooth communication across networks. By combining these functionalities, the framework simplifies complex tasks, threading, enhancing developer productivity and application performance.
 
-Following **database systems** will be supported by forestNET:
+Following **database systems** are supported by forestNET:
 
 * MariaDB/MySQL
 * SQLite3
@@ -22,6 +22,9 @@ This framework is designed to be in sync with the corresponding *forestJ framewo
 forestNET framework will be released under the **GPLv3 license** and the **MIT license**. Thus it is freely possible to use forestNET in other projects - projects with free software or in commercial projects.
 
 ## Releases
+
+### 1.0.12.1 (stable) + ForestNET.Lib.SQL 1.0.0 (stable) + ForestNET.Lib.SQL.Pool 1.0.0 (stable) + ForestNET.Lib.SQL.MariaDB 1.0.0 (stable) + ForestNET.Lib.SQL.MSSQL 1.0.0 (stable) + ForestNET.Lib.SQL.NOSQLMDB 1.0.0 (stable) + ForestNET.Lib.SQL.Oracle 1.0.0 (stable) + ForestNET.Lib.SQL.PGSQL 1.0.0 (stable) + ForestNET.Lib.SQL.SQLite 1.0.0 (stable)
+Enabled integration of database management capabilities. *04/2025*
 
 ### 1.0.11 (stable)
 Added XML file parser. *04/2025*
@@ -62,6 +65,35 @@ First release of the forestNET Framework 1.0.0 (stable). Provision of foundation
 ## Tests
 
 * **Windows**
-	* Microsoft Windows 11 Pro - OS Version: 10.0.22631 N/A Build 22631
-	* Microsoft Visual Studio Community 2022 (64-bit) - Version 17.11.5
+	* Microsoft Windows 11 Pro - OS Version: 10.0.26100 N/A Build 26100
+	* Microsoft Visual Studio Community 2022 (64-bit) - Version 17.13.5
   * .NET 8.0
+
+* **Database**
+
+  * Linux - Linux version 6.1.0-33-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.133-1 (2025-04-10)
+    * Mariadb
+      * 10.11.11-MariaDB-0+deb12u1
+    * MSSQL
+      * Microsoft SQL Server 2022 (RTM-CU16) (KB5048033) - 16.0.4165.4 (X64)
+    * Oracle
+      * Oracle Database 23ai Free Release 23.0.0.0.0 - Version 23.7.0.25.01
+    * PGSQL
+      * PostgreSQL 15.12 (Debian 15.12-0+deb12u2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+    * MongoDB
+      * 7.0.19
+    * SQLite
+      * 3.48.0
+  * Windows - Microsoft Windows 11 Enterprise Evaluation - 10.0.22621 N/A Build 22621
+    * Mariadb
+      * 11.7.2-MariaDB
+    * MSSQL
+      * Microsoft SQL Server 2022 (RTM) - 16.0.1000.6 (X64)
+    * Oracle
+      * Oracle Database 21c Express Edition Release 21.0.0.0.0 - Version 21.3.0.0.0
+    * PGSQL
+      * PostgreSQL 17.4 on x86_64-windows, compiled by msvc-19.42.34436, 64-bit
+    * MongoDB
+      * 8.0.8
+    * SQLite
+      * 3.48.0

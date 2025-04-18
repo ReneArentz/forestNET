@@ -30,6 +30,9 @@ dotnet_diagnostic.NUnit2003.severity = silent
 # NUnit2045: Call independent Assert statements from inside an Assert.Multiple
 dotnet_diagnostic.NUnit2045.severity = silent
 
+# NUnit1028: Only test methods should be public
+dotnet_diagnostic.NUnit1028.severity = silent
+
 # CA1845: Use span-based 'string.Concat' and 'AsSpan' instead of 'Substring'
 dotnet_diagnostic.CA1845.severity = silent
 

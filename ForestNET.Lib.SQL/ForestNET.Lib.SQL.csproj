@@ -4,16 +4,16 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.12.1</PackageVersion>
-		<AssemblyVersion>1.0.12.1</AssemblyVersion>
-		<FileVersion>1.0.12.1</FileVersion>
+		<PackageVersion>1.0.0</PackageVersion>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
 		<ApplicationIcon>forestnet.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>ForestNET Library Core</Title>
+		<Title>ForestNET Library SQL Core</Title>
 		<Authors>Rene Arentz</Authors>
 		<Company>forestany.net</Company>
-		<Product>ForestNET</Product>
-		<Description>Custom-built forestNET framework is designed to streamline the development of robust applications by providing a comprehensive suite of tools and interfaces.</Description>
+		<Product>ForestNET SQL Core</Product>
+		<Description>Following database systems are supported by forestNET: MariaDB/MySQL, SQLite3, MSSQL, OracleDB, PostgreSQL, MongoDB</Description>
 		<Copyright>© 2025 forestany.net</Copyright>
 		<PackageProjectUrl>https://forestany.net</PackageProjectUrl>
 		<PackageIcon>fany-logo.png</PackageIcon>
@@ -27,33 +27,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="forestnet.ico" />
+	  <Content Include="forestnet.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\fany-logo.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\LICENSE.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
+	  <None Include="..\fany-logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\LICENSE.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="forestnet.ico">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
+	  <PackageReference Include="ForestNET.Lib" Version="1.0.12.1" />
 	</ItemGroup>
 
 </Project>
