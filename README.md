@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.13 (stable) + ForestNET.Lib.AI 1.0.0 (stable) + ForestNET.Lib.Net 1.0.0 (stable)
+Added functionality to create and use neural networks for ai purposes. Added functionality for simple web requests over http(s). *04/2025*
+
 ### 1.0.12.1 (stable) + ForestNET.Lib.SQL 1.0.0 (stable) + ForestNET.Lib.SQL.Pool 1.0.0 (stable) + ForestNET.Lib.SQL.MariaDB 1.0.0 (stable) + ForestNET.Lib.SQL.MSSQL 1.0.0 (stable) + ForestNET.Lib.SQL.NOSQLMDB 1.0.0 (stable) + ForestNET.Lib.SQL.Oracle 1.0.0 (stable) + ForestNET.Lib.SQL.PGSQL 1.0.0 (stable) + ForestNET.Lib.SQL.SQLite 1.0.0 (stable)
 Enabled integration of database management capabilities. *04/2025*
 

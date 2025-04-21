@@ -27,26 +27,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="forestnet.ico" />
+		<Content Include="forestnet.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\fany-logo.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\LICENSE.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="..\fany-logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\LICENSE.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ForestNET.Lib" Version="1.0.12.1" />
+		<PackageReference Include="ForestNET.Lib" Version="1.0.12.1" />
 	</ItemGroup>
 
 </Project>

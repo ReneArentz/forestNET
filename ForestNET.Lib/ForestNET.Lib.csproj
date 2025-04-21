@@ -4,9 +4,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.12.1</PackageVersion>
-		<AssemblyVersion>1.0.12.1</AssemblyVersion>
-		<FileVersion>1.0.12.1</FileVersion>
+		<PackageVersion>1.0.13</PackageVersion>
+		<AssemblyVersion>1.0.13</AssemblyVersion>
+		<FileVersion>1.0.13</FileVersion>
 		<ApplicationIcon>forestnet.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>ForestNET Library Core</Title>
@@ -20,7 +20,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/ReneArentz/forestNET.git</RepositoryUrl>
-		<PackageReleaseNotes>Enabled integration of database management capabilities.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added attribute class to represent a string value for a value/field in an enumeration.</PackageReleaseNotes>
 		<PackageTags>opensource;framework;basic tasks;application;network;database;tools;all purposes</PackageTags>
 		<PackAsTool>False</PackAsTool>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>

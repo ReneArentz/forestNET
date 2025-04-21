@@ -5,13 +5,34 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.12</PackageVersion>
-		<AssemblyVersion>1.0.12</AssemblyVersion>
-		<FileVersion>1.0.12</FileVersion>
+		<PackageVersion>1.0.13</PackageVersion>
+		<AssemblyVersion>1.0.13</AssemblyVersion>
+		<FileVersion>1.0.13</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ForestNET.Lib" Version="1.0.12.1" />
+		<PackageReference Include="ForestNET.Lib" Version="1.0.13" />
+		<PackageReference Include="ForestNET.Lib.AI" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Resources\ai\neuralNetwork.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mnist\t10k-images-idx3-ubyte.gz">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mnist\t10k-labels-idx1-ubyte.gz">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mnist\train-images-idx3-ubyte.gz">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mnist\train-labels-idx1-ubyte.gz">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>

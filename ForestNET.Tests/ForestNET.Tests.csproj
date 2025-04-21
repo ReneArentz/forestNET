@@ -16,7 +16,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
 		<PackageReference Include="NUnit" Version="4.3.2" />
-		<PackageReference Include="NUnit.Analyzers" Version="4.6.0">
+		<PackageReference Include="NUnit.Analyzers" Version="4.7.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -24,6 +24,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\ForestNET.Lib.AI\ForestNET.Lib.AI.csproj" />
+		<ProjectReference Include="..\ForestNET.Lib.Net\ForestNET.Lib.Net.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.SQL.MariaDB\ForestNET.Lib.SQL.MariaDB.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.SQL.MSSQL\ForestNET.Lib.SQL.MSSQL.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.SQL.NOSQLMDB\ForestNET.Lib.SQL.NOSQLMDB.csproj" />
@@ -40,6 +42,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="Resources\ai\RidiculousAI.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ai\RidiculousTrainingSet.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ai\xor.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Resources\flr\TestFLREverything.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -56,6 +67,15 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\flr\TestFLRWithoutGroups.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httprequest\picture.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httprequest\products.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httprequest\small_products.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\json\TestJSONPrimitiveArrayOneLine.json">
@@ -95,6 +115,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\log\LogConfigFileUnitTest.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\net\request\products.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\nosqlmdb\categories.json">

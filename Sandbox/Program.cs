@@ -23,6 +23,8 @@ try
         Console.WriteLine("[3] test MemoryInfo");
         Console.WriteLine("[4] test Sorts");
         Console.WriteLine("[5] test ZipProgressBar");
+        Console.WriteLine("[6] test AI");
+        Console.WriteLine("[7] test WebRequestProgressBar");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
@@ -50,6 +52,14 @@ try
         else if (i_input == 5)
         {
             Sandbox.Tests.ZipTest.TestZipProgressBar();
+        }
+        else if (i_input == 6)
+        {
+            Sandbox.Tests.AI.AITest.TestAIMenu(s_currentDirectory);
+        }
+        else if (i_input == 7)
+        {
+            Sandbox.Tests.Net.Request.WebRequestTest.TestWebRequest("https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.zip");
         }
 
         if ((i_input >= 1) && (i_input <= 13))
