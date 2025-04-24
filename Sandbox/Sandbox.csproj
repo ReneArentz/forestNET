@@ -5,20 +5,43 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.13</PackageVersion>
-		<AssemblyVersion>1.0.13</AssemblyVersion>
-		<FileVersion>1.0.13</FileVersion>
+		<PackageVersion>1.0.14</PackageVersion>
+		<AssemblyVersion>1.0.14</AssemblyVersion>
+		<FileVersion>1.0.14</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ForestNET.Lib" Version="1.0.13" />
+		<PackageReference Include="ForestNET.Lib" Version="1.0.14" />
 		<PackageReference Include="ForestNET.Lib.AI" Version="1.0.0" />
 		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net.FTP" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net.SFTP" Version="1.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="Resources\ai\neuralNetwork.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftps\proftpd.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftp\1-MB-Test.docx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftp\1-MB-Test.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftp\10-MB-Test.docx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftp\10-MB-Test.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftp\subFolder\sub_1-MB-Test.docx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\ftp\subFolder\sub_1-MB-Test.xlsx">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mnist\t10k-images-idx3-ubyte.gz">
@@ -31,6 +54,18 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mnist\train-labels-idx1-ubyte.gz">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\sftp\known_hosts">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\sftp\sftp_id_rsa">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\sftp\sftp_id_rsa.ppk">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\sftp\sftp_id_rsa.pub">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

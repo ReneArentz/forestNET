@@ -23,6 +23,9 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
+### 1.0.14 (stable) + ForestNET.Lib.Net.FTP + ForestNET.Lib.Net.SFTP 1.0.0 (stable)
+Added support for both FTP(S) and SFTP protocols for secure file transfers. *04/2025*
+
 ### 1.0.13 (stable) + ForestNET.Lib.AI 1.0.0 (stable) + ForestNET.Lib.Net 1.0.0 (stable)
 Added functionality to create and use neural networks for ai purposes. Added functionality for simple web requests over http(s). *04/2025*
 

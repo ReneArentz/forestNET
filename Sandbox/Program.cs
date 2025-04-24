@@ -25,6 +25,8 @@ try
         Console.WriteLine("[5] test ZipProgressBar");
         Console.WriteLine("[6] test AI");
         Console.WriteLine("[7] test WebRequestProgressBar");
+        Console.WriteLine("[8] test FTPS");
+        Console.WriteLine("[9] test SFTP");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
@@ -60,6 +62,14 @@ try
         else if (i_input == 7)
         {
             Sandbox.Tests.Net.Request.WebRequestTest.TestWebRequest("https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.zip");
+        }
+        else if (i_input == 8)
+        {
+            Sandbox.Tests.Net.FTPS.FTPSTest.TestFTPS("172.28.234.246", 12221, "user", "user", "/");
+        }
+        else if (i_input == 9)
+        {
+            Sandbox.Tests.Net.SFTP.SFTPTest.TestSFTP("172.28.234.246", 2222, "user", "/");
         }
 
         if ((i_input >= 1) && (i_input <= 13))
