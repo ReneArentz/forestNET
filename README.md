@@ -23,7 +23,10 @@ forestNET framework will be released under the **GPLv3 license** and the **MIT l
 
 ## Releases
 
-### 1.0.14 (stable) + ForestNET.Lib.Net.FTP + ForestNET.Lib.Net.SFTP 1.0.0 (stable)
+### ForestNET.Lib.Net.Mail 1.0.0 (stable) + ForestNET.Lib.Net 1.0.1 (stable)
+Implementation to use mail protocols(IMAP, POP3, SMTP). Added functionality for message boxes and network message marshalling. *04/2025*
+
+### 1.0.14 (stable) + ForestNET.Lib.Net.FTP 1.0.0 (stable) + ForestNET.Lib.Net.SFTP 1.0.0 (stable)
 Added support for both FTP(S) and SFTP protocols for secure file transfers. *04/2025*
 
 ### 1.0.13 (stable) + ForestNET.Lib.AI 1.0.0 (stable) + ForestNET.Lib.Net 1.0.0 (stable)
@@ -103,3 +106,15 @@ First release of the forestNET Framework 1.0.0 (stable). Provision of foundation
       * 8.0.8
     * SQLite
       * 3.48.0
+
+* **FTP/SFTP**
+
+  * Linux - Linux version 6.1.0-33-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.133-1 (2025-04-10)
+    * proftp
+      * 1.3.8+dfsg-4+deb12u4
+
+* **Mail**
+
+  * Linux - Linux version 6.1.0-33-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.133-1 (2025-04-10)
+    * iRedMail
+      * 1.7.3

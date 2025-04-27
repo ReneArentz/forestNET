@@ -27,6 +27,7 @@ try
         Console.WriteLine("[7] test WebRequestProgressBar");
         Console.WriteLine("[8] test FTPS");
         Console.WriteLine("[9] test SFTP");
+        Console.WriteLine("[10] test Mail");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
@@ -70,6 +71,10 @@ try
         else if (i_input == 9)
         {
             Sandbox.Tests.Net.SFTP.SFTPTest.TestSFTP("172.28.234.246", 2222, "user", "/");
+        }
+        else if (i_input == 10)
+        {
+            Sandbox.Tests.Net.Mail.MailTest.TestMail("172.18.2.75");
         }
 
         if ((i_input >= 1) && (i_input <= 13))

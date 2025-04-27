@@ -1,0 +1,7 @@
+This is an attachment!
+Line 2 of text file
+3
+4
+5
+6
+End of File

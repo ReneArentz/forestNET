@@ -26,6 +26,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ForestNET.Lib.AI\ForestNET.Lib.AI.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.Net.FTP\ForestNET.Lib.Net.FTP.csproj" />
+		<ProjectReference Include="..\ForestNET.Lib.Net.Mail\ForestNET.Lib.Net.Mail.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.Net.SFTP\ForestNET.Lib.Net.SFTP.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.Net\ForestNET.Lib.Net.csproj" />
 		<ProjectReference Include="..\ForestNET.Lib.SQL.MariaDB\ForestNET.Lib.SQL.MariaDB.csproj" />
@@ -72,25 +73,25 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftps\proftpd.crt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftp\1-MB-Test.docx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftp\1-MB-Test.xlsx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftp\10-MB-Test.docx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftp\10-MB-Test.xlsx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftp\subFolder\sub_1-MB-Test.docx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftp\subFolder\sub_1-MB-Test.xlsx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\httprequest\picture.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -140,6 +141,15 @@
 		<None Update="Resources\log\LogConfigFileUnitTest.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Resources\mail\attachment1.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mail\attachment2.pdf">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mail\certificate.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Resources\net\request\products.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -150,22 +160,22 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\known_hosts">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\sftp_id_rsa">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\sftp_id_rsa.pub">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\ssh_id_rsa">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\ssh_id_rsa.ppk">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\ssh_id_rsa.pub">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\xml\forestNetXML.xsd">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

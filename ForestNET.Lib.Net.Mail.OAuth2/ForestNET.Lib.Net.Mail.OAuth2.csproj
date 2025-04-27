@@ -1,26 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.1</PackageVersion>
-		<AssemblyVersion>1.0.1</AssemblyVersion>
-		<FileVersion>1.0.1</FileVersion>
+		<PackageVersion>1.0.0</PackageVersion>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
 		<ApplicationIcon>forestnet.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>ForestNET Library Network Core</Title>
+		<Title>ForestNET Library Network Mail OAuth2</Title>
 		<Authors>Rene Arentz</Authors>
 		<Company>forestany.net</Company>
-		<Product>ForestNET Network Core</Product>
-		<Description>Custom-built network library with advanced features for socket programming, enabling smooth communication across networks.</Description>
+		<Product>ForestNET Mail OAuth2</Product>
+		<Description>Collection of OAuth2 method implementations to authenticate asynchronously at mail/smtp-server.</Description>
 		<Copyright>© 2025 forestany.net</Copyright>
 		<PackageProjectUrl>https://forestany.net</PackageProjectUrl>
 		<PackageIcon>fany-logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/ReneArentz/forestNET.git</RepositoryUrl>
-		<PackageReleaseNotes>Added functionality for message boxes and network message marshalling.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added OAuth2 method implementations.</PackageReleaseNotes>
 		<PackageTags>opensource;framework;basic tasks;application;network;database;tools;all purposes</PackageTags>
 		<PackAsTool>False</PackAsTool>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -46,7 +46,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ForestNET.Lib" Version="1.0.14" />
+		<PackageReference Include="ForestNET.Lib.Net.Mail" Version="1.0.0" />
+		<PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
+		<PackageReference Include="Microsoft.Identity.Client" Version="4.71.1" />
 	</ItemGroup>
 
 </Project>

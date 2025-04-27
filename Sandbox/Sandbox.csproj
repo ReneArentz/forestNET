@@ -20,6 +20,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ForestNET.Lib.Net.Mail.OAuth2\ForestNET.Lib.Net.Mail.OAuth2.csproj" />
+	  <ProjectReference Include="..\ForestNET.Lib.Net.Mail\ForestNET.Lib.Net.Mail.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="Resources\ai\neuralNetwork.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -43,6 +48,15 @@
 		</None>
 		<None Update="Resources\ftp\subFolder\sub_1-MB-Test.xlsx">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mail\attachment1.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mail\attachment2.pdf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\mail\certificate.crt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mnist\t10k-images-idx3-ubyte.gz">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

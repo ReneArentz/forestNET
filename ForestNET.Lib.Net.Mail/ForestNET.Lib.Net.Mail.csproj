@@ -1,26 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.1</PackageVersion>
-		<AssemblyVersion>1.0.1</AssemblyVersion>
-		<FileVersion>1.0.1</FileVersion>
+		<PackageVersion>1.0.0</PackageVersion>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
 		<ApplicationIcon>forestnet.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>ForestNET Library Network Core</Title>
+		<Title>ForestNET Library Network Mail</Title>
 		<Authors>Rene Arentz</Authors>
 		<Company>forestany.net</Company>
-		<Product>ForestNET Network Core</Product>
-		<Description>Custom-built network library with advanced features for socket programming, enabling smooth communication across networks.</Description>
+		<Product>ForestNET Mail</Product>
+		<Description>Support for both IMAP, POP3 and SMTP protocols for mail functionality.</Description>
 		<Copyright>© 2025 forestany.net</Copyright>
 		<PackageProjectUrl>https://forestany.net</PackageProjectUrl>
 		<PackageIcon>fany-logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/ReneArentz/forestNET.git</RepositoryUrl>
-		<PackageReleaseNotes>Added functionality for message boxes and network message marshalling.</PackageReleaseNotes>
+		<PackageReleaseNotes>Implementation to use mail protocols.</PackageReleaseNotes>
 		<PackageTags>opensource;framework;basic tasks;application;network;database;tools;all purposes</PackageTags>
 		<PackAsTool>False</PackAsTool>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -47,6 +47,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="ForestNET.Lib" Version="1.0.14" />
+		<PackageReference Include="MailKit" Version="4.11.0" />
 	</ItemGroup>
 
 </Project>
