@@ -5,27 +5,84 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.14</PackageVersion>
-		<AssemblyVersion>1.0.14</AssemblyVersion>
-		<FileVersion>1.0.14</FileVersion>
+		<PackageVersion>1.0.14-3</PackageVersion>
+		<AssemblyVersion>1.0.14-3</AssemblyVersion>
+		<FileVersion>1.0.14-3</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="ForestNET.Lib" Version="1.0.14" />
 		<PackageReference Include="ForestNET.Lib.AI" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.2" />
 		<PackageReference Include="ForestNET.Lib.Net.FTP" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net.Mail" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net.Mail.OAuth2" Version="1.0.0" />
 		<PackageReference Include="ForestNET.Lib.Net.SFTP" Version="1.0.0" />
-		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\ForestNET.Lib.Net.Mail.OAuth2\ForestNET.Lib.Net.Mail.OAuth2.csproj" />
-	  <ProjectReference Include="..\ForestNET.Lib.Net.Mail\ForestNET.Lib.Net.Mail.csproj" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.8" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="Resources\ai\neuralNetwork.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-no-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-with-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-key-client-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-key-client-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-sign-request-client-no-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-sign-request-client-with-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\cert-client-no-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\cert-client-with-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-no-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-with-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-key-server-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-key-server-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-sign-request-server-no-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-sign-request-server-with-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\cert-server-no-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\cert-server-with-pw.pfx">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\ftps\proftpd.crt">
@@ -50,13 +107,13 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mail\attachment1.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mail\attachment2.pdf">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mail\certificate.crt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mnist\t10k-images-idx3-ubyte.gz">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -68,6 +125,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\mnist\train-labels-idx1-ubyte.gz">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\net\netConfig.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\known_hosts">
