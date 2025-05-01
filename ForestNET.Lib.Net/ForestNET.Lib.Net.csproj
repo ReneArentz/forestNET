@@ -4,9 +4,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.1</PackageVersion>
-		<AssemblyVersion>1.0.1</AssemblyVersion>
-		<FileVersion>1.0.1</FileVersion>
+		<PackageVersion>1.0.2</PackageVersion>
+		<AssemblyVersion>1.0.2</AssemblyVersion>
+		<FileVersion>1.0.2</FileVersion>
 		<ApplicationIcon>forestnet.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>ForestNET Library Network Core</Title>
@@ -20,7 +20,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/ReneArentz/forestNET.git</RepositoryUrl>
-		<PackageReleaseNotes>Added functionality for message boxes and network message marshalling.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added advanced features for socket programming, like TCP/UDP socket tasks with TLS support.</PackageReleaseNotes>
 		<PackageTags>opensource;framework;basic tasks;application;network;database;tools;all purposes</PackageTags>
 		<PackAsTool>False</PackAsTool>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>

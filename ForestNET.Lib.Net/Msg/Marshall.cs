@@ -1974,12 +1974,11 @@ namespace ForestNET.Lib.Net.Msg
             /* check first two bytes for amount of fields - if they are both zero, we have not an object with fields but just a primitive supported variable */
             if ((p_a_data.Length > 1) && (p_a_data[0] == 0) && (p_a_data[1] == 0))
             {
-                /* if we expect de.forestj.lib.net.sock.com.NullValue class as primitive, we return null */
-                //TODO uncomment
-                //if (p_o_type == typeof(ForestNET.Lib.Net.Sock.Com.NullValue))
-                //{
-                //    return null;
-                //}
+                /* if we expect ForestNET.Lib.Net.Sock.Com.NullValue class as primitive, we return null */
+                if (p_o_type == typeof(ForestNET.Lib.Net.Sock.Com.NullValue))
+                {
+                    return null;
+                }
 
                 if (Marshall.a_allowedTypes.Contains(p_o_type))
                 { /* handle primitive supported type */

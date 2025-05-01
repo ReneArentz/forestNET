@@ -54,6 +54,66 @@
 		<None Update="Resources\ai\xor.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Resources\com\client\ca-cert-client-no-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-with-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-cert-client-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-key-client-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-key-client-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-sign-request-client-no-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\ca-sign-request-client-with-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\cert-client-no-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\client\cert-client-with-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-no-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-with-pw.crt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-cert-server-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-key-server-no-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-key-server-with-pw.pem">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-sign-request-server-no-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\ca-sign-request-server-with-pw.csr">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\cert-server-no-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\com\server\cert-server-with-pw.pfx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Resources\flr\TestFLREverything.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -176,6 +236,9 @@
 		</None>
 		<None Update="Resources\sftp\ssh_id_rsa.pub">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\tls\windows_create_key-_+_truststore_certificates.ps1">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\xml\forestNetXML.xsd">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
