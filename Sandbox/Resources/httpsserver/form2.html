@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This is a simple form</title>
+  </head>
+  <body>
+    <div>
+        <form action="form2.html" method="post">
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname"><br><br>
+            <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"><br><br>
+            <div>
+              <input type="checkbox" id="scales" name="scales"
+                     checked>
+              <label for="scales">Scales</label>
+            </div>
+            
+            <div>
+              <input type="checkbox" id="horns" name="horns">
+              <label for="horns">Horns</label>
+            </div>
+            <input type="submit" id="bsubmit" name="bsubmit" value="Send">
+        </form>
+    </div>
+  </body>
+</html>

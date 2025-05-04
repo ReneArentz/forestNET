@@ -1,0 +1,5 @@
+﻿localIp = 192.168.178.23
+serverPort = 12365
+udpMulticastTTL = 1
+udpMulticastIp = 239.255.1.2
+udpMulticastPort = 12805

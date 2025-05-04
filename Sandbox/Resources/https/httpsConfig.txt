@@ -1,0 +1,9 @@
+﻿serverIp = 172.24.93.203
+serverPort = 443
+clientIp = 172.24.93.203
+clientPort = 443
+sqlPoolHost = 172.24.88.58
+sqlPoolPort = 3306
+sqlPoolDatasource = test
+sqlPoolUser = root
+sqlPoolPassword = root

@@ -1,0 +1,4 @@
+UseFileLogging = true
+UseConsoleLogging = false
+LogExceptionsBoth = true
+FileLoggerConfigurationElement = Log,InternalLog;%TempState;%dt_mylog.%n0.txt;5;1000000

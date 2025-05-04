@@ -5,19 +5,20 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.14-3</PackageVersion>
-		<AssemblyVersion>1.0.14-3</AssemblyVersion>
-		<FileVersion>1.0.14-3</FileVersion>
+		<PackageVersion>1.0.14.4</PackageVersion>
+		<AssemblyVersion>1.0.14.4</AssemblyVersion>
+		<FileVersion>1.0.14.4</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="ForestNET.Lib" Version="1.0.14" />
 		<PackageReference Include="ForestNET.Lib.AI" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.2" />
+		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.3" />
 		<PackageReference Include="ForestNET.Lib.Net.FTP" Version="1.0.0" />
 		<PackageReference Include="ForestNET.Lib.Net.Mail" Version="1.0.0" />
 		<PackageReference Include="ForestNET.Lib.Net.Mail.OAuth2" Version="1.0.0" />
 		<PackageReference Include="ForestNET.Lib.Net.SFTP" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib.Net.SQL.Pool" Version="1.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.8" />
 	</ItemGroup>
 
@@ -106,6 +107,84 @@
 		<None Update="Resources\ftp\subFolder\sub_1-MB-Test.xlsx">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Resources\httpsserversql\include1.htm">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserversql\index.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\assets\favicon.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\assets\img\bg-masthead.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\assets\img\bg-signup.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\assets\img\demo-image-01.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\assets\img\demo-image-02.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\assets\img\ipad.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\css\styles.css">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\index.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\complete_page\js\scripts.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\form.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\form2.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\get.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\index.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\one\include1.htm">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\one\include2.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\one\two\three\index.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpsserver\one\two\three\info.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\httpssessions\dummy.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\https\httpsConfig.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\Log\LoggingConfig_1.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\Log\LoggingConfig_2.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\Log\LoggingConfig_3.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\Log\LoggingConfig_4.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\Log\LoggingConfig_5.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Resources\mail\attachment1.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -127,7 +206,16 @@
 		<None Update="Resources\mnist\train-labels-idx1-ubyte.gz">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Resources\net\netChatLobbyConfig.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Resources\net\netConfig.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\restserver\dummy.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\restsessions\dummy.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\known_hosts">
@@ -140,6 +228,18 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Resources\sftp\sftp_id_rsa.pub">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\soapclient\numberconversion.wsdl">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\soapserver\calculator\calculator.wsdl">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\soapserver\calculator\calculator.xsd">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\soapserver\calculator\forestAnyXML.xsd">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

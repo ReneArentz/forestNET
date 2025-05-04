@@ -1,0 +1,13 @@
+UseFileLogging = false
+UseConsoleLogging = true
+# Global.Instance.ColorConsoleLoggerConfiguration.LogLevelToColorMap.Clear();
+# Global.Instance.ColorConsoleLoggerConfiguration.LogLevelToColorMap.Add(Microsoft.Extensions.Logging.LogLevel.Debug, ConsoleColor.DarkBlue);
+# Global.Instance.ColorConsoleLoggerConfiguration.LogLevelToColorMap.Add(Microsoft.Extensions.Logging.LogLevel.Information, ConsoleColor.DarkGray);
+# Global.Instance.ColorConsoleLoggerConfiguration.LogLevelToColorMap.Add(Microsoft.Extensions.Logging.LogLevel.Warning, ConsoleColor.Magenta);
+# Global.Instance.ColorConsoleLoggerConfiguration.LogLevelToColorMap.Add(Microsoft.Extensions.Logging.LogLevel.Error, ConsoleColor.Cyan);
+# Global.Instance.ColorConsoleLoggerConfiguration.LogLevelToColorMap.Add(Microsoft.Extensions.Logging.LogLevel.Critical, ConsoleColor.DarkGreen);
+LogLevelToColorMap = Debug;DarkBlue
+LogLevelToColorMap = Information;DarkGray
+LogLevelToColorMap = Warning;Magenta
+LogLevelToColorMap = Error;Cyan
+LogLevelToColorMap = Critical;DarkGreen

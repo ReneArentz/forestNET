@@ -1,0 +1,11 @@
+UseFileLogging = true
+UseConsoleLogging = true
+//Global.Instance.UseFileLogging = true;
+//Global.Instance.ConsoleLoggingFilters.Add(false, ForestNETLib.Log.Level.INFO);
+//Global.Instance.ConsoleLoggingFilters.Add(true, ForestNETLib.Log.Level.FINE);
+//Global.Instance.FileLoggingFilters.Add(false, ForestNETLib.Log.Level.SEVERE);
+//Global.Instance.FileLoggingFilters.Add(true, ForestNETLib.Log.Level.WARNING);
+ConsoleLoggingFilter = false;INFO
+ConsoleLoggingFilter = true;FINE
+FileLoggingFilter = false;SEVERE
+FileLoggingFilter = true;WARNING

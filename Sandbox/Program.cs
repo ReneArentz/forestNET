@@ -8,6 +8,27 @@ try
     string s_currentDirectory = (System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? throw new NullReferenceException("Current directory could not be resolved with '" + System.Reflection.Assembly.GetExecutingAssembly().Location + "'")) + System.IO.Path.DirectorySeparatorChar;
     Console.WriteLine(s_currentDirectory + Environment.NewLine);
 
+    ForestNET.Lib.Global.Instance.InternalLogControl = (byte)ForestNET.Lib.Log.Level.SEVERE + (byte)ForestNET.Lib.Log.Level.WARNING;
+
+    //ForestNET.Lib.IO.File o_logFile = new(s_currentDirectory + ForestNET.Lib.IO.File.DIR + "test.log", !ForestNET.Lib.IO.File.Exists(s_currentDirectory + ForestNET.Lib.IO.File.DIR + "test.log"));
+    //o_logFile.TruncateContent();
+    //List<string> a_logLines =
+    //[
+    //    "UseFileLogging = true",
+    //    "UseConsoleLogging = false",
+    //    "MinimumLevel = WARNING",
+    //    "FileLoggerConfigurationElement = Log,InternalLog;%LocalState;test.log"
+    //];
+
+    List<string> a_logLines =
+    [
+        "UseFileLogging = false",
+        "UseConsoleLogging = true",
+        "MinimumLevel = WARNING"
+    ];
+
+    ForestNET.Lib.Global.Instance.ResetLogFromLines(a_logLines);
+
     int i_input = 0;
 
     do
@@ -29,11 +50,14 @@ try
         Console.WriteLine("[9] test SFTP");
         Console.WriteLine("[10] test Mail");
         Console.WriteLine("[11] test Net");
+        Console.WriteLine("[12] test TinyHttps");
+        Console.WriteLine("[13] list active network interfaces");
+        Console.WriteLine("[14] net chat lobby");
         Console.WriteLine("[0] quit");
 
         Console.WriteLine("");
 
-        i_input = ForestNET.Lib.Console.ConsoleInputInteger("Enter menu number[1-13;0]: ", "Invalid input.", "Please enter a value[1-13;0].") ?? 0;
+        i_input = ForestNET.Lib.Console.ConsoleInputInteger("Enter menu number[1-14;0]: ", "Invalid input.", "Please enter a value[1-14;0].") ?? 0;
 
         Console.WriteLine("");
 
@@ -81,8 +105,33 @@ try
         {
             Sandbox.Tests.Net.NetTest.TestNetMenu(s_currentDirectory);
         }
+        else if (i_input == 12)
+        {
+            Sandbox.Tests.Net.Https.HttpsTest.TestTinyHttpsMenu(s_currentDirectory);
+        }
+        else if (i_input == 13)
+        {
+            Console.WriteLine("IPv4:");
 
-        if ((i_input >= 1) && (i_input <= 13))
+            foreach (KeyValuePair<string, string> o_activeNetworkInterface in ForestNET.Lib.Helper.GetNetworkInterfacesIpv4())
+            {
+                Console.WriteLine(o_activeNetworkInterface.Key + "\t" + o_activeNetworkInterface.Value);
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("IPv6:");
+
+            foreach (KeyValuePair<string, string> o_activeNetworkInterface in ForestNET.Lib.Helper.GetNetworkInterfacesIpv6())
+            {
+                Console.WriteLine(o_activeNetworkInterface.Key + "\t" + o_activeNetworkInterface.Value);
+            }
+        }
+        else if (i_input == 14)
+        {
+            Sandbox.Tests.Net.NetChatLobbyTest.TestNetChatLobbyMenu(s_currentDirectory);
+        }
+
+        if ((i_input >= 1) && (i_input <= 14))
         {
             Console.WriteLine("");
 

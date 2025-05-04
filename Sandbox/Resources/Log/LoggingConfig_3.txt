@@ -1,0 +1,4 @@
+UseFileLogging = true
+UseConsoleLogging = false
+FileLoggerConfigurationElement = Log;C:\Users\root\AppData\Local;%dt_normal_log.txt
+FileLoggerConfigurationElement = InternalLog;C:\Users\root\AppData\Local;%dt_internal_log.txt

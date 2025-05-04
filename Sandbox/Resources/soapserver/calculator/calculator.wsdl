@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Calculator SOAP Web Service">
+  <documentation>Calculator WSDL with the four functions Add, Subtract, Multiply and Divide.</documentation>
+  <types>
+    <xs:schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:import schemaLocation="calculator.xsd" />             
+    </xs:schema>
+  </types>
+  <message name="AddRequest">
+    <part name="parameters" element="Add"/>
+  </message>
+  <message name="AddResponse">
+    <part name="parameters" element="AddResult"/>
+  </message>
+  <message name="SubtractRequest">
+    <part name="parameters" element="Subtract"/>
+  </message>
+  <message name="SubtractResponse">
+    <part name="parameters" element="SubtractResult"/>
+  </message>
+  <message name="MultiplyRequest">
+    <part name="parameters" element="Multiply"/>
+  </message>
+  <message name="MultiplyResponse">
+    <part name="parameters" element="MultiplyResult"/>
+  </message>
+  <message name="DivideRequest">
+    <part name="parameters" element="Divide"/>
+  </message>
+  <message name="DivideResponse">
+    <part name="parameters" element="DivideResult"/>
+  </message>
+  <portType name="CalculatorType">
+    <operation name="Add">
+      <documentation>Returns the sum of two double parameter.</documentation>
+      <input message="AddRequest"/>
+      <output message="AddResponse"/>
+    </operation>
+    <operation name="Subtract">
+      <documentation>Returns the difference of two double parameters.</documentation>
+      <input message="SubtractRequest"/>
+      <output message="SubtractResponse"/>
+    </operation>
+    <operation name="Multiply">
+      <documentation>Returns the product of two double parameters.</documentation>
+      <input message="MultiplyRequest"/>
+      <output message="MultiplyResponse"/>
+    </operation>
+    <operation name="Divide">
+      <documentation>Returns the divison of two double parameters.</documentation>
+      <input message="DivideRequest"/>
+      <output message="DivideResponse"/>
+    </operation>
+  </portType>
+  <binding name="CalculatorBinding" type="CalculatorType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="Add">
+      <soap:operation soapAction="" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="Subtract">
+      <soap:operation soapAction="" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="Multiply">
+      <soap:operation soapAction="" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="Divide">
+      <soap:operation soapAction="" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="Calculator">
+    <documentation>Calculator SOAP web service, implemented with forestNET Tiny Soap Server, provides functions to calculate with numbers.</documentation>
+    <port name="CalculatorSoap" binding="CalculatorBinding">
+      <soap:address location="https://127.0.0.1/calculator"/>
+    </port>
+  </service>
+</definitions>

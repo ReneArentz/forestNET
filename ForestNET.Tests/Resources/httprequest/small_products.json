@@ -1,0 +1,26 @@
+[
+  {
+    "ProductID": 1,
+    "ProductName": "Chais",
+    "SupplierID": 1,
+    "CategoryID": 1,
+    "Unit": "10 boxes x 20 bags",
+    "Price": 18
+  },
+  {
+    "ProductID": 2,
+    "ProductName": "Chang",
+    "SupplierID": 1,
+    "CategoryID": 1,
+    "Unit": "24 - 12 oz bottles",
+    "Price": 19
+  },
+  {
+    "ProductID": 3,
+    "ProductName": "Aniseed Syrup",
+    "SupplierID": 1,
+    "CategoryID": 2,
+    "Unit": "12 - 550 ml bottles",
+    "Price": 10
+  }
+]

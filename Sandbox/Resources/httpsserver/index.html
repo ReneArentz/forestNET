@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This is a title</title>
+  </head>
+  <body>
+    <div>
+        <p>Hello world!</p>
+        <p>1 <!--#fAny %key1% #fAny--></p>
+        <p>2 <!--#fAny %key2% " some static line here " %key3% #fAny--></p>
+
+        <p>3 <!--#fAny%key4%#fAny--></p>
+        <p>4 <!--#fAny%list1[2]%#fAny--></p>
+        <p>5 <!--#fAny%list1[4]%#fAny--></p>
+        <p>6 <!--#fAny
+          %list2[0][3]%
+          " - "
+          %list2[1][2]%
+          " - "
+          %list2[2][4]%
+        #fAny--></p>
+        <p>7 <!--#fAny ? (list2[2][0]) {%key2%;}; " - yea" #fAny--></p>
+        <p>8 <!--#fAny ? (list2[2][1]) {%key2%} : { %key4%; }; " - ok" #fAny--></p>
+        <p>9 <!--#fAny FOREACH (list2[0]) { "element: "[] " " %list2[2][4]%"<br>"; }; " - two" #fAny--></p>
+        <p>10 <!--#fAny FOREACH (list2[2]) { [] "<br>"; }; };  #fAny--></p>
+        <p>11 <!--#fAny FOREACH (list3) { [] "<br>"; }; };  #fAny--></p>
+        <p>12 <!--#fAny FOREACH (set) { [] "<br>"; }; };  #fAny--></p>
+        <p>13 <!--#fAny FOREACH (collection) { [] "<br>"; }; };  #fAny--></p>
+        <p>14 <!--#fAny FOREACH (records) { [name] " | " [street] " | " [country] " | " [age] "<br>"; }; };  #fAny--></p>
+        <hr>
+        <!--#fAny INCLUDE ./one/include1.htm; #fAny-->
+        <hr>
+        <!--#fAny INCLUDE ./one/include2.html; #fAny-->
+    </div>
+  </body>
+</html>

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http;
 
 namespace ForestNET.Lib.Net.Request
 {
@@ -253,6 +254,21 @@ namespace ForestNET.Lib.Net.Request
         /// <exception cref="ArgumentException">no download filename location specified, no file extension found, or no post content type specified for post web request</exception>
         public async Task<string> ExecuteWebRequest()
         {
+            return await this.ExecuteWebRequest(null);
+        }
+
+        /// <summary>
+        /// execute web request and get response from web server as string message return value.
+        /// get additional response code and message which will be stored in class properties.
+        /// downloading a file will be combined with DownloadFilename property.
+        /// </summary>
+        /// <param name="p_o_httpClientHandler">individual http client handler which will be used</param>
+        /// <returns>string</returns>
+        /// <exception cref="UriFormatException">invalid server address format or could not encode request parameter</exception>
+        /// <exception cref="System.IO.IOException">could not establish connection or folder of download filename location does not exist</exception>
+        /// <exception cref="ArgumentException">no download filename location specified, no file extension found, or no post content type specified for post web request</exception>
+        public async Task<string> ExecuteWebRequest(HttpClientHandler? p_o_httpClientHandler)
+        {
             /* response variable */
             string s_response = "";
 
@@ -345,6 +361,14 @@ namespace ForestNET.Lib.Net.Request
                     UseProxy = true
                 };
 
+                /* use individual http client handler if it is set as parameter */
+                if (p_o_httpClientHandler != null)
+                {
+                    p_o_httpClientHandler.Proxy = o_proxy;
+                    p_o_httpClientHandler.UseProxy = true;
+                    o_httpClientHandler = p_o_httpClientHandler;
+                }
+
                 /* create http client instance with http client handler + proxy */
                 o_httpClient = new(o_httpClientHandler, true)
                 {
@@ -355,11 +379,23 @@ namespace ForestNET.Lib.Net.Request
             {
                 if (this.UseLog) ForestNET.Lib.Global.ILogConfig("create http client instance; no proxy");
 
-                /* create http client instance; no proxy */
-                o_httpClient = new()
+                /* use individual http client handler if it is set as parameter */
+                if (p_o_httpClientHandler != null)
                 {
-                    Timeout = this.Timeout
-                };
+                    /* create http client instance with individual http client handler */
+                    o_httpClient = new(p_o_httpClientHandler, true)
+                    {
+                        Timeout = this.Timeout
+                    };
+                }
+                else
+                {
+                    /* create http client instance; no proxy */
+                    o_httpClient = new()
+                    {
+                        Timeout = this.Timeout
+                    };
+                }
             }
 
             /* if authentication user and password were set */

@@ -3,8 +3,7 @@
     public class ClientUnitTest
     {
         /**
-	     * if this unit test fails completely, there is an issue with https://httpbin.org/ or no outgoing internet connection
-	     * maybe httpbin must be run locally to run the unit test
+	     * httpbin must be run locally to run the unit test, or try to reach 'https://httpbin.org/'
 	     * maybe the used proxy does not exist anymore
 	     * 
 	     * there is an explicit switch, if logging should be used or not. Request.setUseLog(boolean):
@@ -17,7 +16,8 @@
             {
                 TestConfig.InitiateTestLogging();
 
-                string s_httpBinUrl = "https://httpbin.org/";
+                string s_httpBinUrl = "https://172.24.91.23/";
+                //string s_httpBinUrl = "https://httpbin.org/";
                 string? s_proxyAddress = null;
                 int i_proxyPort = 80;
 
@@ -65,7 +65,7 @@
                 ProxyUseDefaultCredentials = p_b_useDefaultCredentials
             };
 
-            string s_response = o_requestClient.ExecuteWebRequest().Result;
+            string s_response = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -86,7 +86,7 @@
             o_requestClient.AddRequestParameter("param_1", "Hello World!");
             o_requestClient.AddRequestParameter("param_2", 1234.56d.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-            s_response = o_requestClient.ExecuteWebRequest().Result;
+            s_response = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -109,7 +109,7 @@
             o_requestClient.AddRequestParameter("param_2", 1234.56d.ToString(System.Globalization.CultureInfo.InvariantCulture));
             o_requestClient.AddRequestParameter("param_3", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
-            s_response = o_requestClient.ExecuteWebRequest().Result;
+            s_response = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -131,7 +131,7 @@
 
             o_requestClient.AddAttachement("file1", s_attachmentFile);
 
-            s_response = o_requestClient.ExecuteWebRequest().Result;
+            s_response = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -154,7 +154,7 @@
             o_requestClient.AddRequestParameter("param_2", 1234.56d.ToString(System.Globalization.CultureInfo.InvariantCulture));
             o_requestClient.AddAttachement("file1", s_attachmentFile);
 
-            s_response = o_requestClient.ExecuteWebRequest().Result;
+            s_response = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -177,7 +177,7 @@
                 AuthenticationPassword = "password"
             };
 
-            s_response = o_requestClient.ExecuteWebRequest().Result;
+            s_response = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -199,7 +199,7 @@
                 AuthenticationPassword = "wrong"
             };
 
-            _ = o_requestClient.ExecuteWebRequest().Result;
+            _ = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(401), "Response code is not '401', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("UNAUTHORIZED"), "Response code is not 'UNAUTHORIZED', it is '" + o_requestClient.ResponseMessage + "'");
@@ -218,7 +218,7 @@
                 DownloadFilename = s_testDirectory + "random.txt"
             };
 
-            _ = o_requestClient.ExecuteWebRequest().Result;
+            _ = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(200), "Response code is not '200', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("OK"), "Response code is not 'OK', it is '" + o_requestClient.ResponseMessage + "'");
@@ -238,7 +238,7 @@
                 ProxyUseDefaultCredentials = p_b_useDefaultCredentials
             };
 
-            _ = o_requestClient.ExecuteWebRequest().Result;
+            _ = o_requestClient.ExecuteWebRequest(GetHttpClientHandlerAllowingAllCertificates()).Result;
 
             Assert.That(o_requestClient.ResponseCode, Is.EqualTo(404), "Response code is not '404', it is '" + o_requestClient.ResponseCode + "' for '" + o_requestClient.Address + "'");
             Assert.That(o_requestClient.ResponseMessage, Is.EqualTo("NOT FOUND"), "Response code is not 'NOT FOUND', it is '" + o_requestClient.ResponseMessage + "'");
@@ -249,6 +249,22 @@
                 Is.False,
                 "directory[" + s_testDirectory + "] does exist"
             );
+        }
+
+        /**
+		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 * DO NOT USE THIS METHOD IN PRODUCTION SYSTEMS
+		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 */
+        private static System.Net.Http.HttpClientHandler? GetHttpClientHandlerAllowingAllCertificates()
+        {
+            return new()
+            {
+                ServerCertificateCustomValidationCallback = (request, cert, chain, errors) =>
+                {
+                    return true;
+                }
+            };
         }
     }
 }
