@@ -11,14 +11,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ForestNET.Lib" Version="1.0.14" />
-		<PackageReference Include="ForestNET.Lib.AI" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.3" />
-		<PackageReference Include="ForestNET.Lib.Net.FTP" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net.Mail" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net.Mail.OAuth2" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net.SFTP" Version="1.0.0" />
-		<PackageReference Include="ForestNET.Lib.Net.SQL.Pool" Version="1.0.0" />
+		<PackageReference Include="ForestNET.Lib" Version="1.0.15" />
+		<PackageReference Include="ForestNET.Lib.AI" Version="1.0.1" />
+		<PackageReference Include="ForestNET.Lib.Net" Version="1.0.4" />
+		<PackageReference Include="ForestNET.Lib.Net.FTP" Version="1.0.1" />
+		<PackageReference Include="ForestNET.Lib.Net.Mail" Version="1.0.1" />
+		<PackageReference Include="ForestNET.Lib.Net.Mail.OAuth2" Version="1.0.1" />
+		<PackageReference Include="ForestNET.Lib.Net.SFTP" Version="1.0.1" />
+		<PackageReference Include="ForestNET.Lib.Net.SQL.Pool" Version="1.0.1" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.8" />
 	</ItemGroup>
 
