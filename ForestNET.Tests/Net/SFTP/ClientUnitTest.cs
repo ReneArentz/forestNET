@@ -21,7 +21,7 @@
 
                 SftpTestCredentials o_sftpCredentials = new()
                 {
-                    HostIp = "172.28.234.246",
+                    HostIp = "172.24.87.100",
                     Port = 2222,
                     User = "user",
                     Password = "user",
@@ -30,7 +30,7 @@
 
                 SftpTestCredentials o_sshCredentials = new()
                 {
-                    HostIp = "172.28.226.9",
+                    HostIp = "172.24.91.23",
                     LocalPort = 2223,
                     Port = 22,
                     User = "userssh",

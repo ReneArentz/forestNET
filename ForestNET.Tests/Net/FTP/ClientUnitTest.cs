@@ -18,8 +18,8 @@
             {
                 TestConfig.InitiateTestLogging();
 
-                RunFtp("172.28.234.246", 12220, "user", "user", "/");
-                RunFtps("172.28.234.246", 12221, "user", "user", "/");
+                RunFtp("172.24.87.100", 12220, "user", "user", "/");
+                RunFtps("172.24.87.100", 12221, "user", "user", "/");
             }
             catch (Exception o_exc)
             {

@@ -19,7 +19,7 @@
                 string s_testDirectory = s_currentDirectory + ForestNET.Lib.IO.File.DIR + "testMail" + ForestNET.Lib.IO.File.DIR;
                 string s_resourcesDirectory = s_currentDirectory + ForestNET.Lib.IO.File.DIR + "Resources" + ForestNET.Lib.IO.File.DIR + "mail" + ForestNET.Lib.IO.File.DIR;
 
-                MailLoginData o_mailLoginData = new(s_resourcesDirectory, "172.18.2.75", "172.18.2.75");
+                MailLoginData o_mailLoginData = new(s_resourcesDirectory, "172.24.87.179", "172.24.87.179");
 
                 RunMail(s_testDirectory, s_resourcesDirectory, o_mailLoginData);
             }

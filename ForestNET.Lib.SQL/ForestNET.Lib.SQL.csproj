@@ -4,9 +4,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageVersion>1.0.0</PackageVersion>
-		<AssemblyVersion>1.0.0</AssemblyVersion>
-		<FileVersion>1.0.0</FileVersion>
+		<PackageVersion>1.0.1</PackageVersion>
+		<AssemblyVersion>1.0.1</AssemblyVersion>
+		<FileVersion>1.0.1</FileVersion>
 		<ApplicationIcon>forestnet.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>ForestNET Library SQL Core</Title>
@@ -46,7 +46,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ForestNET.Lib" Version="1.0.12.1" />
+		<PackageReference Include="ForestNET.Lib" Version="1.0.15" />
 	</ItemGroup>
 
 </Project>

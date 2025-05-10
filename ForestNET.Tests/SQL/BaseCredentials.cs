@@ -11,7 +11,7 @@ namespace ForestNET.Tests.SQL
     public class BaseCredentials
     {
         //private readonly string s_ip = "172.28.234.162";
-        private readonly string s_ip = "172.28.226.144";
+        private readonly string s_ip = "172.24.88.58";
         public BaseGateway e_baseGatewayBaseThread;
         public string s_hostBaseThread = string.Empty;
         public string s_datasourceBaseThread = string.Empty;
@@ -25,12 +25,12 @@ namespace ForestNET.Tests.SQL
             {
                 return new()
                 {
-                    //[BaseGateway.MARIADB.ToString()] = 0,
+                    [BaseGateway.MARIADB.ToString()] = 0,
                     [BaseGateway.SQLITE.ToString()] = 1,
-                    //[BaseGateway.MSSQL.ToString()] = 2,
-                    //[BaseGateway.PGSQL.ToString()] = 3,
-                    //[BaseGateway.ORACLE.ToString()] = 4,
-                    //[BaseGateway.NOSQLMDB.ToString()] = 5
+                    [BaseGateway.MSSQL.ToString()] = 2,
+                    [BaseGateway.PGSQL.ToString()] = 3,
+                    [BaseGateway.ORACLE.ToString()] = 4,
+                    [BaseGateway.NOSQLMDB.ToString()] = 5
                 };
             }
         }
@@ -74,8 +74,8 @@ namespace ForestNET.Tests.SQL
             else if (o_glob.BaseGateway == BaseGateway.ORACLE)
             {
                 this.s_hostBaseThread = s_ip + ":1521";
-                this.s_datasourceBaseThread = ":xe";
-                //this.s_datasourceBaseThread = ":free";
+                //this.s_datasourceBaseThread = ":xe";
+                this.s_datasourceBaseThread = ":free";
                 this.s_userBaseThread = "system";
                 this.s_passwordBaseThread = "root";
                 o_glob.Base = new BaseOracle(this.s_hostBaseThread, this.s_datasourceBaseThread, this.s_userBaseThread, this.s_passwordBaseThread);
